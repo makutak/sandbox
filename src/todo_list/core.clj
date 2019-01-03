@@ -1,4 +1,5 @@
-(ns todo-list.core)
+(ns todo-list.core
+  (:require [ring.adapter.jetty :as jetty]))
 
 (defn foo
   "I don't do a whole lot."
