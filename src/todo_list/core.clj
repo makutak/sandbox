@@ -1,6 +1,11 @@
 (ns todo-list.core
   (:require [ring.adapter.jetty :as jetty]))
 
+
+(defn welcome
+  [request]
+  request)
+
 (defn -main
   "A very simple web server using Ring & Jetty"
   [port-number]
