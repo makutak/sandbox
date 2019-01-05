@@ -13,7 +13,7 @@
        :headers {}}
       {:status 404
        :body "<h1>This is not the page you are looking for</h1>
-             <p>Sorry, the page you requested was not found!></p>"
+             <p>Sorry, the page you requested was not found!</p>"
        :headers {}}))
 
 (defn -main
