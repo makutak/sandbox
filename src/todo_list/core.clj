@@ -1,7 +1,6 @@
 (ns todo-list.core
   (:require [ring.adapter.jetty :as jetty]))
 
-
 (defn welcome
   "A ring handler to process all requests for the web server.
   If a request is for something other than then an error message is returned"
