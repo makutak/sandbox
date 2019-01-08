@@ -1,5 +1,6 @@
 (ns todo-list.core
-  (:require [ring.adapter.jetty :as jetty]))
+  (:require [ring.adapter.jetty :as jetty]
+            [ring.middleware.reload :refer [wrap-reload]]))
 
 (defn welcome
   "A ring handler to process all requests for the web server.
