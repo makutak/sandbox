@@ -21,3 +21,10 @@
   [port-number]
   (jetty/run-jetty welcome
                    {:port (Integer. port-number)}))
+
+(defn -dev-main
+  "A very simple web server using Ring & Jetty
+  that reloads code changes via the development profile of Leiningen"
+  [port-number]
+  (jetty/run-jetty (wrap-reload #'welcome)
+                   {:port (Integer. port-number)}))
