@@ -6,4 +6,6 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [ring "1.7.1"]]
   :repl-options {:init-ns todo-list.core}
-  :main todo-list.core)
+  :main todo-list.core
+  :profiles {:dev
+             {:main todo-list.core/-dev-main}})
