@@ -9,7 +9,7 @@
   (if (= "/" (:uri request))
     {:status 200
      :body (str "<h1>Hello, Clojure World</h1>"
-                "<p>Welcome to your first Clojure app.</p>")
+                "<p>Welcome to your first Clojure app, I now update automically</p>")
      :headers {}}
     {:status 404
      :body (str "<h1>This is not the page you are looking for</h1>"
