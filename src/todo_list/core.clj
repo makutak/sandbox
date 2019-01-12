@@ -28,7 +28,7 @@
   (GET "/" [] welcome)
   (GET "/goodbye" [] goodbye)
   (not-found (str "<h1>This is not the page you are looking for</h1>"
-                "<p>Sorry, the page you requested was not found!</p>")))
+                  "<p>Sorry, the page you requested was not found!</p>")))
 
 (defn -main
   "A very simple web server using Ring & Jetty"
