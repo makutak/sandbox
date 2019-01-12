@@ -14,8 +14,19 @@
               "<p>I now use defroutes to manage incoming requests</p>")
    :headers {}})
 
+(defn goodbye
+  [request]
+  {:status 200
+   :body (str "<h1>Walking back to happiness</h1>"
+              "<p>Walking back to happiness with you</p>"
+              "<p>Said, Farewell to loneliness I knew</p>"
+              "<p>Laid aside foolish pride</p>"
+              "<p>Learnt the truth from tears I cried</p>")
+   :headers {}})
+
 (defroutes app
   (GET "/" [] welcome)
+  (GET "/goodbye" [] goodbye)
   (not-found (str "<h1>This is not the page you are looking for</h1>"
                 "<p>Sorry, the page you requested was not found!</p>")))
 
