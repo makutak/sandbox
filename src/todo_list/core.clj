@@ -31,10 +31,17 @@
    :body (str "I am an awesome clojure developer, well getting there...")
    :headers {}})
 
+(defn request-info
+  [request]
+  {:status 200
+   :body (pr-str request)
+   :headers {}})
+
 (defroutes app
   (GET "/" [] welcome)
   (GET "/goodbye" [] goodbye)
   (GET "/about" [] about)
+  (GET "/request-info" [] request-info)
   (not-found (str "<h1>This is not the page you are looking for</h1>"
                   "<p>Sorry, the page you requested was not found!</p>")))
 
