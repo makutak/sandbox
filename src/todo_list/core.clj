@@ -2,7 +2,8 @@
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.reload :refer [wrap-reload]]
             [compojure.core :refer [defroutes GET]]
-            [compojure.route :refer [not-found]]))
+            [compojure.route :refer [not-found]]
+            [ring.handler.dump :refer [handle-dump]]))
 
 (defn welcome
   "A ring handler to process all requests for the web server.
@@ -41,7 +42,7 @@
   (GET "/" [] welcome)
   (GET "/goodbye" [] goodbye)
   (GET "/about" [] about)
-  (GET "/request-info" [] request-info)
+  (GET "/request-info" [] handle-dump)
   (not-found (str "<h1>This is not the page you are looking for</h1>"
                   "<p>Sorry, the page you requested was not found!</p>")))
 
