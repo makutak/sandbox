@@ -32,12 +32,6 @@
    :body (str "I am an awesome clojure developer, well getting there...")
    :headers {}})
 
-(defn request-info
-  [request]
-  {:status 200
-   :body (pr-str request)
-   :headers {}})
-
 (defroutes app
   (GET "/" [] welcome)
   (GET "/goodbye" [] goodbye)
