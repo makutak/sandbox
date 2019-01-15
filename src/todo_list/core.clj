@@ -46,6 +46,7 @@
   (GET "/about" [] about)
   (GET "/request-info" [] handle-dump)
   (GET "/hello/:name" [] hello)
+  (GET "/calclulator/:op/:a/:b" [] calculator)
   (not-found (str "<h1>This is not the page you are looking for</h1>"
                   "<p>Sorry, the page you requested was not found!</p>")))
 
