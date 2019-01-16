@@ -64,7 +64,10 @@
 (defn hiccup-test
   [request]
   {:status 200
-   :body (hiccup.core/html [:h1 "hello"])
+   :body (hiccup.core/html [:div
+                            [:ul
+                             (for [x (range 1 4)]
+                               [:li x])]])
    :headers {}})
 
 (defroutes app
