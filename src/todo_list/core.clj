@@ -3,7 +3,9 @@
             [ring.middleware.reload :refer [wrap-reload]]
             [compojure.core :refer [defroutes GET]]
             [compojure.route :refer [not-found]]
-            [ring.handler.dump :refer [handle-dump]]))
+            [ring.handler.dump :refer [handle-dump]]
+            [hiccup.core :refer :all]
+            [hiccup.page :refer :all]))
 
 (defn welcome
   "A ring handler to process all requests for the web server.
