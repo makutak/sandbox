@@ -11,11 +11,8 @@
   "A ring handler to process all requests for the web server.
   If a request is for something other than then an error message is returned"
   [request]
-  {:status 200
-   :body (str "<h1>Hello, Clojure World</h1>"
-              "<p>Welcome to your first Clojure app, I now update automically</p>"
-              "<p>I now use defroutes to manage incoming requests</p>")
-   :headers {}})
+  (html [:h1 "Hello, Clojure World"]
+        [:p "Welcome to your first Clojure app, I now update automically"]))
 
 (defn goodbye
   [request]
