@@ -8,5 +8,7 @@
                  [compojure "1.6.1"]]
   :repl-options {:init-ns todo-list.core}
   :main todo-list.core
+  :min-lein-version "2.0.0"
+  :uberjar-name: "todo-list.jar"
   :profiles {:dev
              {:main todo-list.core/-dev-main}})
