@@ -61,6 +61,12 @@
        :body "Sorry, unknown operator.  I only recognise + - * : (: is for division)"
        :headers {}})))
 
+(defn hiccup-test
+  [request]
+  {:status 200
+   :body (hiccup.core/html [:h1 "hello"])
+   :headers {}})
+
 (defroutes app
   (GET "/" [] welcome)
   (GET "/goodbye" [] goodbye)
@@ -68,6 +74,7 @@
   (GET "/request-info" [] handle-dump)
   (GET "/hello/:name" [] hello)
   (GET "/calculator/:op/:a/:b" [] calculator)
+  (GET "/hiccup-test" [] hiccup-test)
   (not-found (str "<h1>This is not the page you are looking for</h1>"
                   "<p>Sorry, the page you requested was not found!</p>")))
 
