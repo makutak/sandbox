@@ -16,13 +16,11 @@
 
 (defn goodbye
   [request]
-  {:status 200
-   :body (str "<h1>Walking back to happiness</h1>"
-              "<p>Walking back to happiness with you</p>"
-              "<p>Said, Farewell to loneliness I knew</p>"
-              "<p>Laid aside foolish pride</p>"
-              "<p>Learnt the truth from tears I cried</p>")
-   :headers {}})
+  (html [:h1  "Walking back to happiness"]
+        [:p "Walking back to happiness with you"]
+        [:p "Said, Farewell to loneliness I knew"]
+        [:p "Laid aside foolish pride"]
+        [:p "Learnt the truth from tears I cried"]))
 
 (defn about
   "Information about the webpage developer"
