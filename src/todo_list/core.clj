@@ -16,11 +16,14 @@
 
 (defn goodbye
   [request]
-  (html [:h1  "Walking back to happiness"]
-        [:p "Walking back to happiness with you"]
-        [:p "Said, Farewell to loneliness I knew"]
-        [:p "Laid aside foolish pride"]
-        [:p "Learnt the truth from tears I cried"]))
+  (html5 {:lang "en"}
+         [:head (include-js "myscript.js") (include-css "mystyle.css")]
+         [:body
+          [:div [:h1  {:class "info"} "Walking back to happiness"]]
+          [:div [:p "Walking back to happiness with you"]]
+          [:div [:p "Said, Farewell to loneliness I knew"]]
+          [:div [:p "Laid aside foolish pride"]]
+          [:div [:p "Learnt the truth from tears I cried"]]]))
 
 (defn about
   "Information about the webpage developer"
