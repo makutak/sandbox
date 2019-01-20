@@ -11,8 +11,8 @@
           fis (FileInputStream. "server_send.txt")]
       (println "クライアントからの接続を待ちます。")
       (let [socket (.accept server)
-          input (.getInputStream socket)
-          output (.getOutputStream socket)]
+            input (.getInputStream socket)
+            output (.getOutputStream socket)]
         (println "クライアント接続。")
         (loop [ch (.read input)]
           (if (not (= 0 ch))
