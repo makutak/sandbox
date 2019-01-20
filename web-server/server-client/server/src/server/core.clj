@@ -15,15 +15,13 @@
             output (.getOutputStream socket)]
         (println "クライアント接続。")
         (loop [ch (.read input)]
-          (if (not (= 0 ch))
-            (do
-              (.write fos ch)
-              (recur (.read input)))))
+          (when (not (= 0 ch))
+            (.write fos ch)
+            (recur (.read input))))
         (loop [ch (.read fis)]
-          (if (not (= -1 ch))
-            (do
-              (.write output ch)
-              (recur (.read fis)))))
+          (when (not (= -1 ch))
+            (.write output ch)
+            (recur (.read fis))))
         (.close socket)))
     (catch Exception ex
       (.printStackTrace ex))))
