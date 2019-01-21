@@ -13,10 +13,9 @@
            output (.getOutputStream socket)]
        (loop [ch (.read fis)]
          (when (not (= ch -1))
-           (println socket)
            (.write output ch)
            (recur (.read fis))))
-       (.write output 0)
+       ;; (.write output 0)
        (loop [ch (.read input)]
          (when (not (= ch -1))
            (.write fos ch)
