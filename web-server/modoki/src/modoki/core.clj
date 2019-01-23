@@ -5,12 +5,15 @@
 
 (defn server
   [port-number]
+  (println "wait for connect..")
   (with-open [server (ServerSocket. port-number)
               socket (.accept server)
               input (io/input-stream socket)]
-    (println input)))
+    (println "connect!!")
+    (let [in (.readLine (io/reader socket))]
+      (println socket)
+      (println in))))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   []
   (server (Integer. 8001)))
