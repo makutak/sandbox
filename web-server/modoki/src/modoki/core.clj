@@ -8,11 +8,12 @@
   (println "wait for connect..")
   (with-open [server (ServerSocket. port-number)
               socket (.accept server)
-              input (io/input-stream socket)]
+              input (io/reader socket)]
     (println "connect!!")
-    (let [aaa (slurp input)]
-      (println aaa)
-      (str aaa))
+    (loop [r (.readLine input)]
+      (when (not (nil? r))
+        (println r)
+        (recur (.readLine input))))
     (.close socket)))
 
 (defn -main
