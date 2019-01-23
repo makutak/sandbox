@@ -10,9 +10,10 @@
               socket (.accept server)
               input (io/input-stream socket)]
     (println "connect!!")
-    (let [in (.readLine (io/reader socket))]
-      (println socket)
-      (println in))))
+    (let [aaa (slurp input)]
+      (println aaa)
+      (str aaa))
+    (.close socket)))
 
 (defn -main
   []
