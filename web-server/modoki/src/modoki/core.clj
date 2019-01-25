@@ -1,8 +1,8 @@
 (ns modoki.core
   (:import [java.net ServerSocket])
-  (:import [java.io InputStream])
+  (:import [java.io InputStream OutputStream])
   (:require [clojure.java.io :as io])
-  (:refer-clojure :exclude [read-line])
+  (:refer-clojure :exclude [read-line write-line])
   (:gen-class))
 
 
@@ -13,22 +13,29 @@
     (if-not (= input -1)
       (cons input (lazy-seq (read-line input-stream))))))
 
+(defn write-line
+  [^OutputStream output-stream string]
+  (map #(.write output-stream (int %)) (char-array string)))
+
 (defn server
   [port-number]
   (println "wait for connect..")
   (with-open [server (ServerSocket. port-number)
               socket (.accept server)
               input (io/input-stream socket)
-              output (io/output-stream "request.txt")]
+              output (io/output-stream socket)]
     (println"connect!!")
     ;;(println (read-line input))
     (dorun (map #(.write output %) (read-line input)))
+    (println (write-line output "aaaaaaaaaaaaaaa"))
+    (write-line output "aaaaaaaaaaaaaaa")
     ;; (loop [ch (.read input)]
     ;;   (when-not (= ch -1)
     ;;     (.write output ch)
     ;;     (recur (.read input))))
     ;; (println "done")
-    (.close socket)))
+    ;; (.close socket)
+    ))
 
 (defn -main
   []
