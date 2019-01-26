@@ -33,10 +33,11 @@
     (println"connect!!")
     ;;(dorun (map #(.write output %) (read-line input)))
     ;; (dorun (lazy-seq (write-line output "test")))
-    ;; (loop [ch (.read input)]
-    ;;   (when (not (= ch -1))
-    ;;     (recur (.read input))))
-    ;; (println "loop done")
+    (loop [ch (.read input)]
+      (when (and (not (= ch -1))
+                 (not (= ch (int \newline))))
+        (recur (.read input))))
+    (println "loop done")
 
     ;; header
     (write-line output "HTTP/1.1 200 OK")
@@ -47,7 +48,7 @@
     (write-line output "")
     ;; body
     (try
-      (write-line output "<h1>It works</1>")
+      (write-line output "<h1>Hello World</h1>")
       (catch Exception e
         (.printStackTrace e)))
     (.close socket)))
