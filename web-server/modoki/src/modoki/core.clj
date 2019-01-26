@@ -15,7 +15,8 @@
 
 (defn write-line
   [^OutputStream output-stream string]
-  (map #(.write output-stream (int %)) (char-array string)))
+  (doseq [ch (map #(int %) (char-array string))]
+    (.write output-stream ch)))
 
 (defn server
   [port-number]
@@ -23,19 +24,12 @@
   (with-open [server (ServerSocket. port-number)
               socket (.accept server)
               input (io/input-stream socket)
-              output (io/output-stream socket)]
+              output (.getOutputStream socket)]
     (println"connect!!")
-    ;;(println (read-line input))
     (dorun (map #(.write output %) (read-line input)))
-    (println (write-line output "aaaaaaaaaaaaaaa"))
-    (write-line output "aaaaaaaaaaaaaaa")
-    ;; (loop [ch (.read input)]
-    ;;   (when-not (= ch -1)
-    ;;     (.write output ch)
-    ;;     (recur (.read input))))
-    ;; (println "done")
-    ;; (.close socket)
-    ))
+    (.flush output)
+    (println "done")
+    (.close socket)))
 
 (defn -main
   []
