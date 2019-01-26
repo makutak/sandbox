@@ -31,22 +31,23 @@
               input (io/input-stream socket)
               output (io/output-stream socket)]
     (println"connect!!")
-    ;;(dorun (map #(.write output %) (read-line input)))
-    ;; (dorun (lazy-seq (write-line output "test")))
+
+    ;; parse request
     (loop [ch (.read input)]
       (when (and (not (= ch -1))
                  (not (= ch (int \newline))))
         (recur (.read input))))
     (println "loop done")
 
-    ;; header
+    ;; response header
     (write-line output "HTTP/1.1 200 OK")
     (write-line output "Date: Sat, 26 Jan 2019 17:35:18 GMT")
     (write-line output "Server: modoki")
     (write-line output "Connection: close")
     (write-line output "Content-type: text/html")
     (write-line output "")
-    ;; body
+
+    ;; response body
     (try
       (write-line output "<h1>Hello World</h1>")
       (catch Exception e
