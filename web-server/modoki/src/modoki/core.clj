@@ -1,6 +1,8 @@
 (ns modoki.core
   (:import [java.net ServerSocket]
-           [java.io InputStream OutputStream])
+           [java.io InputStream OutputStream]
+           [java.util Date Calendar TimeZone Locale]
+           [java.text SimpleDateFormat])
   (:require [clojure.java.io :as io]
             [clojure.string :as s])
   (:refer-clojure :exclude [read-line write-line])
@@ -32,6 +34,13 @@
   [request-line]
   (second (s/split request-line #" ")))
 
+(defn getDateStringUtc
+  []
+  (let [cal (Calendar/getInstance (TimeZone/getTimeZone "GMT"))
+        df (SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss" Locale/US)]
+    (.setTimeZone df (.getTimeZone cal))
+    (str  (.format df (.getTime cal)) " GMT")))
+
 (defn server
   [port-number]
   (println "wait for connect..")
@@ -45,7 +54,7 @@
       (println "path: " path)
     ;; response header
       (write-line output "HTTP/1.1 200 OK")
-      (write-line output "Date: Sat, 26 Jan 2019 17:35:18 GMT")
+      (write-line output (str  "Date: " (getDateStringUtc)))
       (write-line output "Server: modoki")
       (write-line output "Connection: close")
       (write-line output "Content-type: text/html")
