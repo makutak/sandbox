@@ -1,27 +1,36 @@
 (ns modoki.core
-  (:import [java.net ServerSocket])
-  (:import [java.io InputStream OutputStream])
-  (:import [java.io InputStream OutputStream])
-  (:require [clojure.java.io :as io])
+  (:import [java.net ServerSocket]
+           [java.io InputStream OutputStream])
+  (:require [clojure.java.io :as io]
+            [clojure.string :as s])
   (:refer-clojure :exclude [read-line write-line])
   (:gen-class))
 
 
 
-;; (defn read-line
-;;   [^InputStream input-stream]
-;;   (let [input (.read input-stream)]
-;;     (if-not (= input -1)
-;;       (cons input (lazy-seq (read-line input-stream))))))
+(defn read-line
+  [^InputStream input-stream]
+  (let [input (.read input-stream)]
+    (if (and (not (= input -1))
+             (not (= input (int \newline))))
+      (cons input (read-line input-stream)))))
 
 (defn write-line
   [^OutputStream output-stream string]
-  ;;(map #(.flush (.write output-stream (int %))) (char-array string))
   (doseq [ch (char-array string)]
     (.write output-stream (int ch)))
   (.write output-stream (int \return))
   (.write output-stream (int \newline))
   (.flush output-stream))
+
+(defn bytes->str
+  [lat]
+  (apply str (map #(char %) lat)))
+
+
+(defn get-path
+  [request-line]
+  (second (s/split request-line #" ")))
 
 (defn server
   [port-number]
@@ -30,28 +39,22 @@
               socket (.accept server)
               input (io/input-stream socket)
               output (io/output-stream socket)]
-    (println"connect!!")
+    (println "connect!!")
 
-    ;; parse request
-    (loop [ch (.read input)]
-      (when (and (not (= ch -1))
-                 (not (= ch (int \newline))))
-        (recur (.read input))))
-    (println "loop done")
-
+    (let [path (get-path (bytes->str (read-line input)))]
+      (println "path: " path)
     ;; response header
-    (write-line output "HTTP/1.1 200 OK")
-    (write-line output "Date: Sat, 26 Jan 2019 17:35:18 GMT")
-    (write-line output "Server: modoki")
-    (write-line output "Connection: close")
-    (write-line output "Content-type: text/html")
-    (write-line output "")
-
-    ;; response body
-    (try
-      (write-line output "<h1>Hello World</h1>")
-      (catch Exception e
-        (.printStackTrace e)))
+      (write-line output "HTTP/1.1 200 OK")
+      (write-line output "Date: Sat, 26 Jan 2019 17:35:18 GMT")
+      (write-line output "Server: modoki")
+      (write-line output "Connection: close")
+      (write-line output "Content-type: text/html")
+      (write-line output "")
+      ;; response body
+      (try
+        (write-line output "<h1>Hello World</h1>")
+        (catch Exception e
+          (.printStackTrace e))))
     (.close socket)))
 
 (defn -main
