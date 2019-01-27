@@ -8,8 +8,6 @@
   (:refer-clojure :exclude [read-line write-line])
   (:gen-class))
 
-
-
 (defn read-line
   [^InputStream input-stream]
   (let [input (.read input-stream)]
@@ -28,7 +26,6 @@
 (defn bytes->str
   [lat]
   (apply str (map #(char %) lat)))
-
 
 (defn get-path
   [request-line]
@@ -52,7 +49,7 @@
 
     (let [path (get-path (bytes->str (read-line input)))]
       (println "path: " path)
-    ;; response header
+      ;; response header
       (write-line output "HTTP/1.1 200 OK")
       (write-line output (str  "Date: " (getDateStringUtc)))
       (write-line output "Server: modoki")
