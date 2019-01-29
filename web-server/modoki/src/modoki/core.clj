@@ -8,6 +8,8 @@
   (:refer-clojure :exclude [read-line write-line])
   (:gen-class))
 
+(def document-root "./")
+
 (defn read-line
   [^InputStream input-stream]
   (let [input (.read input-stream)]
