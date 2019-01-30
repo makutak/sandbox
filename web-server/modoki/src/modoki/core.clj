@@ -1,6 +1,6 @@
 (ns modoki.core
   (:import [java.net ServerSocket]
-           [java.io InputStream OutputStream]
+           [java.io InputStream OutputStream FileInputStream]
            [java.util Date Calendar TimeZone Locale]
            [java.text SimpleDateFormat])
   (:require [clojure.java.io :as io]
@@ -8,13 +8,13 @@
   (:refer-clojure :exclude [read-line write-line])
   (:gen-class))
 
-(def document-root "./")
+(def document-root "./resources")
 
 (defn read-line
   [^InputStream input-stream]
   (let [input (.read input-stream)]
-    (if (and (not (= input -1))
-             (not (= input (int \newline))))
+    (if (and (not= input -1)
+             (not= input (int \newline)))
       (cons input (read-line input-stream)))))
 
 (defn write-line
@@ -51,18 +51,27 @@
 
     (let [path (get-path (bytes->str (read-line input)))]
       (println "path: " path)
-      ;; response header
+      ;; response line
       (write-line output "HTTP/1.1 200 OK")
+      ;; response header
       (write-line output (str  "Date: " (getDateStringUtc)))
       (write-line output "Server: modoki")
       (write-line output "Connection: close")
       (write-line output "Content-type: text/html")
       (write-line output "")
       ;; response body
-      (try
-        (write-line output "<h1>Hello World</h1>")
-        (catch Exception e
-          (.printStackTrace e))))
+      (if (> (count path) 1)
+        (do
+          (try
+            (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+              (loop [ch (.read fis)]
+                (when (not= ch -1)
+                  (.write output ch)
+                  (.flush output)
+                  (recur (.read fis)))))
+            (catch Exception e
+              (.printStackTrace e))))
+        (write-line output "<h1>Hello Wolrd!!</h1>")))
     (.close socket)))
 
 (defn -main
