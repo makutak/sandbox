@@ -1,6 +1,6 @@
 (ns modoki.core
   (:import [java.net ServerSocket])
-  (:require [modoki.server :refer [server-thread]])
+  (:require [modoki.server_thread :refer [server-thread]])
   (:gen-class))
 
 (defn -main
