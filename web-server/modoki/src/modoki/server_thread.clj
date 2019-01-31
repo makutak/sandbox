@@ -1,5 +1,5 @@
 (ns modoki.server_thread
-  (:import [java.net ServerSocket]
+  (:import [java.net Socket]
            [java.io InputStream OutputStream FileInputStream]
            [java.util Date Calendar TimeZone Locale]
            [java.text SimpleDateFormat])
@@ -40,7 +40,7 @@
     (str  (.format df (.getTime cal)) " GMT")))
 
 (defn server-thread
-  [^ServerSocket socket]
+  [^Socket socket]
   (println "wait for connect..")
   (with-open [input (io/input-stream socket)
               output (io/output-stream socket)]
@@ -68,5 +68,4 @@
             (catch Exception e
               (.printStackTrace e))))
         (write-line output "<h1>Hello Wolrd!!</h1>")))
-    ;;(.close socket)
-    ))
+    (.close socket)))

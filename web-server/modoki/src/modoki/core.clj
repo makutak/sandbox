@@ -7,6 +7,6 @@
   []
   (try
     (let  [server (ServerSocket. (Integer. 8001))
-           socket (.accept server)]
+           ]
       (while true
-        (.start (Thread. #(server-thread socket)))))))
+        (.start (Thread. #(server-thread (.accept server))))))))
