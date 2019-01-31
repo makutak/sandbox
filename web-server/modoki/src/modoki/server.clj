@@ -39,12 +39,10 @@
     (.setTimeZone df (.getTimeZone cal))
     (str  (.format df (.getTime cal)) " GMT")))
 
-(defn server
-  [port-number]
+(defn server-thread
+  [^ServerSocket socket]
   (println "wait for connect..")
-  (with-open [server (ServerSocket. port-number)
-              socket (.accept server)
-              input (io/input-stream socket)
+  (with-open [input (io/input-stream socket)
               output (io/output-stream socket)]
     (println "connect!!")
 
@@ -70,4 +68,5 @@
             (catch Exception e
               (.printStackTrace e))))
         (write-line output "<h1>Hello Wolrd!!</h1>")))
-    (.close socket)))
+    ;;(.close socket)
+    ))

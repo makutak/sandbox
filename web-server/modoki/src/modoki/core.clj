@@ -1,7 +1,12 @@
 (ns modoki.core
-  (:require [modoki.server :refer [server]])
+  (:import [java.net ServerSocket])
+  (:require [modoki.server :refer [server-thread]])
   (:gen-class))
 
 (defn -main
   []
-  (server (Integer. 8001)))
+  (try
+    (let  [server (ServerSocket. (Integer. 8001))
+           socket (.accept server)]
+      (while true
+        (.start (Thread. #(server-thread socket)))))))
