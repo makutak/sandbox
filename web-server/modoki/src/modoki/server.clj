@@ -49,7 +49,6 @@
     (println "connect!!")
 
     (let [path (get-path (bytes->str (read-line input)))]
-      (println "path: " path)
       ;; response line
       (write-line output "HTTP/1.1 200 OK")
       ;; response header
