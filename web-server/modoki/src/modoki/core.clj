@@ -6,7 +6,7 @@
 (defn -main
   []
   (try
-    (let  [server (ServerSocket. (Integer. 8001))
-           ]
+    (let [server (ServerSocket. (Integer. 8001))]
       (while true
-        (.start (Thread. #(server-thread (.accept server))))))))
+        (let [socket (.accept server)]
+          (.start (Thread. #(server-thread socket))))))))
