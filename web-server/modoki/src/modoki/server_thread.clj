@@ -9,6 +9,14 @@
 
 (def document-root "./resources")
 
+(def content-type-map {:html "text/html"
+                       :htm "text/html"
+                       :css "text/css"
+                       :png "image/png"
+                       :jpg "image/jpeg"
+                       :jpeg "image/jpeg"
+                       :gif "image/gif"})
+
 (defn read-line
   [^InputStream input-stream]
   (let [input (.read input-stream)]
