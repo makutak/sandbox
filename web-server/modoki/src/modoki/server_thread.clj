@@ -17,6 +17,10 @@
                        :jpeg "image/jpeg"
                        :gif "image/gif"})
 
+(defn get-content-type
+  [ext]
+  ((keyword ext) content-type-map "application/octet-stream"))
+
 (defn read-line
   [^InputStream input-stream]
   (let [input (.read input-stream)]
