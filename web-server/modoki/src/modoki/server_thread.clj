@@ -44,7 +44,7 @@
   [request-line]
   (second (s/split request-line #" ")))
 
-(defn getDateStringUtc
+(defn get-date-string-utc
   []
   (let [cal (Calendar/getInstance (TimeZone/getTimeZone "GMT"))
         df (SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss" Locale/US)]
