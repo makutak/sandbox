@@ -41,12 +41,12 @@
 
 (defn server-thread
   [^Socket socket]
-  (println "wait for connect..")
-  (with-open [input (io/input-stream socket)
-              output (io/output-stream socket)]
-    (println "connect!!")
-
-    (let [path (get-path (bytes->str (read-line input)))]
+  (println "connect!!")
+  (try
+    (let [input (io/input-stream socket)
+          output (io/output-stream socket)
+          path (get-path (bytes->str (read-line input)))]
+      (println "path: " path)
       ;; response line
       (write-line output "HTTP/1.1 200 OK")
       ;; response header
@@ -68,4 +68,7 @@
             (catch Exception e
               (.printStackTrace e))))
         (write-line output "<h1>Hello Wolrd!!</h1>")))
-    (.close socket)))
+    (catch Exception e
+      (.printStackTrace e))
+    (finally
+      (.close socket))))
