@@ -57,15 +57,17 @@
   (try
     (let [input (io/input-stream socket)
           output (io/output-stream socket)
-          path (get-path (bytes->str (read-line input)))]
+          path (get-path (bytes->str (read-line input)))
+          ext (last (s/split path #"\."))]
       (println "path: " path)
+      (println "ext: " ext )
       ;; response line
       (write-line output "HTTP/1.1 200 OK")
       ;; response header
-      (write-line output (str  "Date: " (getDateStringUtc)))
+      (write-line output (str  "Date: " (get-date-string-utc)))
       (write-line output "Server: modoki")
       (write-line output "Connection: close")
-      (write-line output "Content-type: text/html")
+      (write-line output (str "Content-type: " (get-content-type ext)))
       (write-line output "")
       ;; response body
       (if (> (count path) 1)
