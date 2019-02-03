@@ -11,12 +11,12 @@
 
 (defn server-thread
   [^Socket socket]
-  (println "connect!!")
   (try
     (let [input (io/input-stream socket)
           output (io/output-stream socket)
           path (get-path (bytes->str (read-line input)))
           ext (last (s/split path #"\."))]
+      (println "path: " path " " "ext:" ext)
       (try
         (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
           (send-ok-response output fis ext))
