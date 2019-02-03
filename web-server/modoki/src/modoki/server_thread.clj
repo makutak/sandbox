@@ -1,9 +1,10 @@
 (ns modoki.server_thread
   (:import [java.net Socket]
-           [java.io FileInputStream])
+           [java.io FileInputStream FileNotFoundException])
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
-            [modoki.util :refer :all])
+            [modoki.util :refer :all]
+            [modoki.send_response :refer [send-ok-response send-not-found-response]])
   (:refer-clojure :exclude [read-line write-line]))
 
 (def document-root "./resources")
@@ -16,29 +17,11 @@
           output (io/output-stream socket)
           path (get-path (bytes->str (read-line input)))
           ext (last (s/split path #"\."))]
-      (println "path: " path)
-      (println "ext: " ext )
-      ;; response line
-      (write-line output "HTTP/1.1 200 OK")
-      ;; response header
-      (write-line output (str  "Date: " (get-date-string-utc)))
-      (write-line output "Server: modoki")
-      (write-line output "Connection: close")
-      (write-line output (str "Content-type: " (get-content-type ext)))
-      (write-line output "")
-      ;; response body
-      (if (> (count path) 1)
-        (do
-          (try
-            (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
-              (loop [ch (.read fis)]
-                (when (not= ch -1)
-                  (.write output ch)
-                  (.flush output)
-                  (recur (.read fis)))))
-            (catch Exception e
-              (.printStackTrace e))))
-        (write-line output "<h1>Hello Wolrd!!</h1>")))
+      (try
+        (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+          (send-ok-response output fis ext))
+        (catch FileNotFoundException ex
+          (send-not-found-response output))))
     (catch Exception e
       (.printStackTrace e))
     (finally
