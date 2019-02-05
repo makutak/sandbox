@@ -3,7 +3,7 @@
   (:require [clojure.java.io :as io]
             [modoki.util :refer [write-line get-date-string-utc get-content-type]]))
 
-(def not_found_page "./resources/error/not_found.html")
+(def not-found-page "./resources/error/404.html")
 
 (defn send-ok-response
   [output-stream fis ext]
@@ -33,7 +33,7 @@
   (write-line output-stream (str "Content-type: text/html"))
   (write-line output-stream "")
   ;; response body
-  (let [fis (io/input-stream (FileInputStream. not_found_page))]
+  (let [fis (io/input-stream (FileInputStream. not-found-page))]
     (loop [ch (.read fis)]
       (when (not= ch -1)
         (.write output-stream ch)
