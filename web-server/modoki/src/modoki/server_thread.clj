@@ -8,7 +8,7 @@
   (:refer-clojure :exclude [read-line write-line]))
 
 (def document-root "./resources")
-(def not-found-page "./resources/error/404.html")
+(def error-document-root "./resources/error")
 
 (defn server-thread
   [^Socket socket]
@@ -22,7 +22,7 @@
         (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
           (send-ok-response output fis ext))
         (catch FileNotFoundException ex
-          (send-not-found-response output not-found-page))))
+          (send-not-found-response output error-document-root))))
     (catch Exception e
       (.printStackTrace e))
     (finally
