@@ -13,28 +13,27 @@
 (defn read-request
   [input]
   (loop [ch input
-         request []]
+         request '()]
     (let [line (read-line ch)]
-      (println (bytes->str line))
-      (println (count request))
-      (if (= (count line) 1)
+      (if (= (bytes->str line) )
         request
         (recur input
-               (cons (str line) request))))))
+               (cons line request))))))
 
 
 (defn server-thread
   [^Socket socket]
   (try
     (let [input (io/input-stream socket)
+          request (map #(bytes->str %) (read-request input))
           ;; output (io/output-stream socket)
           ;; path (get-path (bytes->str (read-line input)))
           ;; ext (last (s/split path #"\."))
           ]
       ;;(println "path: " path " " "ext:" ext)
       (println "request...")
-      (println (map #(bytes->str %) (read-request input)))
-
+      (println (first (reverse request)))
+      (println (second (reverse request)))
       ;;(println  (map #(bytes->str %)w )
       ;; (try
       ;;   (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
