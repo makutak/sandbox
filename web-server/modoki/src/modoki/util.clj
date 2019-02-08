@@ -34,7 +34,9 @@
 
 (defn bytes->str
   [lat]
-  (apply str (map #(char %) lat)))
+  (->> (filter #(not= % \return) lat)
+       (map #(char %))
+       (apply str)))
 
 (defn get-path
   [request-line]
