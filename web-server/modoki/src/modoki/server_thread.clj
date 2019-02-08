@@ -10,37 +10,21 @@
 (def document-root "./resources")
 (def error-document-root "./resources/error")
 
-(defn read-request
-  [input]
-  (loop [ch input
-         request '()]
-    (let [line (read-line ch)]
-      (if (= (bytes->str line) )
-        request
-        (recur input
-               (cons line request))))))
-
-
 (defn server-thread
   [^Socket socket]
   (try
     (let [input (io/input-stream socket)
-          request (map #(bytes->str %) (read-request input))
-          ;; output (io/output-stream socket)
-          ;; path (get-path (bytes->str (read-line input)))
-          ;; ext (last (s/split path #"\."))
-          ]
-      ;;(println "path: " path " " "ext:" ext)
+          output (io/output-stream socket)
+          path (get-path (bytes->str (read-line input)))
+          ext (last (s/split path #"\."))
+          host (bytes->str (read-line input))]
       (println "request...")
-      (println (first (reverse request)))
-      (println (second (reverse request)))
-      ;;(println  (map #(bytes->str %)w )
-      ;; (try
-      ;;   (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
-      ;;     (send-ok-response output fis ext))
-      ;;   (catch FileNotFoundException ex
-      ;;     (send-not-found-response output error-document-root)))
-      )
+      (println "path: " path " ext: " ext " host: " host)
+      (try
+        (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+          (send-ok-response output fis ext))
+        (catch FileNotFoundException ex
+          (send-not-found-response output error-document-root))))
     (catch Exception e
       (.printStackTrace e))
     (finally
