@@ -49,8 +49,10 @@
     (.setTimeZone df (.getTimeZone cal))
     (str  (.format df (.getTime cal)) " GMT")))
 
-(defn determinPath
+(defn redirect-path
   [path]
-  (if (s/ends-with? path "/")
-    (str path "index.html")
-    path))
+  (str path "index.html"))
+
+(defn get-ext
+  [path]
+  (last (s/split path #"\.")))

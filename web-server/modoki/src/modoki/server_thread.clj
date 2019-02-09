@@ -1,7 +1,6 @@
 (ns modoki.server_thread
   (:import [java.net Socket]
-           [java.io FileInputStream FileNotFoundException]
-           [java.nio.file FileSystems Files])
+           [java.io FileInputStream FileNotFoundException File])
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
             [modoki.util :refer :all]
@@ -19,18 +18,19 @@
           output (io/output-stream socket)
           request-line (bytes->str (read-line input))
           path (get-request-path request-line)
-          ext (last (s/split path #"\."))
+          ext (get-ext path)
           host (bytes->str (read-line input))]
       (println "request line: " request-line)
-      (println "path: " path " ext: " ext " host: " host)
+      (println "path: " path " "
+               "ext: " ext " "
+               "host: " host)
       (try
         (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
           (send-ok-response output fis ext))
         (catch FileNotFoundException ex
-          (let [fs (FileSystems/getDefault)
-                pathObj (.getPath fs (str document-root (determinPath path)))]
-            (if (Files/isDirectory pathObj)
-              (println "files!!")
+          (let [real-path (File. (str document-root path))]
+            (if (.isDirectory real-path)
+              (println "redirect to ...." (str document-root (redirect-path path)) )
               (send-not-found-response output error-document-root))))))
     (catch Exception e
       (.printStackTrace e))
