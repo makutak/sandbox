@@ -29,7 +29,7 @@
         (catch FileNotFoundException ex
           (let [fs (FileSystems/getDefault)
                 pathObj (.getPath fs (str document-root (determinPath path)))]
-            (if (Files/isDirectory)
+            (if (Files/isDirectory pathObj)
               (println "files!!")
               (send-not-found-response output error-document-root))))))
     (catch Exception e
