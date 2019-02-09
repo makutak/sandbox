@@ -9,6 +9,7 @@
 
 (def document-root "./resources")
 (def error-document-root "./resources/error")
+(def server-name "localhost:8001")
 
 (defn server-thread
   [^Socket socket]
