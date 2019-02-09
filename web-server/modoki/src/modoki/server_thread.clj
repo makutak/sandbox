@@ -15,10 +15,11 @@
   (try
     (let [input (io/input-stream socket)
           output (io/output-stream socket)
-          path (get-path (bytes->str (read-line input)))
+          request-line (bytes->str (read-line input))
+          path (get-path request-line)
           ext (last (s/split path #"\."))
           host (bytes->str (read-line input))]
-      (println "request...")
+      (println "request line: " request-line)
       (println "path: " path " ext: " ext " host: " host)
       (try
         (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
