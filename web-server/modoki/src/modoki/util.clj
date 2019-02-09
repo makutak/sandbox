@@ -38,7 +38,7 @@
        (map #(char %))
        (apply str)))
 
-(defn get-path
+(defn get-request-path
   [request-line]
   (second (s/split request-line #" ")))
 
@@ -48,3 +48,9 @@
         df (SimpleDateFormat. "EEE, dd MMM yyyy HH:mm:ss" Locale/US)]
     (.setTimeZone df (.getTimeZone cal))
     (str  (.format df (.getTime cal)) " GMT")))
+
+(defn determinPath
+  [path]
+  (if (s/ends-with? path "/")
+    (str path "index.html")
+    path))
