@@ -56,3 +56,7 @@
 (defn get-ext
   [path]
   (last (s/split path #"\.")))
+
+(defn get-host
+  [host]
+  (s/trim (second (s/split host #" "))))

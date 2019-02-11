@@ -4,12 +4,16 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
             [modoki.util :refer :all]
-            [modoki.send_response :refer [send-ok-response send-not-found-response]])
+            [modoki.send_response :refer :all])
   (:refer-clojure :exclude [read-line write-line]))
 
 (def document-root "./resources")
 (def error-document-root "./resources/error")
 (def server-name "localhost:8001")
+
+(defn build-location
+  [host path]
+  (str "http://" (if (nil? host) server-name host) path))
 
 (defn server-thread
   [^Socket socket]
@@ -19,7 +23,7 @@
           request-line (bytes->str (read-line input))
           path (get-request-path request-line)
           ext (get-ext path)
-          host (bytes->str (read-line input))]
+          host (get-host (bytes->str (read-line input)))]
       (println "request line: " request-line)
       (println "path: " path " "
                "ext: " ext " "
@@ -28,9 +32,10 @@
         (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
           (send-ok-response output fis ext))
         (catch FileNotFoundException ex
-          (let [real-path (File. (str document-root path))]
+          (let [real-path (File. (str document-root path))
+                location (build-location host (redirect-path path))]
             (if (.isDirectory real-path)
-              (println "redirect to ...." (str document-root (redirect-path path)) )
+              (send-move-permanently-response output location)
               (send-not-found-response output error-document-root))))))
     (catch Exception e
       (.printStackTrace e))
