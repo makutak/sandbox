@@ -39,3 +39,12 @@
         (.write output-stream ch)
         (.flush output-stream)
         (recur (.read fis))))))
+
+(defn send-move-permanently-response
+  [output-stream location]
+  (write-line output-stream "HTTP/1.1 301 Moved Permanently")
+  (write-line output-stream (str "Date: " (get-date-string-utc)))
+  (write-line output-stream "Server: modoki")
+  (write-line output-stream (str "Location: " location))
+  (write-line output-stream "Connection: close")
+  (write-line output-stream ""))
