@@ -10,7 +10,7 @@
   ;; response line
   (write-line output-stream "HTTP/1.1 200 OK")
   ;; response header
-  (write-line output-stream (str  "Date: " (get-date-string-utc)))
+  (write-line output-stream (str "Date: " (get-date-string-utc)))
   (write-line output-stream "Server: modoki")
   (write-line output-stream "Connection: close")
   (write-line output-stream (str "Content-type: " (get-content-type ext)))
@@ -27,7 +27,7 @@
   ;; response line
   (write-line output-stream "HTTP/1.1 404 Not Found")
   ;; response header
-  (write-line output-stream (str  "Date: " (get-date-string-utc)))
+  (write-line output-stream (str "Date: " (get-date-string-utc)))
   (write-line output-stream "Server: modoki")
   (write-line output-stream "Connection: close")
   (write-line output-stream (str "Content-type: text/html"))
