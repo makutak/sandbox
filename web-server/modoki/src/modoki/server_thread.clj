@@ -42,11 +42,11 @@
           (cond
             (not (s/starts-with? real-path document-root)) (send-not-found-response output error-document-root)
             (Files/isDirectory real-path (into-array LinkOption [])) (send-move-permanently-response output location)
-            :else  (try
-                     (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
-                       (send-ok-response output fis ext))
-                     (catch FileNotFoundException ex
-                       (send-not-found-response output error-document-root)))))
+            :else (try
+                    (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+                      (send-ok-response output fis ext))
+                    (catch FileNotFoundException ex
+                      (send-not-found-response output error-document-root)))))
         (catch NoSuchFileException ex
           (send-not-found-response output error-document-root))))
     (catch Exception e
