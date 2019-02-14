@@ -41,8 +41,13 @@
         (let [real-path (.toRealPath path-obj (into-array LinkOption []))
               location (build-location host (redirect-path path))]
           (cond
-            (not (s/starts-with? real-path document-root)) (send-not-found-response output error-document-root)
-            (Files/isDirectory real-path (into-array LinkOption [])) (send-move-permanently-response output location)
+            ;; ドキュメントルートの外を見ようとしているとき
+            (not (s/starts-with? real-path document-root))
+            (send-not-found-response output error-document-root)
+            ;; パスがディレクトリか
+            (Files/isDirectory real-path (into-array LinkOption []))
+            (send-move-permanently-response output location)
+            ;; パスが正しい
             :else (try
                     (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
                       (send-ok-response output fis ext))
