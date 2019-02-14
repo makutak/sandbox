@@ -16,6 +16,26 @@ body {
   height: 100%;
 }
 
+#container {
+  height: 100%;
+  display: grid;
+  grid-template-areas: "header" "content" "footer";
+  grid-gap: 20px;
+
+}
+
+#container > .header {
+  grid-area: header;
+}
+
+#container > .content {
+  grid-area: content;
+}
+
+#container >.footer {
+  grid-area: footer;
+}
+
 .bold {
   font-weight: bold;
 }
