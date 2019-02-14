@@ -1,5 +1,5 @@
 (ns modoki.server_thread
-  (:import [java.net Socket]
+  (:import [java.net Socket URLDecoder]
            [java.io FileInputStream FileNotFoundException]
            [java.nio.file FileSystems Files LinkOption NoSuchFileException])
   (:require [clojure.java.io :as io]
@@ -12,6 +12,7 @@
 (def error-document-root "./resources/error")
 (def server-name "localhost:8001")
 (def file-system (FileSystems/getDefault))
+(def default-char-set "UTF-8")
 (def document-root
   (let [relative-path (.getPath file-system relative-document-root (into-array [""]))]
     (str (.toRealPath relative-path (into-array LinkOption [])))))
@@ -26,7 +27,7 @@
     (let [input (io/input-stream socket)
           output (io/output-stream socket)
           request-line (bytes->str (read-line input))
-          path (get-request-path request-line)
+          path (URLDecoder/decode (get-request-path request-line) default-char-set)
           ext (get-ext path)
           host (get-host (bytes->str (read-line input)))
           fs (FileSystems/getDefault)
