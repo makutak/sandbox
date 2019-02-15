@@ -1,0 +1,8 @@
+.error, .code {
+  font-size: 1600% !important;
+  font-weight: bold;
+}
+
+.message {
+  font-size: 400%;
+}

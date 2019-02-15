@@ -1,0 +1,8 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/2.7.15rc1
+Date: Mon, 21 Jan 2019 13:06:22 GMT
+Content-type: text/html
+Content-Length: 44
+Last-Modified: Mon, 21 Jan 2019 12:57:48 GMT
+
+<html><body><h1>It works!</h1></body></html>

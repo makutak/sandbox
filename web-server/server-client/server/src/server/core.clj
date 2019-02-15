@@ -6,23 +6,23 @@
 (defn server
   [port-number]
   (try
+    (println "クライアントからの接続を待ちます。")
     (let [server (ServerSocket. port-number)
           fos (FileOutputStream. "server_recv.txt")
-          fis (FileInputStream. "server_send.txt")]
-      (println "クライアントからの接続を待ちます。")
-      (let [socket (.accept server)
-            input (.getInputStream socket)
-            output (.getOutputStream socket)]
-        (println "クライアント接続。")
-        (loop [ch (.read input)]
-          (when (not (= 0 ch))
-            (.write fos ch)
-            (recur (.read input))))
-        (loop [ch (.read fis)]
-          (when (not (= -1 ch))
-            (.write output ch)
-            (recur (.read fis))))
-        (.close socket)))
+          fis (FileInputStream. "server_send.txt")
+          socket (.accept server)
+          input (.getInputStream socket)
+          output (.getOutputStream socket)]
+      (println "クライアント接続。")
+      (loop [ch (.read input)]
+        (when (not (= 0 ch))
+          (.write fos ch)
+          (recur (.read input))))
+      (loop [ch (.read fis)]
+        (when (not (= -1 ch))
+          (.write output ch)
+          (recur (.read fis))))
+      (.close socket))
     (catch Exception ex
       (.printStackTrace ex))))
 
