@@ -9,7 +9,7 @@
   (try
     (let [server (ServerSocket. port)
           socket (.accept server)
-          fos (FileOutputStream. "server_recv.txt")
+          fos (FileOutputStream. "multipart_form-data_server_recv.txt")
           input (.getInputStream socket)]
       (loop [ch (.read input)]
         (when (not= ch -1)
