@@ -1,0 +1,99 @@
+POST /PostTest.cgi HTTP/1.1
+Host: localhost:8001
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: ja
+Accept-Encoding: gzip, deflate
+Referer: http://localhost:8000/multipart_form-data_post.html
+Content-Type: multipart/form-data; boundary=---------------------------1316864303241046413258020510
+Content-Length: 3090
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Pragma: no-cache
+Cache-Control: no-cache
+
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="text_name"
+
+テキストボックス
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="password_name"
+
+thi_is_password
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="textarea_name"
+
+ここはテキストエリアです
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="radio_name"
+
+radio4
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="check_name"
+
+check1
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="check_name"
+
+check2
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="check_name"
+
+check3
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="check_name"
+
+check4
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="hidden_name"
+
+hidden_value日本語
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="file_name"; filename="multipart_form-data_post.html"
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>テストフォーム</title>
+  </head>
+  <body>
+    <form action="http://localhost:8001/PostTest.cgi" method="post" enctype="multipart/form-data">
+      テキストボックス：<input type="text" name="text_name"/><br/>
+      パスワード：<input type="password" name="password_name"/><br/>
+      テキストエリア：<br/>
+      <textarea name="textarea_name" rows="4" cols="40">
+      </textarea>
+      <table border="1">
+        <tr>
+          <td>
+            ラジオボタン：<br/>
+            <input type="radio" name="radio_name" value="radio1">1</input>
+            <input type="radio" name="radio_name" value="radio2">2</input>
+            <input type="radio" name="radio_name" value="radio3">3</input>
+            <input type="radio" name="radio_name" value="radio4">4</input>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            チェックボックス：<br/>
+            <input type="checkbox" name="check_name" value="check1">1</input>
+            <input type="checkbox" name="check_name" value="check2">2</input>
+            <input type="checkbox" name="check_name" value="check3">3</input>
+            <input type="checkbox" name="check_name" value="check4">4</input>
+          </td>
+        </tr>
+      </table>
+      <input type="hidden" name="hidden_name" value="hidden_value日本語"/>
+      <input type="file" name="file_name"/><br/>
+      <input type="submit" name="submit_name" value="送るよ!"/>
+    </form>
+  </body>
+</html>
+
+-----------------------------1316864303241046413258020510
+Content-Disposition: form-data; name="submit_name"
+
+送るよ!
+-----------------------------1316864303241046413258020510--
