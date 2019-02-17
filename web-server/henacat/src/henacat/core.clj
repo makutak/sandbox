@@ -1,4 +1,5 @@
 (ns henacat.core
+  (:import [javax.servlet.http HttpServlet HttpServletRequest HttpServletResponse])
   (:gen-class))
 
 (defn -main
