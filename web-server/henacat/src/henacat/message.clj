@@ -1,5 +1,6 @@
 (ns henacat.message
-  (:gen-class))
+  (:gen-class
+   :name henacat.Message))
 
 (defn message
   []
