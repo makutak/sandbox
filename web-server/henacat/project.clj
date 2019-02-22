@@ -8,7 +8,7 @@
   :target-path "target/%s"
   :aot [henacat.test_BBS
         henacat.message]
-  :resource-paths ["lib/*"]
+  ;; :resource-paths ["lib/*"]
   :profiles
   {:dev {:dependencies [[javax.servlet/javax.servlet-api "3.1.0"]]}
    :uberjar {:aot :all}})
