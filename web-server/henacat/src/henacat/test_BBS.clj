@@ -7,11 +7,6 @@
 
 (defn -servlet
   [this ^HttpServletRequest request ^HttpServletResponse response]
-  )
-
-
-(defn -doGet
-  [this ^HttpServletRequest request ^HttpServletResponse response]
   (.setContentType response "text/html;charset=UTF-8")
   (let [out (.getWriter response)]
     (.println out "<html>")
@@ -21,3 +16,8 @@
     (.println out "<h1>hello world</h1>")
     (.println out "</body>")
     (.println out "</html>")))
+
+
+(defn -doGet
+  [this ^HttpServletRequest request ^HttpServletResponse response]
+  (-servlet this request response))
