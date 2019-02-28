@@ -5,7 +5,8 @@
    :main false
    :extends javax.servlet.http.HttpServlet))
 
-(defn -doGet [this request response]
+(defn -doGet
+  [this request response]
   (.setContentType response "text/html; charset=UTF-8")
   (let [out (.getWriter response)]
     (.println out "<html>")
@@ -22,3 +23,8 @@
     (.println out "<hr />")
     (.println out "</body>")
     (.println out "</html>")))
+
+(defn -doPost
+  [this request response]
+  (.setCharacterEncoding response "UTF-8")
+  (-doGet this request response))
