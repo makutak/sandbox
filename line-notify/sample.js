@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { URLSearchParams } = require('url');
-const querystring = require('querystring')
+const querystring = require('querystring');
 
 const token = 'ここにtokenが入る';
 
