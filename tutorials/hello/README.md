@@ -1,7 +1,7 @@
 shadow-cljs tutorials
 ==
 
-### connect cider
+### connect cider (node)
 * ```shadow-cljs watch app```
 
 * open emacs
