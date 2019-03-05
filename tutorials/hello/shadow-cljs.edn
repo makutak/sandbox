@@ -5,9 +5,11 @@
   "src/test"]
 
  :dependencies
- []
+ [[cider/cider-nrepl "0.21.1"]]
+
+ :nrepl {:port 8888}
 
  :builds
  {:app {:target :node-script
         :output-to "target/main.js"
-        :main hello.app/main!}}}
+        :main hello.app/-main}}}
