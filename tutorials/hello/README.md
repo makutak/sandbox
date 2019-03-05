@@ -5,7 +5,7 @@ shadow-cljs tutorials
 * ```shadow-cljs watch app```
 
 * open emacs
-** ```cider-connect``` -> ```localhost``` -> ```nrepl-port```
+  * ```cider-connect``` -> ```localhost``` -> ```nrepl-port```
 
 * if open cider-repl
-** (shadow.cljs.devtools.api/node-repl)
+  * (shadow.cljs.devtools.api/node-repl)
