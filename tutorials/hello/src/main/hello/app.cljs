@@ -1,5 +1,9 @@
 (ns hello.app)
 
-(defn main!
+(defn -main
   [& args]
   (println args))
+
+(defn foo
+  []
+  (println "foo"))
