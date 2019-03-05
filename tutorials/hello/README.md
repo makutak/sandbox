@@ -8,4 +8,4 @@ shadow-cljs tutorials
   * ```cider-connect``` -> ```localhost``` -> ```nrepl-port```
 
 * if open cider-repl
-  * (shadow.cljs.devtools.api/node-repl)
+  * ```(shadow.cljs.devtools.api/node-repl)```
