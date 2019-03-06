@@ -6,7 +6,7 @@
 
 (set! js/XMLHttpRequest xhr2)
 
-(def token "<Please Paset Line Api Token>")
+(def token "<Line Api Token>")
 
 (defn test-request
   []
