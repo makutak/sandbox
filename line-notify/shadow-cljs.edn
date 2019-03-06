@@ -1,0 +1,17 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src/dev"
+  "src/main"
+  "src/test"]
+
+ :dependencies
+ [[cider/cider-nrepl "0.21.1"]
+  [org.clojure/core.async "0.4.490"]
+  [cljs-http "0.1.46"]]
+
+ :nrepl {:port 8888}
+
+ :builds
+ {:line_notify {:target :node-script
+                :output-to "target/main.js"
+                :main line_notify.core/-main}}}
