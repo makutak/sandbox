@@ -5,7 +5,9 @@
   "src/test"]
 
  :dependencies
- [[cider/cider-nrepl "0.21.1"]]
+ [[cider/cider-nrepl "0.21.1"]
+  [org.clojure/core.async "0.4.490"]
+  [cljs-http "0.1.46"]]
 
  :nrepl {:port 8888}
 
