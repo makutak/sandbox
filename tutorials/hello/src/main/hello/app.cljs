@@ -6,6 +6,7 @@
 
 (set! js/XMLHttpRequest xhr2)
 
+(def token "<Please Paset Line Api Token>")
 
 (defn test-request
   []
@@ -13,6 +14,16 @@
         (prn (:status response))
         (prn (:body response)))))
 
+(defn notify
+  []
+  (go (let [response (<! (http/post "https://notify-api.line.me/api/notify"
+                                    {:with-credentials? false?
+                                     :headers {"Authorization"
+                                               (str "Bearer "
+                                                    token)}
+                                     :form-params {:message "Hello ClojureScript!!"}}))]
+        (prn (:status response))
+        (prn (:body response)))))
 
 (defn -main
   [& args]
