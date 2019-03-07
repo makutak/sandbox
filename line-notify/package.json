@@ -5,5 +5,7 @@
   "devDependencies": {
     "shadow-cljs": "2.8.14"
   },
-  "dependencies": {}
+  "dependencies": {
+    "xhr2": "^0.1.4"
+  }
 }
