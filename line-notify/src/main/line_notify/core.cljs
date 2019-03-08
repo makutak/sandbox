@@ -5,5 +5,5 @@
             [cljs-http.client :as http]))
 
 (defn -main
-  []
-  (println "line-notify!!"))
+  [& args]
+  (println args))
