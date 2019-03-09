@@ -6,4 +6,8 @@
 
 (defn -main
   [& args]
-  (println args))
+  (cond
+    (= (first args) "--help") (prn "help")
+    (= (first args) "--config") (prn "config")
+    (= (first args) "--message") (prn "message")
+    :else (prn "see help")))
