@@ -7,9 +7,9 @@
             [clojure.string :as s]))
 
 (def cli-options
-  [["-h" "--help"]
-   ["-m" "--message"]
-   ["-c" "--config"]])
+  [["-h" "--help" "Show help"]
+   ["-m" "--message" "You want to send message"]
+   ["-c" "--config" "Your LINE API Token"]])
 
 
 (defn usage
@@ -22,9 +22,16 @@
            options-summary
            ""]))
 
+(defn notify
+  [token message]
+  (println token message))
+
 (defn -main
   [& args]
-  (let [{:keys [options summary]} (parse-opts args cli-options)]
+  (let [{:keys [options summary arguments]} (parse-opts args cli-options)]
+    (println  (parse-opts args cli-options))
+    (println arguments)
     (cond
       (:help options) (println (usage summary))
+      (and (:config options) (:message options)) (notify (:config options) (:message options))
       :else (println "this is line-notify!"))))
