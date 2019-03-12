@@ -62,4 +62,4 @@
     (cond
       (:help options) (println (usage summary))
       (and (:token options) (:message options)) (notify args)
-      :else (println "this is line-notify!"))))
+      :else (println (usage summary)))))
