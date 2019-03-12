@@ -47,7 +47,6 @@
                                                (str "Bearer "
                                                     token)}
                                      :form-params {:message message}}))]
-        (prn (:status response))
         (prn (:body response)))))
 
 (defn notify
@@ -55,9 +54,6 @@
   (let [config (arg-map args)
         token (:token config)
         message (:message config)]
-    (println config)
-    (println token)
-    (println message)
     (send-message token message)))
 
 (defn -main
