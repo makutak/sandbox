@@ -59,9 +59,13 @@
     (send-message token message)))
 
 
+(defn make-config-dir
+  []
+  (fs/mkdirSync (str js/__dirname "/config")))
+
 (defn set-token
   [token]
-  (fs/mkdirSync (str js/__dirname "/config"))
+  (make-config-dir)
   (let [w (fs/createWriteStream  (str js/__dirname "/config/token.json") {:encoding "utf8"})]
     (.write w (.stringify js/JSON (clj->js {:token token})))))
 
