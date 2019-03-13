@@ -1,6 +1,7 @@
 (ns line_notify.core
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require ["xhr2" :as xhr2]
+            ["fs" :as fs]
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
             [clojure.tools.cli :refer [parse-opts]]
@@ -57,11 +58,18 @@
         message (:message config)]
     (send-message token message)))
 
+
+(defn set-token
+  [token]
+  (fs/mkdirSync (str js/__dirname "/config"))
+  (let [w (fs/createWriteStream  (str js/__dirname "/config/token.json") {:encoding "utf8"})]
+    (.write w (.stringify js/JSON (clj->js {:token token})))))
+
 (defn -main
   [& args]
   (let [{:keys [options summary arguments]} (parse-opts args cli-options)]
     (cond
       (:help options) (println (usage summary))
-      (and (:set options) (not (empty? arguments))) (println (first arguments))
+      (and (:set options) (not (empty? arguments))) (set-token (first arguments))
       (and (:token options) (:message options)) (notify args)
       :else (println (usage summary)))))
