@@ -9,8 +9,9 @@
 
 (def cli-options
   [["-h" "--help" "Show help"]
-   ["-m" "--message" "You want to send message"]
-   ["-t" "--token" "Your LINE API Token"]])
+   ["-m" "--message" "You want to send message."]
+   ["-t" "--token" "Your LINE API Token."]
+   ["-s" "--set" "Your LINE API Token that you want to set config file."]])
 
 (defn usage
   [options-summary]
@@ -61,5 +62,6 @@
   (let [{:keys [options summary arguments]} (parse-opts args cli-options)]
     (cond
       (:help options) (println (usage summary))
+      (and (:set options) (not (empty? arguments))) (println (first arguments))
       (and (:token options) (:message options)) (notify args)
       :else (println (usage summary)))))
