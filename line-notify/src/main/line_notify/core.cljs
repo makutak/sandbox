@@ -5,7 +5,8 @@
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
             [clojure.tools.cli :refer [parse-opts]]
-            [clojure.string :as s]))
+            [clojure.string :as s]
+            [cljs-node-io.core :as io :refer [spit]]))
 (set! js/XMLHttpRequest xhr2)
 
 (def cli-options
@@ -60,9 +61,11 @@
 
 (defn set-token
   [token]
-  (let [w (fs/createWriteStream  (str js/__dirname "/token.json") {:encoding "utf8"})]
-    (println token)
-    (.write w (.stringify js/JSON (clj->js {:token token})))))
+  (go
+    (let [[err] (<! (io/aspit "token.json" {:token token}))]
+      (if-not err
+        (println "you've successfully written to 'token.json'")
+        (println "there was an error writing: " err)))))
 
 (defn -main
   [& args]
