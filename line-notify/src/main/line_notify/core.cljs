@@ -62,7 +62,7 @@
 (defn set-token
   [token]
   (go
-    (let [[err] (<! (io/aspit "token.json" {:token token}))]
+    (let [[err] (<! (io/aspit "config/token.json" {:token token}))]
       (if-not err
         (println "you've successfully written to 'token.json'")
         (println "there was an error writing: " err)))))
