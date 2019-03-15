@@ -47,8 +47,7 @@
   (go (let [response (<! (http/post "https://notify-api.line.me/api/notify"
                                     {:with-credentials? false?
                                      :headers {"Authorization"
-                                               (str "Bearer "
-                                                    token)}
+                                               (str "Bearer " token)}
                                      :form-params {:message message}}))]
         (prn (:body response)))))
 
