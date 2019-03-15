@@ -1,12 +1,12 @@
 (ns line_notify.core
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require ["xhr2" :as xhr2]
-            ["fs" :as fs]
             [cljs.core.async :refer [<!]]
             [cljs-http.client :as http]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.string :as s]
-            [cljs-node-io.core :as io :refer [spit]]))
+            [cljs-node-io.core :as io]
+            [cljs-node-io.fs :as fs]))
 (set! js/XMLHttpRequest xhr2)
 
 (def cli-options
@@ -66,6 +66,14 @@
         (println "you've successfully written to 'token.json'")
         (println "there was an error writing: " err)))))
 
+(defn read-token-and-send
+  [message]
+  (go
+    (let [[err res] (<! (io/aslurp "config/token.json"))]
+      (if-not err
+        (send-message (:token (js->clj (.parse js/JSON res) :keywordize-keys true)) message)
+        (println err)))))
+
 (defn -main
   [& args]
   (let [{:keys [options summary arguments]} (parse-opts args cli-options)]
@@ -73,4 +81,5 @@
       (:help options) (println (usage summary))
       (and (:set options) (not (empty? arguments))) (set-token (first arguments))
       (and (:token options) (:message options)) (notify args)
+      (and (:message options) (not (empty? arguments))) (read-token-and-send (first arguments))
       :else (println (usage summary)))))
