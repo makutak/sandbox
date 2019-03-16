@@ -58,8 +58,8 @@
         message (:message config)]
     (send-message token message)))
 
-(defn exist-dir?
-  []
+(defn make-config-dir
+  [token]
   ())
 
 (defn set-token
