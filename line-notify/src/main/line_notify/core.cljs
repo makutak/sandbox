@@ -9,6 +9,12 @@
             [cljs-node-io.fs :as fs]))
 (set! js/XMLHttpRequest xhr2)
 
+(declare set-token
+         make-config-dir
+         read-token-and-send
+         notify
+         send-message)
+
 (def cli-options
   [["-h" "--help" "Show help"]
    ["-m" "--message" "You want to send message."]
