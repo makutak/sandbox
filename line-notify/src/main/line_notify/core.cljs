@@ -58,6 +58,10 @@
         message (:message config)]
     (send-message token message)))
 
+(defn exist-dir?
+  []
+  ())
+
 (defn set-token
   [token]
   (go
