@@ -66,15 +66,19 @@
 
 (defn make-config-dir
   [token]
-  ())
+  (go
+    (let [[err] (<! (fs/amkdir "config"))]
+      (if-not err
+        (set-token token)
+        (println err)))))
 
 (defn set-token
   [token]
   (go
-    (let [[err] (<! (io/aspit "config/token.json" {:token token}))]
+    (let [[err] (<! (io/aspit "config/token.json" (.stringify js/JSON (clj->js {:token token})) ))]
       (if-not err
         (println "you've successfully written to 'token.json'")
-        (println "there was an error writing: " err)))))
+        (make-config-dir token)))))
 
 (defn read-token-and-send
   [message]
