@@ -24,6 +24,8 @@
     (.println out "</body>")
     (.println out "</html>")))
 
+
+;; TODO: 投稿内容を保存し、掲示板に戻る。
 (defn -doPost
   [this request response]
   (.setCharacterEncoding response "UTF-8")
