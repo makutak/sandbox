@@ -1,0 +1,11 @@
+{
+  "name": "line-notify",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "shadow-cljs": "2.8.14"
+  },
+  "dependencies": {
+    "xhr2": "^0.1.4"
+  }
+}
