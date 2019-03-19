@@ -1,13 +1,16 @@
 (ns test-bbs.core
-  (:import [javax.servlet.http.HttpServlet])
+  (:import [javax.servlet.http.HttpServlet]
+           [java.util ArrayList])
   (:gen-class
    :name TestBBS
    :main false
    :extends javax.servlet.http.HttpServlet))
 
-(defn messges
+(def +message-list+ (ArrayList. []))
+
+(defn add-messges
   [message]
-  (println message))
+  (.add +message-list+ message))
 
 (defn -doGet
   [this request response]
