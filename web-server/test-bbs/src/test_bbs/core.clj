@@ -5,6 +5,10 @@
    :main false
    :extends javax.servlet.http.HttpServlet))
 
+(defn messges
+  [message]
+  (println message))
+
 (defn -doGet
   [this request response]
   (.setContentType response "text/html; charset=UTF-8")
