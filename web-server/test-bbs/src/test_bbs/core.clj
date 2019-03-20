@@ -7,18 +7,21 @@
    :main false
    :extends javax.servlet.http.HttpServlet))
 
-(def +message-list+ (ArrayList. []))
+(def +message-list+ (ArrayList.))
 
 (defn add-messges
   [message]
-  (.add +message-list+ message))
+  (.add +message-list+ 0 message))
 
 (defn -doGet
   [this request response]
   (.setContentType response "text/html; charset=UTF-8")
   (let [out (.getWriter response)]
+    (.println out "<!DOCTYPE html>")
+    (.println out "<html lang='ja'>")
     (.println out "<html>")
     (.println out "<head>")
+    (.println out "<meta charset='utf-8'/>")
     (.println out "<title>テスト掲示板</title>")
     (.println out "</head>")
     (.println out "<body>")
@@ -43,10 +46,10 @@
     {:handle handle
      :message message}))
 
-;; TODO: 投稿内容を保存し、掲示板に戻る。
+
 (defn -doPost
   [this request response]
-  (.setCharacterEncoding response "UTF-8")
+  (.setCharacterEncoding request "UTF-8")
   (let [new-message (parse-params request)]
     (add-messges new-message))
   (-doGet this request response))
