@@ -13,6 +13,13 @@
   [message]
   (.add +message-list+ 0 message))
 
+(defn html-escape
+  [src]
+  (-> src
+      (s/replace #"&" "&amp")
+      (s/replace #"<" "&lt")
+      (s/replace #">" "&gt")))
+
 (defn -doGet
   [this request response]
   (.setContentType response "text/html; charset=UTF-8")
@@ -32,9 +39,9 @@
     (.println out "<input type='submit' />")
     (.println out "</form>")
     (doseq [message +message-list+]
-      (.println out (str "<p>" (:handle message) " さん" "</p>"))
+      (.println out (str "<p>" (html-escape (:handle message)) " さん" "</p>"))
       (.println out "<p>")
-      (.println out (s/replace (:message message) "\n" "<br>"))
+      (.println out (s/replace (html-escape (:message message)) "\n" "<br>"))
       (.println out (str "</p>" "<hr />")))
     (.println out "</body>")
     (.println out "</html>")))
