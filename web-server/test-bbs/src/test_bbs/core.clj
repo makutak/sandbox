@@ -33,7 +33,6 @@
       (.println out "<p>")
       (.println out (s/replace (:message message) "\n" "<br>"))
       (.println out (str "</p>" "<hr />")))
-    (.println out "<hr />")
     (.println out "</body>")
     (.println out "</html>")))
 
