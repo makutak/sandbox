@@ -1,6 +1,7 @@
 (ns test-bbs.core
   (:import [javax.servlet.http.HttpServlet]
            [java.util ArrayList])
+  (:require [clojure.string :as s])
   (:gen-class
    :name TestBBS
    :main false
@@ -27,13 +28,26 @@
     (.println out "<textarea name='message' rows='4' cols='60'></textarea><br/>")
     (.println out "<input type='submit' />")
     (.println out "</form>")
+    (doseq [message +message-list+]
+      (.println out (str "<p>" (:handle message) " さん" "</p>"))
+      (.println out "<p>")
+      (.println out (s/replace (:message message) "\n" "<br>"))
+      (.println out (str "</p>" "<hr />")))
     (.println out "<hr />")
     (.println out "</body>")
     (.println out "</html>")))
 
+(defn parse-params
+  [request]
+  (let [handle (.getParameter request "handle")
+        message(.getParameter request "message")]
+    {:handle handle
+     :message message}))
 
 ;; TODO: 投稿内容を保存し、掲示板に戻る。
 (defn -doPost
   [this request response]
   (.setCharacterEncoding response "UTF-8")
+  (let [new-message (parse-params request)]
+    (add-messges new-message))
   (-doGet this request response))
