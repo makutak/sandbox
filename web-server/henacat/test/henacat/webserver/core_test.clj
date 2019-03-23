@@ -1,6 +1,6 @@
-(ns henacat.core-test
+(ns henacat.webserver.core-test
   (:require [clojure.test :refer :all]
-            [henacat.core :refer :all]))
+            [henacat.webserver.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
