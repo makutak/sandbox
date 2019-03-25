@@ -80,7 +80,8 @@
 
 
 
-  :profiles {:dev {:repl-options {:init-ns reagent-tutorial.repl}
+  :profiles {:dev {:repl-options {:init-ns reagent-tutorial.repl
+                                  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
                    :dependencies [[cider/piggieback "0.4.0"]
                                   [binaryage/devtools "0.9.10"]
                                   [ring/ring-mock "0.3.2"]
@@ -89,7 +90,7 @@
                                   [figwheel-sidecar "0.5.18"]
                                   [nrepl "0.6.0"]
                                   [pjstadig/humane-test-output "0.9.0"]
-                                  
+
  ]
 
                    :source-paths ["env/dev/clj"]
