@@ -96,12 +96,19 @@
   [:div.commentForm
    "Hello, world! I am a CommentForm"])
 
+(defn comment-item
+  [author & children]
+  (into
+   [:div.comment
+    [:h2.commentAuthor author]]
+   children))
+
 (defn comment-box
   []
   [:div.commentBox
-   [:h1 "Comments"]
-   [comment-list]
-   [comment-form]])
+   [comment-item "Pate Hunt" "This is one comment"]
+   [comment-item "Jordan Walke" "This is *author* comment"]
+   [comment-item "author" "children"]])
 
 
 ;; -------------------------
