@@ -1,12 +1,13 @@
 body {
   font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 600px;
-  margin: 0 auto;
-  padding-top: 72px;
+  margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   font-size: 1.125em;
   color: #333;
   line-height: 1.5em;
+  height: 100%;
+  width: 100%;
 }
 
 h1, h2, h3 {
@@ -31,4 +32,15 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+#app {
+  width: inherit;
+  height: inherit;
+}
+
+.leaflet-container {
+  width: inherit;
+  height: 600px;
+  margin: 10px;
 }
