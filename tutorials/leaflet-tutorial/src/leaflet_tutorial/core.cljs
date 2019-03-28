@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [react-leaflet :refer [Map TileLayer Marker Popup]]))
 
-(def position [51.505 -0.09])
+(def position [35.689236 139.735744])
 
 ;; -------------------------
 ;; Views
