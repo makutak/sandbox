@@ -97,18 +97,17 @@
    "Hello, world! I am a CommentForm"])
 
 (defn comment-item
-  [author & children]
-  (into
-   [:div.comment
-    [:h2.commentAuthor author]]
-   children))
+  [props & children]
+  [:div.comment
+   (into [:p.commentAuthoer {:style (:style props)} (:author props)]
+         children)])
 
 (defn comment-box
   []
   [:div.commentBox
-   [comment-item "Pate Hunt" "This is one comment"]
-   [comment-item "Jordan Walke" "This is *author* comment"]
-   [comment-item "author" "children"]])
+   [comment-item {:author "Pete Hunt"} "This is one comment"]
+   [comment-item {:author "Jordan Walke" :style {:font-weight 'bold}} "This is *author* comment"]
+   [comment-item {:author "author" :style {:color "#FF0000"}} "This is my comment"]])
 
 
 ;; -------------------------
