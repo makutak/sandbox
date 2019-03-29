@@ -5,6 +5,12 @@
 (def data [{:author "Pete Hunt", :text "This is one comment"}
            {:author "Jordan Walke", :text "This is *another* comment"}])
 
+(defn comment-item
+  [author & children]
+  (into [:div.comment
+         [:h2.commentAuthor author]]
+        children))
+
 (defn comment-list
   [data]
   [:div.commentList
@@ -16,11 +22,6 @@
   [:div.commentForm
    "Hello, world! I am a CommentForm"])
 
-(defn comment-item
-  [author & children]
-  (into [:div.comment
-         [:h2.commentAuthor author]]
-        children))
 
 (defn comment-box
   []
