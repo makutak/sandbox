@@ -7,7 +7,6 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/clojurescript "1.10.520"]
                  [reagent "0.8.1"]
-                 [cljsjs/leaflet "1.4.0-0"]
                  [cljsjs/react-leaflet "2.0.1-0"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
