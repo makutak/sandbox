@@ -1,6 +1,6 @@
 (ns reagent-tutorial.core
   (:require
-   [reagent.core :as reagent]))
+   [reagent.core :as reagent :refer [atom]]))
 
 (def data [{:author "Pete Hunt", :text "This is one comment"}
            {:author "Jordan Walke", :text "This is *another* comment"}])
@@ -14,7 +14,7 @@
 (defn comment-list
   [data]
   [:div.commentList
-   (for [comment data]
+   (for [comment @data]
      [comment-item (:author comment) (:text comment)])])
 
 (defn comment-form
@@ -22,11 +22,15 @@
   [:div.commentForm
    "Hello, world! I am a CommentForm"])
 
-
 (defn comment-box
   []
-  [:div.commentBox
-   [comment-list data]])
+  (let [data (atom data)]
+    (println data)
+    (fn []
+      [:div.commentBox
+       [:h1 "Comments"]
+       [comment-list data]
+       [comment-form]])))
 
 ;; -------------------------
 ;; Initialize app
