@@ -2,10 +2,14 @@
   (:require
    [reagent.core :as reagent]))
 
+(def data [{:author "Pete Hunt", :text "This is one comment"}
+           {:author "Jordan Walke", :text "This is *another* comment"}])
+
 (defn comment-list
-  []
+  [data]
   [:div.commentList
-   "Hello, world! I am a CommentList"])
+   (for [comment data]
+     [comment-item (:author comment) (:text comment)])])
 
 (defn comment-form
   []
@@ -13,18 +17,15 @@
    "Hello, world! I am a CommentForm"])
 
 (defn comment-item
-  [props & children]
-  [:div.comment
-   (into [:p.commentAuthoer {:style (:style props)} (:author props)]
-         children)])
+  [author & children]
+  (into [:div.comment
+         [:h2.commentAuthor author]]
+        children))
 
 (defn comment-box
   []
   [:div.commentBox
-   [comment-item {:author "Pete Hunt"} "This is one comment"]
-   [comment-item {:author "Jordan Walke" :style {:font-weight 'bold}} "This is *author* comment"]
-   [comment-item {:author "author" :style {:color "#FF0000"}} "This is my comment"]])
-
+   [comment-list data]])
 
 ;; -------------------------
 ;; Initialize app
