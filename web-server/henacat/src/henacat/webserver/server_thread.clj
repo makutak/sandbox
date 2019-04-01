@@ -14,6 +14,7 @@
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
           path (nth path-and-query 0)
+          ext (util/get-ext path)
           query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)
           output (io/output-stream socket)
           ;; TODO: request methodを取得
@@ -22,7 +23,8 @@
       (println "request-line: " request-line)
       (println "reqUrl: " req-url)
       (println "path: " path)
-      (println "query: " query))
+      (println "query: " query)
+      (println "ext: " ext))
     (catch Exception e
       (.printStackTrace e))
     (finally
