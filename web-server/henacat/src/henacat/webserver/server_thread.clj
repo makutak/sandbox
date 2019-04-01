@@ -11,7 +11,7 @@
   (try
     (let [input (io/input-stream socket)
           request-line (util/bytes->str (util/read-line input))
-          req-url (URLDecoder/decode (util/get-request-path request-line) default-char-set)
+          req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
           path (nth path-and-query 0)
           query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)

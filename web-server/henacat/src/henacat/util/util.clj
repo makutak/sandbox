@@ -38,7 +38,7 @@
        (map #(char %))
        (apply str)))
 
-(defn get-request-path
+(defn get-request-url
   [request-line]
   (second (s/split request-line #" ")))
 
