@@ -1,4 +1,4 @@
-(ns henacat.servletimpl.server_thread
+(ns henacat.webserver.server_thread
   (:import [java.net Socket URLDecoder])
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
