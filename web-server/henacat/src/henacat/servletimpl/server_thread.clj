@@ -11,12 +11,18 @@
   (try
     (let [input (io/input-stream socket)
           request-line (util/bytes->str (util/read-line input))
-          path (URLDecoder/decode (util/get-request-path request-line) default-char-set)
+          req-url (URLDecoder/decode (util/get-request-path request-line) default-char-set)
+          path-and-query (s/split req-url #"\?")
+          path (nth path-and-query 0)
+          query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)
+          output (io/output-stream socket)
           ;; TODO: request methodを取得
-
           ]
-      (println request-line)
-      (println path))
+
+      (println "request-line: " request-line)
+      (println "reqUrl: " req-url)
+      (println "path: " path)
+      (println "query: " query))
     (catch Exception e
       (.printStackTrace e))
     (finally
