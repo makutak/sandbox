@@ -1,6 +1,6 @@
 (ns henacat.webserver.core
   (:import [java.net ServerSocket])
-  (:require [henacat.servletimpl.server_thread :refer [server-thread]])
+  (:require [henacat.webserver.server_thread :refer [server-thread]])
   (:gen-class))
 
 (defn -main
