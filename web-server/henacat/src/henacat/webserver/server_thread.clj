@@ -15,25 +15,37 @@
   (let [relative-path (.getPath file-system relative-document-root (into-array [""]))]
     (str (.toRealPath relative-path (into-array LinkOption [])))))
 
+
+(defn add-request-header
+  [line]
+  (let [colon-pos (s/index-of line ":")]
+    (if (not (nil? colon-pos))
+      {(keyword (s/upper-case (subs line 0 colon-pos))) (s/trim (subs line (+ colon-pos 1)))})))
+
 (defn server-thread
   [^Socket socket]
   (try
     (let [input (io/input-stream socket)
+          output (io/output-stream socket)
           request-line (util/bytes->str (util/read-line input))
+          ;; TODO: request methodを取得
+          request-header (add-request-header (util/bytes->str (util/read-line input)))
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
           path (nth path-and-query 0)
           ext (util/get-ext path)
           query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)
-          output (io/output-stream socket)
-          ;; TODO: request methodを取得
+          fs (FileSystems/getDefault)
+          path-obj (.getPath fs (str document-root path) (into-array [""]))
           ]
 
       (println "request-line: " request-line)
       (println "reqUrl: " req-url)
       (println "path: " path)
       (println "query: " query)
-      (println "ext: " ext))
+      (println "ext: " ext)
+      (println "path-obj: " path-obj)
+      (println "request-header: " request-header))
     (catch Exception e
       (.printStackTrace e))
     (finally
