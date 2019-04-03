@@ -41,12 +41,14 @@
           request-header (add-request-header {} (util/bytes->str (util/read-line input)))
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
-          path (nth path-and-query 0)
+          request-path (nth path-and-query 0)
+          path (if (s/ends-with? request-path "/") (str request-path "index.html") request-path)
           ext (util/get-ext path)
           query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)
           fs (FileSystems/getDefault)
           path-obj (.getPath fs (str document-root path) (into-array [""]))
           ]
+
 
       (println "request-line: " request-line)
       (println "method: " method)
