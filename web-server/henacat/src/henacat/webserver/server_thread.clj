@@ -17,10 +17,13 @@
 
 
 (defn add-request-header
-  [line]
+  [request-header line]
   (let [colon-pos (s/index-of line ":")]
     (if (not (nil? colon-pos))
-      {(keyword (s/upper-case (subs line 0 colon-pos))) (s/trim (subs line (+ colon-pos 1)))})))
+      (assoc request-header
+             (keyword (s/upper-case (subs line 0 colon-pos)))
+             (s/trim (subs line (+ colon-pos 1))))
+      request-header)))
 
 (defn server-thread
   [^Socket socket]
@@ -29,7 +32,7 @@
           output (io/output-stream socket)
           request-line (util/bytes->str (util/read-line input))
           ;; TODO: request methodを取得
-          request-header (add-request-header (util/bytes->str (util/read-line input)))
+          request-header (add-request-header {} (util/bytes->str (util/read-line input)))
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
           path (nth path-and-query 0)
