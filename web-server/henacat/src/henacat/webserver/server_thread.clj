@@ -25,6 +25,12 @@
              (s/trim (subs line (+ colon-pos 1))))
       request-header)))
 
+(defn get-request-method
+  [line]
+  (cond
+    (s/starts-with? line "GET") "GET"
+    (s/starts-with? line "POST") "POST"))
+
 (defn server-thread
   [^Socket socket]
   (try
@@ -32,6 +38,7 @@
           output (io/output-stream socket)
           request-line (util/bytes->str (util/read-line input))
           ;; TODO: request methodを取得
+          method (get-request-method request-line)
           request-header (add-request-header {} (util/bytes->str (util/read-line input)))
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
@@ -43,6 +50,7 @@
           ]
 
       (println "request-line: " request-line)
+      (println "method: " method)
       (println "reqUrl: " req-url)
       (println "path: " path)
       (println "query: " query)
