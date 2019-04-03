@@ -37,7 +37,6 @@
     (let [input (io/input-stream socket)
           output (io/output-stream socket)
           request-line (util/bytes->str (util/read-line input))
-          ;; TODO: request methodを取得
           method (get-request-method request-line)
           request-header (add-request-header {} (util/bytes->str (util/read-line input)))
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
