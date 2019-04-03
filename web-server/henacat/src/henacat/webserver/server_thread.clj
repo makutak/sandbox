@@ -4,7 +4,8 @@
            [java.nio.file FileSystems Files LinkOption NoSuchFileException])
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
-            [henacat.util.util :as util]))
+            [henacat.util.util :as util]
+            [henacat.util.send_response :as send_response]))
 
 (def relative-document-root "./resources")
 (def error-document-root "./resources/error")
@@ -48,8 +49,6 @@
           fs (FileSystems/getDefault)
           path-obj (.getPath fs (str document-root path) (into-array [""]))
           ]
-
-
       (println "request-line: " request-line)
       (println "method: " method)
       (println "reqUrl: " req-url)
@@ -57,7 +56,16 @@
       (println "query: " query)
       (println "ext: " ext)
       (println "path-obj: " path-obj)
-      (println "request-header: " request-header))
+      (println "request-header: " request-header)
+      (try
+        (let [real-path (.toRealPath path-obj (into-array LinkOption []))])
+        (try
+          (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+            (send_response/send-ok-response output fis ext))
+          (catch FileNotFoundException ex
+            (send_response/send-not-found-response output error-document-root)))
+        (catch NoSuchFileException ex
+          (send_response/send-not-found-response output error-document-root))))
     (catch Exception e
       (.printStackTrace e))
     (finally
