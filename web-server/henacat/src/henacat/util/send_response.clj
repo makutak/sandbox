@@ -7,7 +7,6 @@
 
 (defn send-ok-response
   [output-stream fis ext]
-  (println "send-ok-response")
   ;; response line
   (write-line output-stream "HTTP/1.1 200 OK")
   ;; response header
