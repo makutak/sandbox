@@ -32,6 +32,10 @@
     (s/starts-with? line "GET") "GET"
     (s/starts-with? line "POST") "POST"))
 
+(defn build-location
+  [host path]
+  (str "http://" (if (nil? host) server-name host) path))
+
 (defn server-thread
   [^Socket socket]
   (try
@@ -58,14 +62,34 @@
       (println "path-obj: " path-obj)
       (println "request-header: " request-header)
       (try
-        (let [real-path (.toRealPath path-obj (into-array LinkOption []))])
-        (try
-          (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
-            (send_response/send-ok-response output fis ext))
-          (catch FileNotFoundException ex
-            (send_response/send-not-found-response output error-document-root)))
+        (let [real-path (.toRealPath path-obj (into-array LinkOption []))
+              location (build-location (:HOST request-header) path)]
+          (println "real-path: " real-path)
+          (println "location: " location)
+          (cond
+            (not (s/starts-with? real-path document-root))
+            (do
+              (println "directory traversal")
+              (send_response/send-not-found-response output error-document-root))
+
+            (Files/isDirectory real-path (into-array LinkOption []))
+            (do
+              (println "redirect")
+              (send_response/send-move-permanently-response output location))
+
+            :else
+            (try
+              (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+                (println "ok!!!")
+                (send_response/send-ok-response output fis ext))
+              (catch FileNotFoundException ex
+                (do
+                  (println "not found!!")
+                  (send_response/send-not-found-response output error-document-root))))))
         (catch NoSuchFileException ex
-          (send_response/send-not-found-response output error-document-root))))
+          (do
+            (println "error!!!")
+            (send_response/send-not-found-response output error-document-root)))))
     (catch Exception e
       (.printStackTrace e))
     (finally
