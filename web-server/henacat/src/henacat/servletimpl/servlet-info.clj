@@ -6,6 +6,7 @@
 (defrecord ServletInfo [url-pattern servlet-directory servlet-className servlet])
 
 (defn make-servlet-info
+  "servlet-classname is jar file"
   [url-pattern servlet-directory servlet-classname]
   (.put servlet-collection
         url-pattern
