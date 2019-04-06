@@ -2,7 +2,8 @@
   (:import [java.nio.file FileSystems]
            [java.net URLClassLoader URL]
            [javax.servlet.http HttpServlet]
-           [java.util HashMap])
+           [java.util HashMap]
+           [java.lang StringBuilder])
   (:require [clojure.java.io :refer [as-url]]
             [clojure.string :as s]))
 
@@ -26,3 +27,14 @@
        parameter-map
        (s/split  string #"\&"))
       parameter-map)))
+
+(defn read->size
+  [input size]
+  (loop [ch (.read input)
+         sb (StringBuilder.)
+         read-size 0]
+    (when (and (< read-size size)
+               (not (= -1 ch)))
+      (.append sb (char ch))
+      (inc read-size))
+    (.toString sb)))
