@@ -18,7 +18,7 @@
 (defn string->map
   [string]
   (let [parameter-map {}]
-    (if (not (nil? string))
+    (if (not (empty? string))
       (reduce
        (fn [param-map param]
          (let [key-value (s/split param #"=")]
