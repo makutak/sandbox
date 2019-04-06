@@ -38,3 +38,6 @@
       (.append sb (char ch))
       (inc read-size))
     (.toString sb)))
+
+(defn doService
+  [method query info request-header input output])
