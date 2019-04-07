@@ -26,6 +26,16 @@
              (s/trim (subs line (+ colon-pos 1))))
       request-header)))
 
+(defn parse-request-header
+  [input]
+  (loop [line (util/bytes->str (util/read-line input))
+         request-header {}]
+    (if (not= (count line) 1)
+      (let [res (add-request-header request-header line)]
+        (recur (util/bytes->str (util/read-line input))
+               res))
+      request-header)))
+
 (defn get-request-method
   [line]
   (cond
@@ -43,7 +53,7 @@
           output (io/output-stream socket)
           request-line (util/bytes->str (util/read-line input))
           method (get-request-method request-line)
-          request-header (add-request-header {} (util/bytes->str (util/read-line input)))
+          request-header (parse-request-header input)
           req-url (URLDecoder/decode (util/get-request-url request-line) default-char-set)
           path-and-query (s/split req-url #"\?")
           request-path (nth path-and-query 0)
