@@ -40,4 +40,18 @@
     (.toString sb)))
 
 (defn doService
-  [method query info request-header input output])
+  [method query info request-header input output]
+  ;; (:servlet info) が nilなら create-servletする
+  ;; methodがGETのとき
+  ;;;; map = stringToMap(query);
+  ;;;; req = new HttpServletRequestImpl("GET", map);
+
+  ;; methodがPOSTのとき
+  ;;;; Content-Lengthを取得
+  ;;;; String line = readToSize(input, contentLength);
+  ;;;; req = new HttpServletRequestImpl("POST", map);
+
+  ;; HttpServletResponseImpl resp = new HttpServletResponseImpl(output);
+  ;; info.servlet.service(req, resp);
+  ;; resp.printWriter.flush();
+  )
