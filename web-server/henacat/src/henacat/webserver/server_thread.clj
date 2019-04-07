@@ -30,7 +30,7 @@
   [input]
   (loop [line (util/bytes->str (util/read-line input))
          request-header {}]
-    (if (not= (count line) 1)
+    (if (not= line "\r")
       (let [res (add-request-header request-header line)]
         (recur (util/bytes->str (util/read-line input))
                res))
