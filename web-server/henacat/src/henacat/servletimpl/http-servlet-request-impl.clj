@@ -8,3 +8,5 @@
 (defn -getMethod
   [this]
   (.method this))
+
+;; 実装したインターフェースでクラスのインスタンスを作りたい。。。
