@@ -42,6 +42,7 @@
 (defn doService
   [method query info request-header input output]
   ;; (:servlet info) が nilなら create-servletする
+
   ;; methodがGETのとき
   ;;;; map = stringToMap(query);
   ;;;; req = new HttpServletRequestImpl("GET", map);
