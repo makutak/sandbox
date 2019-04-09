@@ -9,4 +9,10 @@
   [this]
   (.method this))
 
+(defn -getParameter
+  [this ^String name])
+
+(defn -setCharacterEncoding
+  [this ^String env])
+
 ;; 実装したインターフェースでクラスのインスタンスを作りたい。。。
