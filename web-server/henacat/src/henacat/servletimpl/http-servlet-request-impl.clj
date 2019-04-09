@@ -16,3 +16,5 @@
   [this ^String env])
 
 ;; 実装したインターフェースでクラスのインスタンスを作りたい。。。
+;; implementsする意味あるのか・・・？
+;; defrecord と defprotocol でできるのでは・・・？
