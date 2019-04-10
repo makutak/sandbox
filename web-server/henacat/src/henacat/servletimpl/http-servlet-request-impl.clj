@@ -1,9 +1,9 @@
 (ns henacat.servletimpl.http-servlet-request-impl
-  (:import [javax.servlet.http.HttpServlet])
+  (:import [javax.servlet.http.HttpServletRequest])
   (:gen-class
    :name henacat.servletimpl.http-servlet-request-impl
    :main false
-   :implements [javax.servlet.http.HttpServlet]))
+   :implements [javax.servlet.http.HttpServletRequest]))
 
 (defn -getMethod
   [this]
