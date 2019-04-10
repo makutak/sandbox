@@ -1,5 +1,5 @@
 (ns henacat.servletimpl.http-servlet-request-impl
-  (:import [javax.servlet.http.HttpServletRequest])
+  (:import [javax.servlet.http HttpServletRequest])
   (:gen-class
    :name henacat.servletimpl.http-servlet-request-impl
    :main false
@@ -14,7 +14,3 @@
 
 (defn -setCharacterEncoding
   [this ^String env])
-
-;; 実装したインターフェースでクラスのインスタンスを作りたい。。。
-;; implementsする意味あるのか・・・？
-;; defrecord と defprotocol でできるのでは・・・？
