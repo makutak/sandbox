@@ -1,4 +1,4 @@
-(ns henacat.servletimpl.http-servlet-request-impl
+(ns henacat.servletimpl.http_servlet_request_impl
   (:import [java.net URLDecoder]
            [java.lang AssertionError]
            [java.io UnsupportedEncodingException]

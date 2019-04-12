@@ -1,4 +1,4 @@
-(ns henacat.servletimpl.servlet-service
+(ns henacat.servletimpl.servlet_service
   (:import [java.nio.file FileSystems]
            [java.net URLClassLoader URL]
            [javax.servlet.http HttpServlet]

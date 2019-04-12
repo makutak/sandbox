@@ -1,4 +1,4 @@
-(ns henacat.servletimpl.servlet-info
+(ns henacat.servletimpl.servlet_info
   (:import [java.util HashMap]))
 
 (def servlet-collection (HashMap.))
