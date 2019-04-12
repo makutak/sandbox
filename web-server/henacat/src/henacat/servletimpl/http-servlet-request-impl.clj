@@ -4,7 +4,6 @@
            [java.io UnsupportedEncodingException]
            [java.nio.charset Charset]))
 
-
 (defprotocol IHttpServletRequestImpl
   (get-method [this])
   (get-parameter [this key-name])
