@@ -2,7 +2,8 @@
   (:import [java.net URLDecoder]
            [java.lang AssertionError]
            [java.io UnsupportedEncodingException]
-           [java.nio.charset Charset]))
+           [java.nio.charset Charset])
+  (:refer-clojure :exclude [get-method]))
 
 (defprotocol IHttpServletRequestImpl
   (get-method [this])
