@@ -10,12 +10,10 @@
   (get-parameter [this key-name])
   (set-character-encoding [this env]))
 
-(defrecord HttpServletRequestImpl
-    [method character-encoding parameter-map]
+(defrecord HttpServletRequestImpl [method character-encoding parameter-map]
   IHttpServletRequestImpl
   (get-method [this]
     (:method this))
-
   (get-parameter [this key-name]
     (let [value ((keyword key-name) (:parameter-map this))]
       (try
@@ -23,12 +21,10 @@
           decoded)
         (catch UnsupportedEncodingException ex
           (throw (AssertionError. ex))))))
-
   (set-character-encoding [this env]
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
       (reset! (:character-encoding env)))))
-
 
 (defn make-http-servlet-request-impl
   [method parameter-map]
