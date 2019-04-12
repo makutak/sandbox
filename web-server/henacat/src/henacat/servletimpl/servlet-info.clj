@@ -10,7 +10,7 @@
   [url-pattern servlet-directory servlet-classname]
   (.put servlet-collection
         url-pattern
-        (new ServletInfo url-pattern servlet-directory servlet-classname nil)))
+        (new ServletInfo url-pattern servlet-directory servlet-classname (atom nil))))
 
 (defn add-servlet
   [url-pattern servlet-directory servlet-classname]
