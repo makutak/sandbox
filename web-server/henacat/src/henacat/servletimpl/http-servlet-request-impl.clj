@@ -26,6 +26,6 @@
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
       (reset! (:character-encoding env)))))
 
-(defn make-http-servlet-request-impl
+(defn make-HttpServletRequestImpl
   [method parameter-map]
   (new HttpServletRequestImpl method (atom nil) parameter-map))
