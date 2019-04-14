@@ -9,3 +9,7 @@
   (get-writer [this]))
 
 (defrecord HttpServletResponseImpl [content-type character-encoding output-stream print-writer])
+
+(defn make-HttpServletResponseImpl
+  [output]
+  (new HttpServletResponseImpl (atom nil) (atom nil) output (atom nil)))
