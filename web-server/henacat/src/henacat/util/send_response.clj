@@ -5,6 +5,16 @@
 
 (def not-found-page "/404.html")
 
+(defn send-ok-response-header
+  [writer content-type]
+  (.println writer "HTTP/1.1 200 OK")
+  ;; response header
+  (.println writer (str "Date: " (get-date-string-utc)))
+  (.println writer "Server: modoki")
+  (.println writer "Connection: close")
+  (.println writer (str "Content-type: " content-type))
+  (.println writer ""))
+
 (defn send-ok-response
   [output-stream fis ext]
   ;; response line
