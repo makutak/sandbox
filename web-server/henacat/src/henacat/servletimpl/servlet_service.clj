@@ -39,7 +39,7 @@
       (inc read-size))
     (.toString sb)))
 
-(defn doService
+(defn do-service
   [method query info request-header input output]
   ;; (:servlet info) が nilなら create-servletする
 
