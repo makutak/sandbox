@@ -14,10 +14,10 @@
 (defrecord HttpServletResponseImpl [content-type character-encoding output-stream print-writer]
   IHttpServletResponseImpl
   (set-character-encoding [this charset]
-    (reset! (:character-encoding charset)))
+    (reset! (:character-encoding this) charset))
 
   (set-content-type [this content-type]
-    (reset! (:content-type content-type))
+    (reset! (:content-type this) content-type)
     (let [tmp (s/split content-type #" *;")]
       (if (> (count tmp) 1)
         (let [keyValue (s/split (second tmp) #"=")]
@@ -26,7 +26,7 @@
             (set-character-encoding this (second keyValue)))))))
 
   (get-writer [this]
-    (reset! (:print-writer (OutputStreamWriter. (:output-stream this) (:character-encoding this))))
+    (reset! (:print-writer this) (OutputStreamWriter. (:output-stream this) (:character-encoding this)))
     (send-ok-response-header (:print-writer this) (:content-type this))
     (:print-writer this)))
 
