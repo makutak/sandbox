@@ -24,7 +24,7 @@
   (set-character-encoding [this env]
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
-      (reset! (:character-encoding env)))))
+      (reset! (:character-encoding this) env))))
 
 (defn make-HttpServletRequestImpl
   [method parameter-map]
