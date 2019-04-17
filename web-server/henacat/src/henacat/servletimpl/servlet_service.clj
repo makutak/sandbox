@@ -3,9 +3,11 @@
            [java.net URLClassLoader URL]
            [javax.servlet.http HttpServlet]
            [java.util HashMap]
-           [java.lang StringBuilder])
+           [java.lang StringBuilder AssertionError])
   (:require [clojure.java.io :refer [as-url]]
-            [clojure.string :as s]))
+            [clojure.string :as s]
+            [henacat.servletimpl.http_servlet_request_impl :refer [make-HttpServletRequestImpl]]
+            [henacat.servletimpl.http_servlet_response_impl :refer [make-HttpServletResponseImpl]]))
 
 (defn create-servlet
   [info]
@@ -45,14 +47,32 @@
   (when (= (nil? (:servlet info)))
     (reset! (:servlet info) (create-servlet info)))
 
-  ;; methodがGETのとき
-  ;;;; map = stringToMap(query);
-  ;;;; req = new HttpServletRequestImpl("GET", map);
+  (cond
+    ;; methodがGETのとき
+    ;;;; map = stringToMap(query);
+    ;;;; req = new HttpServletRequestImpl("GET", map);
+    (= method "GET")
+    (let [param-map (string->map query)
+          req (make-HttpServletRequestImpl "GET" param-map)
+          resp (make-HttpServletResponseImpl output)]
+      (.service (:servlet info) req resp)
+      (.flush (:print-wrter resp)))
 
-  ;; methodがPOSTのとき
-  ;;;; Content-Lengthを取得
-  ;;;; String line = readToSize(input, contentLength);
-  ;;;; req = new HttpServletRequestImpl("POST", map);
+    ;; methodがPOSTのとき
+    ;;;; Content-Lengthを取得
+    ;;;; String line = readToSize(input, contentLength);
+    ;;;; req = new HttpServletRequestImpl("POST", map);
+    (= method "POST")
+    (let [content-length (Integer. (:CONTENT-LENGTH request-header))
+          line (read->size input content-length)
+          param-map (string->map line)
+          req (make-HttpServletRequestImpl "POST" param-map)
+          resp (make-HttpServletResponseImpl output)]
+      (.service (:servlet info) req resp)
+      (.flush (:print-wrter resp)))
+
+    :else (AssertionError. (str "BAD METHOD:" method)))
+
 
   ;; HttpServletResponseImpl resp = new HttpServletResponseImpl(output);
   ;; info.servlet.service(req, resp);
