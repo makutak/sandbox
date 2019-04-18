@@ -17,7 +17,7 @@
   (get-parameter [this key-name]
     (let [value ((keyword key-name) (:parameter-map this))]
       (try
-        (let [decoded (URLDecoder/decode value (:character-encoding this))]
+        (let [decoded (URLDecoder/decode value @(:character-encoding this))]
           decoded)
         (catch UnsupportedEncodingException ex
           (throw (AssertionError. ex))))))
