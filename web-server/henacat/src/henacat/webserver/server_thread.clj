@@ -5,7 +5,8 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
             [henacat.util.util :as util]
-            [henacat.util.send_response :as send_response]))
+            [henacat.util.send_response :as send_response]
+            [henacat.servletimpl.servlet_info :refer [search-servlet]]))
 
 (def relative-document-root "./resources")
 (def error-document-root "./resources/error")
@@ -19,6 +20,7 @@
 
 (defn add-request-header
   [request-header line]
+  (println "servlet: " (search-servlet "/test-bbs/TestBBS"))
   (let [colon-pos (s/index-of line ":")]
     (if (not (nil? colon-pos))
       (assoc request-header
