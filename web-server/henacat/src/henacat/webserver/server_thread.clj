@@ -64,6 +64,7 @@
           query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)
           fs (FileSystems/getDefault)
           path-obj (.getPath fs (str document-root path) (into-array [""]))
+          servlet-info (search-servlet path)
           ]
       (println "request-line: " request-line)
       (println "method: " method)
@@ -73,6 +74,7 @@
       (println "ext: " ext)
       (println "path-obj: " path-obj)
       (println "request-header: " request-header)
+      (println "servlet-info: " servlet-info)
       (try
         (let [real-path (.toRealPath path-obj (into-array LinkOption []))
               location (build-location (:HOST request-header) path)]
