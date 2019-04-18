@@ -6,7 +6,8 @@
             [clojure.string :as s]
             [henacat.util.util :as util]
             [henacat.util.send_response :as send_response]
-            [henacat.servletimpl.servlet_info :refer [search-servlet]]))
+            [henacat.servletimpl.servlet_info :refer [search-servlet]]
+            [henacat.servletimpl.servlet_service :refer [do-service]]))
 
 (def relative-document-root "./resources")
 (def error-document-root "./resources/error")
@@ -64,7 +65,7 @@
           query (if (> (count path-and-query) 1) (nth path-and-query 1) nil)
           fs (FileSystems/getDefault)
           path-obj (.getPath fs (str document-root path) (into-array [""]))
-          servlet-info (search-servlet path)
+          servlet-info (search-servlet request-path)
           ]
       (println "request-line: " request-line)
       (println "method: " method)
@@ -75,35 +76,38 @@
       (println "path-obj: " path-obj)
       (println "request-header: " request-header)
       (println "servlet-info: " servlet-info)
-      (try
-        (let [real-path (.toRealPath path-obj (into-array LinkOption []))
-              location (build-location (:HOST request-header) path)]
-          (println "real-path: " real-path)
-          (println "location: " location)
-          (cond
-            (not (s/starts-with? real-path document-root))
-            (do
-              (println "directory traversal")
-              (send_response/send-not-found-response output error-document-root))
-
-            (Files/isDirectory real-path (into-array LinkOption []))
-            (do
-              (println "redirect")
-              (send_response/send-move-permanently-response output location))
-
-            :else
-            (try
-              (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
-                (println "ok!!!")
-                (send_response/send-ok-response output fis ext))
-              (catch FileNotFoundException ex
+      (if (not (nil? servlet-info))
+        (do-service method query servlet-info request-header input output)
+        (do
+          (try
+            (let [real-path (.toRealPath path-obj (into-array LinkOption []))
+                  location (build-location (:HOST request-header) path)]
+              (println "real-path: " real-path)
+              (println "location: " location)
+              (cond
+                (not (s/starts-with? real-path document-root))
                 (do
-                  (println "not found!!")
-                  (send_response/send-not-found-response output error-document-root))))))
-        (catch NoSuchFileException ex
-          (do
-            (println "error!!!")
-            (send_response/send-not-found-response output error-document-root)))))
+                  (println "directory traversal")
+                  (send_response/send-not-found-response output error-document-root))
+
+                (Files/isDirectory real-path (into-array LinkOption []))
+                (do
+                  (println "redirect")
+                  (send_response/send-move-permanently-response output location))
+
+                :else
+                (try
+                  (let [fis (io/input-stream (FileInputStream. (str document-root path)))]
+                    (println "ok!!!")
+                    (send_response/send-ok-response output fis ext))
+                  (catch FileNotFoundException ex
+                    (do
+                      (println "not found!!")
+                      (send_response/send-not-found-response output error-document-root))))))
+            (catch NoSuchFileException ex
+              (do
+                (println "error!!!")
+                (send_response/send-not-found-response output error-document-root)))))))
     (catch Exception e
       (.printStackTrace e))
     (finally
