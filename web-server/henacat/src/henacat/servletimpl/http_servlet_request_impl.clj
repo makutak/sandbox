@@ -3,15 +3,11 @@
            [java.lang AssertionError]
            [java.io UnsupportedEncodingException]
            [java.nio.charset Charset])
+  (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]])
   (:refer-clojure :exclude [get-method]))
 
-(defprotocol IHttpServletRequestImpl
-  (get-method [this])
-  (get-parameter [this key-name])
-  (set-character-encoding [this env]))
-
 (defrecord HttpServletRequestImpl [method character-encoding parameter-map]
-  IHttpServletRequestImpl
+  HttpServletRequest
   (get-method [this]
     (:method this))
   (get-parameter [this key-name]
