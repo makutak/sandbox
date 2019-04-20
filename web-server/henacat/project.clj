@@ -6,4 +6,6 @@
   :dependencies [[org.clojure/clojure "1.9.0"]]
   :main ^:skip-aot henacat.webserver.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :source-paths ["src/clojure"]
+  :java-source-paths ["src/java"])
