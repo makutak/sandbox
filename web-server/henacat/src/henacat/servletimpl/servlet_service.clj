@@ -1,11 +1,11 @@
 (ns henacat.servletimpl.servlet_service
   (:import [java.nio.file FileSystems]
            [java.net URLClassLoader URL]
-           [javax.servlet.http HttpServlet]
            [java.util HashMap]
            [java.lang StringBuilder AssertionError])
   (:require [clojure.java.io :refer [as-url]]
             [clojure.string :as s]
+            [henacat.servletinterfaces.http_servlet :refer [HttpServlet]]
             [henacat.servletimpl.http_servlet_request_impl :refer [make-HttpServletRequestImpl]]
             [henacat.servletimpl.http_servlet_response_impl :refer [make-HttpServletResponseImpl]]))
 
