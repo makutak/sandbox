@@ -5,6 +5,6 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [javax.servlet/javax.servlet-api "3.1.0"]
-                 [henacat "0.1.0-SNAPSHOT"]]
+                 [henacat "0.1.0"]]
   :aot [test-bbs.core]
   :repl-options {:init-ns test-bbs.core})
