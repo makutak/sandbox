@@ -1,6 +1,19 @@
-(ns henacat.servletinterfaces.http_servlet)
+(ns henacat.servletinterfaces.http_servlet
+  (:gen-class
+   :name henacat.servletinterfaces.HttpServlet
+   :main false
+   :methods [[doService [] void]
+             [doPost [] void]
+             [doGet [] void]]))
 
-(defprotocol HttpServlet
-  (do-get [this req res])
-  (do-post [this req res])
-  (service [this req res]))
+(defn -doService
+  [this]
+  (println this))
+
+(defn -doGet
+  [this]
+  (println this))
+
+(defn -doPost
+  [this]
+  (println this))
