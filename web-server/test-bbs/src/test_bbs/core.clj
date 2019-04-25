@@ -1,10 +1,12 @@
 (ns test-bbs.core
-  (:import [java.util ArrayList])
-  (:require [clojure.string :as s]
-            [henacat.servletinterfaces.http_servlet :refer [HttpServlet]])
+  (:import [javax.servlet.http.HttpServlet]
+           [java.util ArrayList]
+           [henacat.servletinterfaces.HttpServlet])
+  (:require [clojure.string :as s])
   (:gen-class
    :name TestBBS
-   :main false))
+   :main false
+   :extends henacat.servletinterfaces.HttpServlet))
 
 (def +message-list+ (ArrayList.))
 
@@ -19,7 +21,7 @@
       (s/replace #"<" "&lt")
       (s/replace #">" "&gt")))
 
-(defn doGet
+(defn -doGet
   [this request response]
   (.setContentType response "text/html; charset=UTF-8")
   (let [out (.getWriter response)]
@@ -53,9 +55,9 @@
      :message message}))
 
 
-(defn doPost
+(defn -doPost
   [this request response]
   (.setCharacterEncoding request "UTF-8")
   (let [new-message (parse-params request)]
     (add-messges new-message))
-  (doGet this request response))
+  (-doGet this request response))
