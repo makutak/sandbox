@@ -5,7 +5,7 @@
            [java.lang StringBuilder AssertionError])
   (:require [clojure.java.io :refer [as-url]]
             [clojure.string :as s]
-            [henacat.servletinterfaces.http_servlet :refer [HttpServlet]]
+            ;; [henacat.servletinterfaces.http_servlet :refer [HttpServlet]]
             [henacat.servletimpl.http_servlet_request_impl :refer [make-HttpServletRequestImpl]]
             [henacat.servletimpl.http_servlet_response_impl :refer [make-HttpServletResponseImpl]]))
 
@@ -16,7 +16,8 @@
         url (as-url (.toUri path-obj))
         loader (URLClassLoader/newInstance (into-array [url]))
         clazz (.loadClass loader (:servlet-className info))]
-    (cast HttpServlet (.newInstance clazz))))
+    (println (.newInstance clazz))
+    (.newInstance clazz)))
 
 (defn string->map
   [string]
