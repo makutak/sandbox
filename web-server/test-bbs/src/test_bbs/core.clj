@@ -55,15 +55,15 @@
 
 (defn parse-params
   [request]
-  (let [handle (.getParameter request "handle")
-        message(.getParameter request "message")]
+  (let [handle (.get-parameter request "handle")
+        message(.get-parameter request "message")]
     {:handle handle
      :message message}))
 
 
 (defn -doPost
   [this request response]
-  (.setCharacterEncoding request "UTF-8")
+  (.set-character-encoding request "UTF-8")
   (let [new-message (parse-params request)]
     (add-messges new-message))
   (-doGet this request response))
