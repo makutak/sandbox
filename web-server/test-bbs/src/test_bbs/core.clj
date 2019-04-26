@@ -1,12 +1,16 @@
 (ns test-bbs.core
   (:import [javax.servlet.http.HttpServlet]
            [java.util ArrayList]
-           [henacat.servletinterfaces.HttpServlet])
+)
   (:require [clojure.string :as s])
   (:gen-class
    :name TestBBS
    :main false
-   :extends henacat.servletinterfaces.HttpServlet))
+   :state state
+   :methods [[doGet [Object Object] void]
+             [doPost [Object Object] void]
+             [service [Object Object] void]]
+   ))
 
 (def +message-list+ (ArrayList.))
 
@@ -23,8 +27,10 @@
 
 (defn -doGet
   [this request response]
-  (.setContentType response "text/html; charset=UTF-8")
-  (let [out (.getWriter response)]
+  (.set-content-type response "text/html; charset=UTF-8")
+  (println "request: " request)
+  (println "response" response)
+  (let [out (.get-writer response)]
     (.println out "<!DOCTYPE html>")
     (.println out "<html lang='ja'>")
     (.println out "<html>")
@@ -61,3 +67,9 @@
   (let [new-message (parse-params request)]
     (add-messges new-message))
   (-doGet this request response))
+
+(defn -service
+  [this request response]
+  (println "this " this)
+  (println "request: " request)
+  (println "response: " response))
