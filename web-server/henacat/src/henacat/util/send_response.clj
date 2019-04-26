@@ -7,8 +7,6 @@
 
 (defn send-ok-response-header
   [writer content-type]
-  (println "send-oke-response-header")
-  (println "writer: " writer)
   (.println writer "HTTP/1.1 200 OK")
   ;; response header
   (.println writer (str "Date: " (get-date-string-utc)))

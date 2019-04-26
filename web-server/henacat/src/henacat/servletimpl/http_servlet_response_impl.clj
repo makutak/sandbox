@@ -19,16 +19,12 @@
         (let [key-value (s/split (second tmp) #"=")]
           (if (and (= (count key-value) 2)
                    (= (first key-value) "charset"))
-            (println "second key-value: " (second key-value))
             (.set-character-encoding this (second key-value)))))))
 
   (get-writer [this]
-    (println "output-stream: " (:output-stream this))
-    (println "character-encoding: " @(:character-encoding this))
     (reset! (:print-writer this) (PrintWriter. (OutputStreamWriter. (:output-stream this)
                                                                     @(:character-encoding this))))
     (send-ok-response-header @(:print-writer this) @(:content-type this))
-    (println "send-ok-response-header-is done!!")
     @(:print-writer this)))
 
 (defn make-HttpServletResponseImpl

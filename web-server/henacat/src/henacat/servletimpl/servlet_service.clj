@@ -70,8 +70,8 @@
           param-map (string->map line)
           req (make-HttpServletRequestImpl "POST" param-map)
           resp (make-HttpServletResponseImpl output)]
-      (.service @(:servlet info) req resp)
-      (.flush (:print-writer resp)))
+      (.doPost @(:servlet info) req resp)
+      (.flush @(:print-writer resp)))
 
     :else (AssertionError. (str "BAD METHOD:" method)))
 
