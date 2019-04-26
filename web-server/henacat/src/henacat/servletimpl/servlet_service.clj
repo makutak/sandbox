@@ -16,7 +16,7 @@
         url (as-url (.toUri path-obj))
         loader (URLClassLoader/newInstance (into-array [url]))
         clazz (.loadClass loader (:servlet-className info))]
-    (println (.newInstance clazz))
+    (println (.state (.newInstance clazz)))
     (.newInstance clazz)))
 
 (defn string->map
@@ -56,8 +56,9 @@
     (let [param-map (string->map query)
           req (make-HttpServletRequestImpl "GET" param-map)
           resp (make-HttpServletResponseImpl output)]
-      (.service @(:servlet info) req resp)
-      (.flush (:print-wrter resp)))
+      (.doGet @(:servlet info) req resp)
+      (println "print-writer: " @(:print-writer resp))
+      (.flush @(:print-writer resp)))
 
     ;; methodがPOSTのとき
     ;;;; Content-Lengthを取得
@@ -70,7 +71,7 @@
           req (make-HttpServletRequestImpl "POST" param-map)
           resp (make-HttpServletResponseImpl output)]
       (.service @(:servlet info) req resp)
-      (.flush (:print-wrter resp)))
+      (.flush (:print-writer resp)))
 
     :else (AssertionError. (str "BAD METHOD:" method)))
 
