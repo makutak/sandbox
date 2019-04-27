@@ -10,13 +10,18 @@
   HttpServletRequest
   (get-method [this]
     (:method this))
+
   (get-parameter [this key-name]
+    (println "get-paramter: " this)
+    (println "key-name: " key-name)
     (let [value ((keyword key-name) (:parameter-map this))]
+      (println "parameter-map: " (:parameter-map this))
       (try
         (let [decoded (URLDecoder/decode value @(:character-encoding this))]
           decoded)
         (catch UnsupportedEncodingException ex
           (throw (AssertionError. ex))))))
+
   (set-character-encoding [this env]
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))

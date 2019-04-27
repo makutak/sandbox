@@ -21,6 +21,7 @@
 
 (defn string->map
   [string]
+  (println "#### string->map ####")
   (let [parameter-map {}]
     (if (not (empty? string))
       (reduce
@@ -36,11 +37,18 @@
   (loop [ch (.read input)
          sb (StringBuilder.)
          read-size 0]
-    (when (and (< read-size size)
-               (not (= -1 ch)))
-      (.append sb (char ch))
-      (inc read-size))
-    (.toString sb)))
+    (println "ch: " ch " sb: " sb " read-size: " read-size)
+    (if (and (< read-size size)
+             (not (= -1 ch)))
+      (do
+        (println "read-size: " read-size)
+        (recur
+         (.read input)
+         (.append sb (char ch))
+         (inc read-size)))
+      (do
+        (println "read->size done")
+        (.toString sb)))))
 
 (defn do-service
   [method query info request-header input output]
@@ -70,6 +78,9 @@
           param-map (string->map line)
           req (make-HttpServletRequestImpl "POST" param-map)
           resp (make-HttpServletResponseImpl output)]
+      (println "content-length: " content-length)
+      (println "line: " line)
+      (println "param-map: " param-map)
       (.doPost @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
 
