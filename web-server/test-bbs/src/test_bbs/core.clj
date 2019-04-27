@@ -28,8 +28,6 @@
 (defn -doGet
   [this request response]
   (.set-content-type response "text/html; charset=UTF-8")
-  (println "request: " request)
-  (println "response" response)
   (let [out (.get-writer response)]
     (.println out "<!DOCTYPE html>")
     (.println out "<html lang='ja'>")
