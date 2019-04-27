@@ -29,4 +29,6 @@
 
 (defn make-HttpServletRequestImpl
   [method parameter-map]
-  (new HttpServletRequestImpl method (atom nil) parameter-map))
+  (HttpServletRequestImpl. method
+                           (atom nil)
+                           parameter-map))
