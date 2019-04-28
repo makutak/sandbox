@@ -16,7 +16,6 @@
         url (as-url (.toUri path-obj))
         loader (URLClassLoader/newInstance (into-array [url]))
         clazz (.loadClass loader (:servlet-className info))]
-    (println (.state (.newInstance clazz)))
     (.newInstance clazz)))
 
 (defn string->map
