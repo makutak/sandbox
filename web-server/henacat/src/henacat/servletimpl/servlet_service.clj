@@ -20,7 +20,6 @@
 
 (defn string->map
   [string]
-  (println "#### string->map ####")
   (let [parameter-map {}]
     (if (not (empty? string))
       (reduce
@@ -35,18 +34,15 @@
   [input size]
   (loop [ch (.read input)
          sb (StringBuilder.)
-         read-size 0]
-    (println "ch: " ch " sb: " sb " read-size: " read-size)
+         read-size 1]
     (if (and (< read-size size)
-             (not (= -1 ch)))
+             (not= ch -1))
       (do
-        (println "read-size: " read-size)
         (recur
          (.read input)
          (.append sb (char ch))
          (inc read-size)))
       (do
-        (println "read->size done")
         (.toString sb)))))
 
 (defn do-service
@@ -64,7 +60,6 @@
           req (make-HttpServletRequestImpl "GET" param-map)
           resp (make-HttpServletResponseImpl output)]
       (.doGet @(:servlet info) req resp)
-      (println "print-writer: " @(:print-writer resp))
       (.flush @(:print-writer resp)))
 
     ;; methodがPOSTのとき
@@ -77,9 +72,6 @@
           param-map (string->map line)
           req (make-HttpServletRequestImpl "POST" param-map)
           resp (make-HttpServletResponseImpl output)]
-      (println "content-length: " content-length)
-      (println "line: " line)
-      (println "param-map: " param-map)
       (.doPost @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
 
