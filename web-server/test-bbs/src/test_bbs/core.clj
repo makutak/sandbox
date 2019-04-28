@@ -1,16 +1,12 @@
 (ns test-bbs.core
-  (:import [javax.servlet.http.HttpServlet]
-           [java.util ArrayList]
-)
+  (:import [java.util ArrayList])
   (:require [clojure.string :as s])
   (:gen-class
    :name TestBBS
    :main false
-   :state state
    :methods [[doGet [Object Object] void]
              [doPost [Object Object] void]
-             [service [Object Object] void]]
-   ))
+             [service [Object Object] void]]))
 
 (def +message-list+ (ArrayList.))
 
