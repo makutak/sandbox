@@ -59,7 +59,7 @@
     (let [param-map (string->map query)
           req (make-HttpServletRequestImpl "GET" param-map)
           resp (make-HttpServletResponseImpl output)]
-      (.doGet @(:servlet info) req resp)
+      (.service @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
 
     ;; methodがPOSTのとき
@@ -72,7 +72,7 @@
           param-map (string->map line)
           req (make-HttpServletRequestImpl "POST" param-map)
           resp (make-HttpServletResponseImpl output)]
-      (.doPost @(:servlet info) req resp)
+      (.service @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
 
     :else (AssertionError. (str "BAD METHOD:" method)))
