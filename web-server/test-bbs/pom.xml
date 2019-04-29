@@ -62,16 +62,6 @@
       <artifactId>clojure</artifactId>
       <version>1.9.0</version>
     </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>henacat</groupId>
-      <artifactId>henacat</artifactId>
-      <version>0.1.0</version>
-    </dependency>
   </dependencies>
 </project>
 
