@@ -8,11 +8,11 @@
              [doPost [Object Object] void]
              [service [Object Object] void]]))
 
-(def +message-list+ (ArrayList.))
+(def *message-list* (ArrayList.))
 
 (defn add-messges
   [message]
-  (.add +message-list+ 0 message))
+  (.add *message-list* 0 message))
 
 (defn html-escape
   [src]
@@ -23,6 +23,7 @@
 
 (defn -doGet
   [this request response]
+  (println "*message-list*: " *message-list*)
   (.set-content-type response "text/html; charset=UTF-8")
   (let [out (.get-writer response)]
     (.println out "<!DOCTYPE html>")
@@ -39,7 +40,7 @@
     (.println out "<textarea name='message' rows='4' cols='60'></textarea><br/>")
     (.println out "<input type='submit' />")
     (.println out "</form>")
-    (doseq [message +message-list+]
+    (doseq [message *message-list*]
       (.println out (str "<p>" (html-escape (:handle message)) " さん" "</p>"))
       (.println out "<p>")
       (.println out (s/replace (html-escape (:message message)) "\n" "<br>"))
