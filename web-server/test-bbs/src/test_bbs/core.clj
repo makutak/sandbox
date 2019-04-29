@@ -64,6 +64,6 @@
 
 (defn -service
   [this request response]
-  (println "this " this)
-  (println "request: " request)
-  (println "response: " response))
+  (cond
+    (= (.get-method request) "GET") (-doGet this request response)
+    (= (.get-method request) "POST") (-doPost this request response)))
