@@ -21,7 +21,6 @@
 
 (defn add-request-header
   [request-header line]
-  (println "servlet: " (search-servlet "/test-bbs/TestBBS"))
   (let [colon-pos (s/index-of line ":")]
     (if (not (nil? colon-pos))
       (assoc request-header
