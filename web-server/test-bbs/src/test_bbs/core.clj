@@ -1,17 +1,18 @@
 (ns test-bbs.core
-  (:import [javax.servlet.http.HttpServlet]
-           [java.util ArrayList])
+  (:import [java.util ArrayList])
   (:require [clojure.string :as s])
   (:gen-class
    :name TestBBS
    :main false
-   :extends javax.servlet.http.HttpServlet))
+   :methods [[doGet [Object Object] void]
+             [doPost [Object Object] void]
+             [service [Object Object] void]]))
 
-(def +message-list+ (ArrayList.))
+(def *message-list* (ArrayList.))
 
 (defn add-messges
   [message]
-  (.add +message-list+ 0 message))
+  (.add *message-list* 0 message))
 
 (defn html-escape
   [src]
@@ -22,8 +23,9 @@
 
 (defn -doGet
   [this request response]
-  (.setContentType response "text/html; charset=UTF-8")
-  (let [out (.getWriter response)]
+  (println "*message-list*: " *message-list*)
+  (.set-content-type response "text/html; charset=UTF-8")
+  (let [out (.get-writer response)]
     (.println out "<!DOCTYPE html>")
     (.println out "<html lang='ja'>")
     (.println out "<html>")
@@ -38,7 +40,7 @@
     (.println out "<textarea name='message' rows='4' cols='60'></textarea><br/>")
     (.println out "<input type='submit' />")
     (.println out "</form>")
-    (doseq [message +message-list+]
+    (doseq [message *message-list*]
       (.println out (str "<p>" (html-escape (:handle message)) " さん" "</p>"))
       (.println out "<p>")
       (.println out (s/replace (html-escape (:message message)) "\n" "<br>"))
@@ -48,15 +50,21 @@
 
 (defn parse-params
   [request]
-  (let [handle (.getParameter request "handle")
-        message(.getParameter request "message")]
+  (let [handle (.get-parameter request "handle")
+        message(.get-parameter request "message")]
     {:handle handle
      :message message}))
 
 
 (defn -doPost
   [this request response]
-  (.setCharacterEncoding request "UTF-8")
+  (.set-character-encoding request "UTF-8")
   (let [new-message (parse-params request)]
     (add-messges new-message))
   (-doGet this request response))
+
+(defn -service
+  [this request response]
+  (cond
+    (= (.get-method request) "GET") (-doGet this request response)
+    (= (.get-method request) "POST") (-doPost this request response)))

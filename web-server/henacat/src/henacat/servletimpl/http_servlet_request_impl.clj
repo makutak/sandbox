@@ -3,24 +3,27 @@
            [java.lang AssertionError]
            [java.io UnsupportedEncodingException]
            [java.nio.charset Charset])
+  (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]])
   (:refer-clojure :exclude [get-method]))
 
-(defprotocol IHttpServletRequestImpl
-  (get-method [this])
-  (get-parameter [this key-name])
-  (set-character-encoding [this env]))
-
 (defrecord HttpServletRequestImpl [method character-encoding parameter-map]
-  IHttpServletRequestImpl
+  HttpServletRequest
   (get-method [this]
     (:method this))
+
   (get-parameter [this key-name]
+    (println "get-paramter: " this)
+    (println "key-name: " key-name)
     (let [value ((keyword key-name) (:parameter-map this))]
+      (println "parameter-map: " (:parameter-map this))
+      (println "!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 value: " value)
+      (println "ENCODE: " @(:character-encoding this))
       (try
         (let [decoded (URLDecoder/decode value @(:character-encoding this))]
           decoded)
         (catch UnsupportedEncodingException ex
           (throw (AssertionError. ex))))))
+
   (set-character-encoding [this env]
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
@@ -28,4 +31,6 @@
 
 (defn make-HttpServletRequestImpl
   [method parameter-map]
-  (new HttpServletRequestImpl method (atom nil) parameter-map))
+  (HttpServletRequestImpl. method
+                           (atom nil)
+                           parameter-map))
