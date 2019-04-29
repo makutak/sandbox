@@ -34,15 +34,17 @@
   [input size]
   (loop [ch (.read input)
          sb (StringBuilder.)
-         read-size 1]
+         read-size 0]
     (if (and (< read-size size)
-             (not= ch -1))
+             (not= ch -1)
+             (not= 0 (.available input)))
       (do
         (recur
          (.read input)
          (.append sb (char ch))
          (inc read-size)))
       (do
+        (.append sb (char ch))
         (.toString sb)))))
 
 (defn do-service
