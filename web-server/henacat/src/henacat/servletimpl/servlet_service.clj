@@ -48,7 +48,7 @@
 (defn do-service
   [method query info request-header input output]
   ;; (:servlet info) が nilなら create-servletする
-  (when (= (nil? (:servlet info)))
+  (when (nil? @(:servlet info))
     (reset! (:servlet info) (create-servlet info)))
 
   (cond
