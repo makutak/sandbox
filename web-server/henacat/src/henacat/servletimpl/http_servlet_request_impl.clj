@@ -23,6 +23,7 @@
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
       (reset! (:character-encoding this) env)))
+
   (get-cookies [this]
     (:cookies this)))
 
