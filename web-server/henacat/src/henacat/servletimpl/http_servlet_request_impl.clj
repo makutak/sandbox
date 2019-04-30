@@ -3,8 +3,18 @@
            [java.lang AssertionError]
            [java.io UnsupportedEncodingException]
            [java.nio.charset Charset])
-  (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]])
+  (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]]
+            [henacat.servletinterfaces.cookie :refer [make-Cookie]]
+            [clojure.string :as s])
   (:refer-clojure :exclude [get-method]))
+
+(defn parse-cookies
+  [cookie-string]
+  (if (nil? cookie-string)
+    nil
+    (do
+      (let [cookie-pairs (s/split cookie-string #";")])
+      )))
 
 (defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies]
   HttpServletRequest
