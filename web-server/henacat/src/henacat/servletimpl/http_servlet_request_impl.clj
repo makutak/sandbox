@@ -6,7 +6,7 @@
   (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]])
   (:refer-clojure :exclude [get-method]))
 
-(defrecord HttpServletRequestImpl [method character-encoding parameter-map]
+(defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies]
   HttpServletRequest
   (get-method [this]
     (:method this))
@@ -22,10 +22,13 @@
   (set-character-encoding [this env]
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
-      (reset! (:character-encoding this) env))))
+      (reset! (:character-encoding this) env)))
+  (get-cookies [this]
+    (:cookies this)))
 
 (defn make-HttpServletRequestImpl
   [method parameter-map]
   (HttpServletRequestImpl. method
                            (atom nil)
-                           parameter-map))
+                           parameter-map
+                           (atom nil)))
