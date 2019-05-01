@@ -13,8 +13,15 @@
   (if (nil? cookie-string)
     nil
     (do
-      (let [cookie-pairs (s/split cookie-string #";")])
-      )))
+      (let [cookie-pairs (s/split cookie-string #";")]
+        (loop [ret []
+               cookies cookie-pairs]
+          (cond
+              (empty? cookies) ret
+              :else (let [pair (s/split (first cookies) #"=" 2)]
+                      (recur
+                       (conj ret (make-Cookie (first pair) (second pair)))
+                       (rest cookies)))))))))
 
 (defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies]
   HttpServletRequest
