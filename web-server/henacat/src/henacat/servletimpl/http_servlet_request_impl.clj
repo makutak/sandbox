@@ -45,8 +45,8 @@
     (:cookies this)))
 
 (defn make-HttpServletRequestImpl
-  [method parameter-map]
+  [method request-header parameter-map]
   (HttpServletRequestImpl. method
-                           (atom nil)
+                           (atom request-header)
                            parameter-map
-                           (atom nil)))
+                           (atom (parse-cookies (:COOKIE request-header)))))

@@ -59,7 +59,7 @@
     ;;;; req = new HttpServletRequestImpl("GET", map);
     (= method "GET")
     (let [param-map (string->map query)
-          req (make-HttpServletRequestImpl "GET" param-map)
+          req (make-HttpServletRequestImpl "GET" request-header param-map)
           resp (make-HttpServletResponseImpl output)]
       (.service @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
