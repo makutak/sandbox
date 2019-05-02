@@ -2,7 +2,8 @@
   (:import [java.nio.file FileSystems]
            [java.net URLClassLoader URL]
            [java.util HashMap]
-           [java.lang StringBuilder AssertionError])
+           [java.lang StringBuilder AssertionError]
+           [java.io ByteArrayOutputStream])
   (:require [clojure.java.io :refer [as-url]]
             [clojure.string :as s]
             ;; [henacat.servletinterfaces.http_servlet :refer [HttpServlet]]
@@ -60,7 +61,8 @@
     (= method "GET")
     (let [param-map (string->map query)
           req (make-HttpServletRequestImpl "GET" request-header param-map)
-          resp (make-HttpServletResponseImpl output)]
+          output-buffer (ByteArrayOutputStream.)
+          resp (make-HttpServletResponseImpl output-buffer)]
       (.service @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
 
