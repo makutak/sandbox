@@ -72,7 +72,7 @@
     (let [content-length (Integer. (:CONTENT-LENGTH request-header))
           line (read->size input content-length)
           param-map (string->map line)
-          req (make-HttpServletRequestImpl "POST" param-map)
+          req (make-HttpServletRequestImpl "POST" request-header param-map)
           resp (make-HttpServletResponseImpl output)]
       (.service @(:servlet info) req resp)
       (.flush @(:print-writer resp)))
