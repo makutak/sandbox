@@ -1,7 +1,8 @@
 (ns henacat.servletimpl.response_header_generator_impl
   (:import [java.text SimpleDateFormat]
            [java.util Date Calendar TimeZone Locale])
-  (:require [henacat.util.response_header_generator :refer [ResponseHeaderGenerator]]))
+  (:require [henacat.util.response_header_generator :refer [ResponseHeaderGenerator]]
+            [henacat.util.util :as util]))
 
 (defn get-cookie-date-string
   [cal]
@@ -12,7 +13,9 @@
 (defrecord ResponseHeaderGeneratorImpl [cookies]
   ResponseHeaderGenerator
   (generate [this output]
-    ))
+    ;; map使う?
+    (doseq [cookie cookies]
+      (println cookie))))
 
 
 (defn make-ResponseHeaderGeneratorImpl
