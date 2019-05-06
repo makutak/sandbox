@@ -39,7 +39,6 @@
 (defrecord ResponseHeaderGeneratorImpl [cookies]
   ResponseHeaderGenerator
   (generate [this output]
-    ;; map使う?
     (doseq [cookie (generate-cookie-strings (:cookies this))]
       (println cookie)
       (util/write-line output cookie))))
