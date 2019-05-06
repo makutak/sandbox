@@ -26,7 +26,6 @@
   (get-writer [this]
     (reset! (:print-writer this) (PrintWriter. (OutputStreamWriter. (:output-stream this)
                                                                     @(:character-encoding this))))
-    (send-ok-response-header @(:print-writer this) @(:content-type this))
     @(:print-writer this))
 
   (add-cookie [this cookie]

@@ -8,7 +8,9 @@
             [clojure.string :as s]
             ;; [henacat.servletinterfaces.http_servlet :refer [HttpServlet]]
             [henacat.servletimpl.http_servlet_request_impl :refer [make-HttpServletRequestImpl]]
-            [henacat.servletimpl.http_servlet_response_impl :refer [make-HttpServletResponseImpl]]))
+            [henacat.servletimpl.http_servlet_response_impl :refer [make-HttpServletResponseImpl]]
+            [henacat.servletimpl.response_header_generator_impl :refer [make-ResponseHeaderGeneratorImpl]]
+            [henacat.util.send_response :refer [send-ok-response-header]]))
 
 (defn create-servlet
   [info]
@@ -53,36 +55,35 @@
   ;; (:servlet info) が nilなら create-servletする
   (when (nil? @(:servlet info))
     (reset! (:servlet info) (create-servlet info)))
+  (let [output-buffer (ByteArrayOutputStream.)]
+    (cond
+      ;; methodがGETのとき
+      (= method "GET")
+      (let [param-map (string->map query)
+            req (make-HttpServletRequestImpl "GET" request-header param-map)
+            resp (make-HttpServletResponseImpl output-buffer)
+            hg (make-ResponseHeaderGeneratorImpl (:cookies resp))]
+        (.service @(:servlet info) req resp)
+        (send-ok-response-header output @(:content-type resp) hg)
+        (.flush @(:print-writer resp))
+        (doseq [b (.toByteArray output-buffer)]
+          (.write output (int b)))
+        (.flush output))
 
-  (cond
-    ;; methodがGETのとき
-    ;;;; map = stringToMap(query);
-    ;;;; req = new HttpServletRequestImpl("GET", map);
-    (= method "GET")
-    (let [param-map (string->map query)
-          req (make-HttpServletRequestImpl "GET" request-header param-map)
-          output-buffer (ByteArrayOutputStream.)
-          resp (make-HttpServletResponseImpl output-buffer)]
-      (.service @(:servlet info) req resp)
-      (.flush @(:print-writer resp)))
+      ;; methodがPOSTのとき
+      (= method "POST")
+      (let [content-length (Integer. (:CONTENT-LENGTH request-header))
+            line (read->size input content-length)
+            param-map (string->map line)
+            req (make-HttpServletRequestImpl "POST" request-header param-map)
+            resp (make-HttpServletResponseImpl output-buffer)
+            hg (make-ResponseHeaderGeneratorImpl (:cookies resp))]
+        (.service @(:servlet info) req resp)
+        (send-ok-response-header output @(:content-type resp) hg)
+        (.flush @(:print-writer resp))
+        (doseq [b (.toByteArray output-buffer)]
+          (.write output (int b)))
+        (.flush output))
 
-    ;; methodがPOSTのとき
-    ;;;; Content-Lengthを取得
-    ;;;; String line = readToSize(input, contentLength);
-    ;;;; req = new HttpServletRequestImpl("POST", map);
-    (= method "POST")
-    (let [content-length (Integer. (:CONTENT-LENGTH request-header))
-          line (read->size input content-length)
-          param-map (string->map line)
-          req (make-HttpServletRequestImpl "POST" request-header param-map)
-          resp (make-HttpServletResponseImpl output)]
-      (.service @(:servlet info) req resp)
-      (.flush @(:print-writer resp)))
-
-    :else (AssertionError. (str "BAD METHOD:" method)))
-
-
-  ;; HttpServletResponseImpl resp = new HttpServletResponseImpl(output);
-  ;; info.servlet.service(req, resp);
-  ;; resp.printWriter.flush();
-  )
+      ;; methodがそれ以外のとき
+      :else (AssertionError. (str "BAD METHOD:" method)))))
