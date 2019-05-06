@@ -42,7 +42,7 @@
       (reset! (:character-encoding this) env)))
 
   (get-cookies [this]
-    (:cookies this)))
+    @(:cookies this)))
 
 (defn make-HttpServletRequestImpl
   [method request-header parameter-map]
