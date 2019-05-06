@@ -4,4 +4,5 @@
 (defprotocol HttpServletRequest
   (get-method [this])
   (get-parameter [this key-name])
-  (set-character-encoding [this env]))
+  (set-character-encoding [this env])
+  (get-cookies [this]))

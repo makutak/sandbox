@@ -3,10 +3,27 @@
            [java.lang AssertionError]
            [java.io UnsupportedEncodingException]
            [java.nio.charset Charset])
-  (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]])
+  (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]]
+            [henacat.servletinterfaces.cookie :refer [make-Cookie]]
+            [clojure.string :as s])
   (:refer-clojure :exclude [get-method]))
 
-(defrecord HttpServletRequestImpl [method character-encoding parameter-map]
+(defn parse-cookies
+  [cookie-string]
+  (if (nil? cookie-string)
+    nil
+    (do
+      (let [cookie-pairs (s/split cookie-string #";")]
+        (loop [ret []
+               cookies cookie-pairs]
+          (cond
+              (empty? cookies) ret
+              :else (let [pair (s/split (first cookies) #"=" 2)]
+                      (recur
+                       (conj ret (make-Cookie (first pair) (second pair)))
+                       (rest cookies)))))))))
+
+(defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies]
   HttpServletRequest
   (get-method [this]
     (:method this))
@@ -22,10 +39,14 @@
   (set-character-encoding [this env]
     (if (not (Charset/isSupported env))
       (throw (UnsupportedEncodingException. (str "encoding. " env)))
-      (reset! (:character-encoding this) env))))
+      (reset! (:character-encoding this) env)))
+
+  (get-cookies [this]
+    @(:cookies this)))
 
 (defn make-HttpServletRequestImpl
-  [method parameter-map]
+  [method request-header parameter-map]
   (HttpServletRequestImpl. method
-                           (atom nil)
-                           parameter-map))
+                           (atom request-header)
+                           parameter-map
+                           (atom (parse-cookies (:COOKIE request-header)))))

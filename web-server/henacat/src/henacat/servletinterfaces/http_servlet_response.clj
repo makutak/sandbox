@@ -3,4 +3,5 @@
 (defprotocol HttpServletResponse
   (set-character-encoding [this charset])
   (set-content-type [this content-type])
-  (get-writer [this]))
+  (get-writer [this])
+  (add-cookie [this cookie]))
