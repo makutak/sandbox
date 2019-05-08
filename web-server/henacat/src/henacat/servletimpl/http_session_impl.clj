@@ -14,7 +14,7 @@
     (.keySet (:attributes this)))
 
   (remove-attribute [this attribute-name]
-    (.remove (:attribute this) attribute-name))
+    (.remove (:attributes this) attribute-name))
 
   (set-attribute [this attribute-name attribute-value]
     (if (nil? attribute-value)
