@@ -23,6 +23,8 @@
 
 (defn make-HttpSessionImpl
   [id]
-  (HttpSessionImpl. id
-                    (ConcurrentHashMap.)
-                    (atom (System/currentTimeMillis))))
+  (let [session (HttpSessionImpl. id
+                                  (ConcurrentHashMap.)
+                                  (atom nil))]
+    (locking session (reset! (:last-accessed-time session) (System/currentTimeMillis)))
+    session))
