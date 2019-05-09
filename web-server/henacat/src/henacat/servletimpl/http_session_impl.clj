@@ -26,5 +26,6 @@
   (let [session (HttpSessionImpl. id
                                   (ConcurrentHashMap.)
                                   (atom nil))]
-    (locking session (reset! (:last-accessed-time session) (System/currentTimeMillis)))
+    (locking session (reset! (:last-accessed-time session)
+                             (System/currentTimeMillis)))
     session))
