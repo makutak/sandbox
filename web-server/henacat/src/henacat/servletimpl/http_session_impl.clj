@@ -21,11 +21,16 @@
       (.remove-attribute this attribute-name)
       (.put (:attributes this) attribute-name attribute-value))))
 
+(defmulti access class)
+(defmethod access HttpSessionImpl [http-session-impl]
+  (locking http-session-impl (reset! (:last-accessed-time http-session-impl)
+                                     (System/currentTimeMillis))))
+
+
 (defn make-HttpSessionImpl
   [id]
   (let [session (HttpSessionImpl. id
                                   (ConcurrentHashMap.)
                                   (atom nil))]
-    (locking session (reset! (:last-accessed-time session)
-                             (System/currentTimeMillis)))
+    (access session)
     session))
