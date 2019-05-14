@@ -13,7 +13,10 @@
 (def scheduler
   (let [scheduler (Executors/newSingleThreadScheduledExecutor)]
     (.scheduleWithFixedDelay scheduler
-                             #(cleaner-handle) CLEAN_INTERVAL CLEAN_INTERVAL TimeUnit/SECONDS)))
+                             #(cleaner-handle)
+                             CLEAN_INTERVAL
+                             CLEAN_INTERVAL
+                             TimeUnit/SECONDS)))
 
 (def cleaner-handle scheduler)
 
