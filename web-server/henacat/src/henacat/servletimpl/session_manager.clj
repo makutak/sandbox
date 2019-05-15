@@ -1,6 +1,6 @@
 (ns henacat.servletimpl.session_manager
   (:import [java.util.concurrent ConcurrentHashMap Executors ScheduledExecutorService TimeUnit])
-  (:require [henacat.servletimpl.http_session_impl :refer [make-HttpSessionImpl]]
+  (:require [henacat.servletimpl.http_session_impl :refer [make-HttpSessionImpl access]]
             [henacat.servletimpl.session_id_generator :refer [generate-session-id]]))
 
 (declare cleaner-handle
@@ -20,6 +20,13 @@
                              TimeUnit/SECONDS)))
 
 (def cleaner-handle scheduler)
+
+(defn get-session
+  [id]
+  (let [ret (.get *sessions* (keyword id))]
+    (when (not (nil? ret))
+      (access ret))
+    ret))
 
 (defn create-session
   []
