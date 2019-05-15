@@ -37,7 +37,12 @@
 
 (defn clean-sessions
   []
-  scheduler)
+  (doseq [[k v] *sessions*]
+    (let [id (.get-id v)
+          session (.get *sessions* (keyword id))]
+      (if (< @(:last-accessed-time session)
+             (- (System/currentTimeMillis) (* SESSION_TIMEOUT 60 1000)))
+        (.remove *sessions* (keyword id))))))
 
 (defn session-manager
   []
