@@ -21,6 +21,13 @@
 
 (def cleaner-handle scheduler)
 
+(defn create-session
+  []
+  (let [id (generate-session-id)
+        session (make-HttpSessionImpl id)]
+    (.put *sessions* (keyword id) session)
+    session))
+
 (defn clean-sessions
   []
   scheduler)
