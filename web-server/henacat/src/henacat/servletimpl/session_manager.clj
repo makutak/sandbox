@@ -8,6 +8,7 @@
 
 (def CLEAN_INTERVAL 60)
 (def SESSION_TIMEOUT 10)
+(def SESSION_TIMELIMIT (- (System/currentTimeMillis) (* SESSION_TIMEOUT 60 1000)))
 
 (def ^:dynamic *sessions* (ConcurrentHashMap.))
 (def session-id-generater (generate-session-id))
@@ -40,8 +41,7 @@
   (doseq [[k v] *sessions*]
     (let [id (.get-id v)
           session (.get *sessions* (keyword id))]
-      (if (< @(:last-accessed-time session)
-             (- (System/currentTimeMillis) (* SESSION_TIMEOUT 60 1000)))
+      (if (< @(:last-accessed-time session) SESSION_TIMELIMIT)
         (.remove *sessions* (keyword id))))))
 
 (defn session-manager
