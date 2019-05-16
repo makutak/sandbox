@@ -43,7 +43,3 @@
           session (.get *sessions* (keyword id))]
       (if (< @(:last-accessed-time session) SESSION_TIMELIMIT)
         (.remove *sessions* (keyword id))))))
-
-(defn session-manager
-  []
-  cleaner-handle)
