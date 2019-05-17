@@ -25,7 +25,7 @@
                        (conj ret (make-Cookie (first pair) (second pair)))
                        (rest cookies)))))))))
 
-(defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies]
+(defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies response sessoin]
   HttpServletRequest
   (get-method [this]
     (:method this))
@@ -46,9 +46,14 @@
   (get-cookies [this]
     @(:cookies this)))
 
+(defn get-session-internal
+  [])
+
 (defn make-HttpServletRequestImpl
-  [method request-header parameter-map]
+  [method request-header parameter-map resp]
   (HttpServletRequestImpl. method
                            (atom request-header)
                            parameter-map
-                           (atom (parse-cookies (:COOKIE request-header)))))
+                           (atom (parse-cookies (:COOKIE request-header)))
+                           resp
+                           (atom (get-session-internal))))
