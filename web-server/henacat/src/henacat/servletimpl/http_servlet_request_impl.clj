@@ -5,6 +5,7 @@
            [java.nio.charset Charset])
   (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]]
             [henacat.servletinterfaces.cookie :refer [make-Cookie]]
+            [henacat.servletimpl.session_manager :refer [create-session]]
             [clojure.string :as s])
   (:refer-clojure :exclude [get-method]))
 
@@ -45,6 +46,16 @@
 
   (get-cookies [this]
     @(:cookies this)))
+
+(defmulti get-session class)
+(defmethod get-session HttpServletRequestImpl [this create]
+  (cond
+    (not create) @(:session this)
+    (nil? @(:session this)) (reset! (:session this) (create-session))
+    :else @(:session this)))
+
+(defmethod get-session HttpServletRequestImpl [this]
+  (get-session this true))
 
 (defn get-session-internal
   [])
