@@ -8,6 +8,8 @@
             [clojure.string :as s])
   (:refer-clojure :exclude [get-method]))
 
+(def SESSION_COOKIE_ID "JSESSIONID")
+
 (defn parse-cookies
   [cookie-string]
   (if (nil? cookie-string)
