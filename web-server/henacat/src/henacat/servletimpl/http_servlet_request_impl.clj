@@ -9,6 +9,8 @@
             [clojure.string :as s])
   (:refer-clojure :exclude [get-method]))
 
+(declare add-session-cookie)
+
 (def SESSION_COOKIE_ID "JSESSIONID")
 
 (defn parse-cookies
@@ -51,7 +53,9 @@
 (defmethod get-session HttpServletRequestImpl [this create]
   (cond
     (not create) @(:session this)
-    (nil? @(:session this)) (reset! (:session this) (create-session))
+    (nil? @(:session this)) (do
+                              (reset! (:session this) (create-session))
+                              (add-session-cookie))
     :else @(:session this)))
 
 (defmethod get-session HttpServletRequestImpl [this]
@@ -59,6 +63,11 @@
 
 (defn get-session-internal
   [])
+
+(defn add-session-cookie
+  [this]
+  (.add-cookie (:response this)
+               (make-Cookie SESSION_COOKIE_ID (str (.get-id (:session this)) "; HttpOnly"))))
 
 (defn make-HttpServletRequestImpl
   [method request-header parameter-map resp]
