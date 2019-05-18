@@ -62,7 +62,9 @@
   (get-session this true))
 
 (defn get-session-internal
-  [])
+  [this]
+  (if (nil? (:cookies this))
+    nil))
 
 (defn add-session-cookie
   [this]
