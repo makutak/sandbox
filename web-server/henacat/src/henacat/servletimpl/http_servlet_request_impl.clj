@@ -64,7 +64,10 @@
 (defn get-session-internal
   [this]
   (if (nil? (:cookies this))
-    nil))
+    nil
+    (do
+      (doseq [temp-cookie  @(:cookies this)]
+        (println temp-cookie)))))
 
 (defn add-session-cookie
   [this]
