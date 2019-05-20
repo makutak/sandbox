@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 interface Props {
-  todos: string[];
   onClickAddButton: (todo: string) => void;
 }
 
 interface State {
   text: string;
+  todos: string[];
 }
 
 export default class extends React.Component<Props, State> {
@@ -15,15 +15,15 @@ export default class extends React.Component<Props, State> {
 
     this.state = {
       text: '',
+      todos: [],
     };
   }
 
-  public render () {
-    const { todos } = this.props;
-    const { text } = this.state;
+  public render() {
+    const { text, todos } = this.state;
 
     return (
-      <div>
+      <div style={{ width: '500px', margin: '0 auto' }}>
         <h1>TODO LIST</h1>
         <input type="text" value={text} onChange={this.onTextChange} />
         <button onClick={this.onClickAddButton}>Add Todo</button>
@@ -34,16 +34,23 @@ export default class extends React.Component<Props, State> {
         </ul>
       </div>
     );
-
   }
 
+  // changeEventのたびに実行される
   private onTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // stateのtextにvalueを入れる
     this.setState({ text: e.currentTarget.value });
+    console.log("state: ", this.state);
   };
 
+  // buttonClick時の処理
   private onClickAddButton = () => {
-    const { onClickAddButton } = this.props;
-    const { text } = this.state;
-    onClickAddButton(text);
+    console.log("clicked!!: ", this.state);
+    // clickされたときのstate.textの値をthis.stateにいれる
+    // todosは初期は空配列
+    const { text, todos } = this.state;
+    this.setState({
+      todos: todos.concat(text),
+    });
   };
 }
