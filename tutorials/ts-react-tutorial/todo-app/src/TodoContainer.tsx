@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchToProps => {
   };
 };
 
-export default connect<IStateToProps, IDispatchToProps>(
+export default connect<StateToProps, DispatchToProps>(
   mapStateToProps,
   mapDispatchToProps
 )(TodoContainer);
