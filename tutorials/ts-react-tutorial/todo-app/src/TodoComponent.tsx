@@ -1,12 +1,12 @@
 import * as React from 'react';
 
 interface Props {
+  todos: string[];
   onClickAddButton: (todo: string) => void;
 }
 
 interface State {
   text: string;
-  todos: string[];
 }
 
 export default class extends React.Component<Props, State> {
@@ -15,12 +15,12 @@ export default class extends React.Component<Props, State> {
 
     this.state = {
       text: '',
-      todos: [],
     };
   }
 
   public render() {
-    const { text, todos } = this.state;
+    const { todos } = this.props;
+    const { text } = this.state;
 
     return (
       <div style={{ width: '500px', margin: '0 auto' }}>
@@ -48,9 +48,8 @@ export default class extends React.Component<Props, State> {
     console.log("clicked!!: ", this.state);
     // clickされたときのstate.textの値をthis.stateにいれる
     // todosは初期は空配列
-    const { text, todos } = this.state;
-    this.setState({
-      todos: todos.concat(text),
-    });
+    const { onClickAddButton } = this.props;
+    const { text } = this.state;
+    onClickAddButton(text);
   };
 }
