@@ -42,7 +42,7 @@ class TodoContainer extends React.Component<Props, {}> {
   };
 }
 
-const mapStateToProps = (state: any): StateToProps => {
+const mapStateToProps = (state: RootState): StateToProps => {
   const { todoState } = state;
   return {
     todos: todoState.todos
@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>): DispatchToProps => {
   };
 };
 
-export default connect<StateToProps, DispatchToProps>(
+export default connect<StateToProps, DispatchToProps, {}, RootState>(
   mapStateToProps,
   mapDispatchToProps
 )(TodoContainer);
