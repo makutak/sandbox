@@ -42,7 +42,7 @@ class TodoContainer extends React.Component<Props, {}> {
   };
 }
 
-const mapStateToProps = (state: RootState): StateToProps => {
+const mapStateToProps = (state: any): StateToProps => {
   const { todoState } = state;
   return {
     todos: todoState.todos
