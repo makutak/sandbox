@@ -13,7 +13,7 @@ class Square extends React.Component<SquareProps, {}> {
     const { value } = this.props;
 
     return (
-      <button className="square">
+      <button className="square" onClick={() => { alert('click') }}>
         {value}
       </button>
     );
