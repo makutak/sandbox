@@ -5,19 +5,23 @@ interface SquareProps {
   value: number;
 }
 
-class Square extends React.Component<SquareProps, {}> {
+interface SquareState {
+  value: string;
+}
+
+class Square extends React.Component<SquareProps, SquareState> {
   constructor(props: SquareProps) {
     super(props);
     this.state = {
-      value: null,
+      value: '',
     };
   }
   render() {
     const { value } = this.props;
 
     return (
-      <button className="square" onClick={() => { alert('click') }}>
-        {value}
+      <button className="square" onClick={() => { this.setState({ value: 'X' }) }}>
+        {this.state.value}
       </button>
     );
   }
