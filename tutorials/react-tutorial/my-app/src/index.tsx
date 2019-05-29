@@ -8,6 +8,9 @@ interface SquareProps {
 class Square extends React.Component<SquareProps, {}> {
   constructor(props: SquareProps) {
     super(props);
+    this.state = {
+      value: null,
+    };
   }
   render() {
     const { value } = this.props;
