@@ -17,8 +17,6 @@ class Square extends React.Component<SquareProps, SquareState> {
     };
   }
   render() {
-    const { value } = this.props;
-
     return (
       <button
         className="square"
