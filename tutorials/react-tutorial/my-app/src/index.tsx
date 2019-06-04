@@ -89,7 +89,27 @@ class Board extends React.Component<BoardProps, BoardState> {
   }
 }
 
-class Game extends React.Component {
+interface Squares {
+  squares: string[];
+}
+
+interface History {
+  history: Squares[];
+  xIsNext: boolean;
+}
+
+type HistoryState = History;
+class Game extends React.Component<{}, HistoryState> {
+  constructor(props: HistoryState) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true,
+    };
+  }
+
   render() {
     return (
       <div className="game">
