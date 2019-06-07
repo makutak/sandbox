@@ -122,7 +122,7 @@ class Game extends React.Component<{}, HistoryState> {
         'Go to move #' + move :
         'Go to start';
       return (
-        <li>
+        <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
         </li>
       );
