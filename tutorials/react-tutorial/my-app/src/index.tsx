@@ -74,6 +74,7 @@ interface Squares {
 
 interface History {
   history: Squares[];
+  stepNumber: number;
   xIsNext: boolean;
 }
 
@@ -86,6 +87,7 @@ class Game extends React.Component<{}, HistoryState> {
       history: [{
         squares: Array(9).fill(null),
       }],
+      stepNumber: 0,
       xIsNext: true,
     };
   }
