@@ -22,20 +22,8 @@ interface BoardProps {
   squares: string[];
   onClick: (i: number) => void;
 }
-interface BoardState {
 
-  xIsNext: boolean;
-}
-
-class Board extends React.Component<BoardProps, BoardState> {
-  constructor(props: BoardProps) {
-    super(props);
-
-    this.state = {
-      xIsNext: true,
-    }
-  }
-
+class Board extends React.Component<BoardProps, {}> {
   renderSquare(i: number) {
     return (
       <Square
@@ -81,7 +69,7 @@ interface History {
 type HistoryState = History;
 
 class Game extends React.Component<{}, HistoryState> {
-  constructor(props: HistoryState) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       history: [{
@@ -93,7 +81,7 @@ class Game extends React.Component<{}, HistoryState> {
   }
 
   handleClick(i: number) {
-    const history = this.state.history;
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
@@ -106,6 +94,7 @@ class Game extends React.Component<{}, HistoryState> {
       history: history.concat([{
         squares
       }]),
+      stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
   }
@@ -119,7 +108,7 @@ class Game extends React.Component<{}, HistoryState> {
 
   render() {
     const history = this.state.history;
-    const current = history[history.length - 1];
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
