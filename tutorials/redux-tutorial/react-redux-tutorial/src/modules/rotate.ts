@@ -24,7 +24,11 @@ export interface RotateState {
   rotating: boolean;
 }
 
-export default function rorateReducer(state: RotateState, action: action): RotateState {
+export const initialState = {
+  rotating: true,
+};
+
+export default function rorateReducer(state: RotateState = initialState, action: action): RotateState {
   switch (action.type) {
     case actionType.ROTATE:
       return {
