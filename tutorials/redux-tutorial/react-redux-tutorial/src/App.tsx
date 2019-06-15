@@ -1,4 +1,6 @@
-import React from 'react';
+import * as React from 'react';
+import { connect } from 'react-redux';
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -23,4 +25,4 @@ const App: React.FC = () => {
   );
 }
 
-export default App;
+export default connect()(App);
