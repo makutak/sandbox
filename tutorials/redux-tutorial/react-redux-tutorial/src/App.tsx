@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { startAction, stopAction } from './modules/rotate';
 
 import logo from './logo.svg';
 import './App.css';
