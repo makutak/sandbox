@@ -15,7 +15,7 @@ type Props = RotateState & DispatchToProps;
 
 class App extends React.Component<Props, {}> {
   render(): JSX.Element {
-    console.log(this.props);
+    console.log(JSON.stringify(this.props, null, "  "));
     return (
       <div className="App">
         <header className="App-header">
