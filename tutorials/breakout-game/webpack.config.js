@@ -6,22 +6,22 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: 'ts-loader',
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.ts', '.js']
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    open: true,//ブラウザを自動で開く
-    openPage: "index.html",//自動で指定したページを開く
+    open: true,
+    contentBase: 'dist',
     port: 3000,
   },
 };
