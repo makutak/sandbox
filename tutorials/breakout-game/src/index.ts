@@ -1,13 +1,21 @@
 const canvas = <HTMLCanvasElement>document.getElementById('myCanvas');
 const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
-const draw = (): void => {
-  console.log("draw");
+let x: number = canvas.width / 2;
+let y: number = canvas.height - 30;
+let dx: number = 2;
+let dy: number = -2;
+
+function draw(): void {
   ctx.beginPath();
-  ctx.arc(50, 50, 10, 0, Math.PI * 2);
+  ctx.arc(x, y, 10, 0, Math.PI * 2);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
+  x += dx;
+  console.log("x: ", x);
+  y += dy;
+  console.log("y: ", y);
 };
 
 setInterval(draw, 10);
