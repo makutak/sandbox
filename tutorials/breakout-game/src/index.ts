@@ -6,17 +6,20 @@ let y: number = canvas.height - 30;
 let dx: number = 2;
 let dy: number = -2;
 
-function draw(): void {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, 10, 0, Math.PI * 2);
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
+}
+
+
+function draw(): void {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBall()
   x += dx;
-  console.log("x: ", x);
   y += dy;
-  console.log("y: ", y);
 };
 
 setInterval(draw, 10);
