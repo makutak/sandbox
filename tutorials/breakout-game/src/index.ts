@@ -7,7 +7,19 @@ let dx: number = 2;
 let dy: number = -2;
 const ballRadius = 10;
 
-function drawBall() {
+const paddleHeight: number = 10;
+const paddleWidth: number = 75;
+const paddleX: number = (canvas.width - paddleWidth) / 2;
+
+const drawPaddle = (): void => {
+  ctx.beginPath();
+  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+}
+
+const drawBall = (): void => {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
   ctx.fillStyle = "#0095DD";
@@ -16,8 +28,9 @@ function drawBall() {
 }
 
 
-function draw(): void {
+const draw = (): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawPaddle();
   drawBall()
 
   if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
