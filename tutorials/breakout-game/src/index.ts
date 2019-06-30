@@ -11,6 +11,31 @@ const paddleHeight: number = 10;
 const paddleWidth: number = 75;
 const paddleX: number = (canvas.width - paddleWidth) / 2;
 
+let rightPressed = false;
+let leftPressed = false
+
+const keyDownHandler = (e: KeyboardEvent) => {
+  if (e.key === "Right" || e.key === "ArrowRight") {
+    console.log("right down");
+    rightPressed = true;
+  }
+  if (e.key === "Left" || e.key === "ArrowLeft") {
+    console.log("left down");
+    leftPressed = true;
+  }
+};
+
+const keyUpHandler = (e: KeyboardEvent) => {
+  if (e.key === "Right" || e.key === "ArrowRight") {
+    console.log("right up");
+    rightPressed = false;
+  }
+  if (e.key === "Left" || e.key === "ArrowLeft") {
+    console.log("left up");
+    leftPressed = false;
+  }
+};
+
 const drawPaddle = (): void => {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
@@ -44,5 +69,8 @@ const draw = (): void => {
   x += dx;
   y += dy;
 };
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 
 setInterval(draw, 10);
