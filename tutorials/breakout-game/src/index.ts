@@ -9,12 +9,12 @@ const ballRadius = 10;
 
 const paddleHeight: number = 10;
 const paddleWidth: number = 75;
-const paddleX: number = (canvas.width - paddleWidth) / 2;
+let paddleX: number = (canvas.width - paddleWidth) / 2;
 
 let rightPressed = false;
 let leftPressed = false
 
-const keyDownHandler = (e: KeyboardEvent) => {
+const keyDownHandler = (e: KeyboardEvent): void => {
   if (e.key === "Right" || e.key === "ArrowRight") {
     console.log("right down");
     rightPressed = true;
@@ -25,7 +25,7 @@ const keyDownHandler = (e: KeyboardEvent) => {
   }
 };
 
-const keyUpHandler = (e: KeyboardEvent) => {
+const keyUpHandler = (e: KeyboardEvent): void => {
   if (e.key === "Right" || e.key === "ArrowRight") {
     console.log("right up");
     rightPressed = false;
