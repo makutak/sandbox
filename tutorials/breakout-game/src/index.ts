@@ -66,6 +66,14 @@ const draw = (): void => {
     dx = -dx;
   }
 
+  if (rightPressed && paddleX < canvas.width - paddleWidth) {
+    paddleX += 7;
+  }
+
+  if (leftPressed && paddleX > 0) {
+    paddleX += -7;
+  }
+
   x += dx;
   y += dy;
 };
