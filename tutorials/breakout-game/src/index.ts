@@ -66,9 +66,13 @@ const draw = (): void => {
   if (y + dy < ballRadius) {
     dy = -dy;
   } else if (y + dy > canvas.height - ballRadius) {
-    alert('GAME OVER');
-    document.location.reload();
-    clearInterval(intervl);
+    if (x > paddleX && x < paddleX + paddleWidth) {
+      dy = -dy;
+    } else {
+      alert('GAME OVER');
+      document.location.reload();
+      clearInterval(intervl);
+    }
   }
 
   if (rightPressed && paddleX < canvas.width - paddleWidth) {
