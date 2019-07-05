@@ -22,6 +22,19 @@ let brickPadding = 10;
 let brickOffsetTop = 30;
 let brickOffsetLeft = 30;
 
+interface Brick {
+  x: number;
+  y: number;
+}
+
+let bricks: Brick[][] = [];
+for (let c = 0; c < brickColumnCount; c++) {
+  bricks[c] = [];
+  for (let r = 0; r < brickRowCount; r++) {
+    bricks[c][r] = { x: 0, y: 0 };
+  }
+}
+
 
 const keyDownHandler = (e: KeyboardEvent): void => {
   if (e.key === "Right" || e.key === "ArrowRight") {
