@@ -78,7 +78,8 @@ const drawBall = (): void => {
 const draw = (): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPaddle();
-  drawBall()
+  drawBricks();
+  drawBall();
 
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
@@ -107,6 +108,22 @@ const draw = (): void => {
 
   x += dx;
   y += dy;
+};
+
+const drawBricks = () => {
+  for (let c = 0; c < brickColumnCount; c++) {
+    for (let r = 0; r < brickRowCount; r++) {
+      const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+      const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+      bricks[c][r].x = brickX;
+      bricks[c][r].y = brickY;
+      ctx.beginPath();
+      ctx.rect(brickX, brickY, brickWidth, brickHeight);
+      ctx.fillStyle = '#0095DD';
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
 };
 
 document.addEventListener("keydown", keyDownHandler, false);
