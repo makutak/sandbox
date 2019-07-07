@@ -35,6 +35,15 @@ for (let c = 0; c < brickColumnCount; c++) {
   }
 }
 
+const collisionDetection = () => {
+  for (let c = 0; c < brickColumnCount; c++) {
+    for (let r = 0; r < brickRowCount; r++) {
+      const b = bricks[c][r];
+      // calc...
+    }
+  }
+
+};
 
 const keyDownHandler = (e: KeyboardEvent): void => {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
