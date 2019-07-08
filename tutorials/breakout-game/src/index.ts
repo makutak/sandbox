@@ -35,16 +35,6 @@ for (let c = 0; c < brickColumnCount; c++) {
   }
 }
 
-const collisionDetection = () => {
-  for (let c = 0; c < brickColumnCount; c++) {
-    for (let r = 0; r < brickRowCount; r++) {
-      const b = bricks[c][r];
-      // calc...
-    }
-  }
-
-};
-
 const keyDownHandler = (e: KeyboardEvent): void => {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     console.log('right down');
@@ -64,6 +54,17 @@ const keyUpHandler = (e: KeyboardEvent): void => {
   if (e.key === 'Left' || e.key === 'ArrowLeft') {
     console.log('left up');
     leftPressed = false;
+  }
+};
+
+const collisionDetection = () => {
+  for (let c = 0; c < brickColumnCount; c++) {
+    for (let r = 0; r < brickRowCount; r++) {
+      const b = bricks[c][r];
+      if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+        dy = - dy;
+      }
+    }
   }
 };
 
@@ -87,6 +88,7 @@ const drawBall = (): void => {
 const draw = (): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPaddle();
+  collisionDetection();
   drawBricks();
   drawBall();
 
