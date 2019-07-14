@@ -68,11 +68,18 @@ const collisionDetection = () => {
         if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
           dy = - dy;
           b.status = false;
+          score++;
         }
       }
     }
   }
 };
+
+const drawScore = () => {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095DD';
+  ctx.fillText('Score:' + score, 8, 20);
+}
 
 const drawPaddle = (): void => {
   ctx.beginPath();
@@ -94,6 +101,7 @@ const drawBall = (): void => {
 const draw = (): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPaddle();
+  drawScore();
   collisionDetection();
   drawBricks();
   drawBall();
