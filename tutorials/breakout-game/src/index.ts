@@ -60,6 +60,10 @@ const keyUpHandler = (e: KeyboardEvent): void => {
   }
 };
 
+const mouseMoveHandler = (e: MouseEvent) => {
+  console.dir(e);
+};
+
 const collisionDetection = () => {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
@@ -159,5 +163,6 @@ const drawBricks = () => {
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
 
 const intervl = setInterval(draw, 10);
