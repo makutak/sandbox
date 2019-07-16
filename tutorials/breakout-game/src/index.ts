@@ -69,6 +69,10 @@ const collisionDetection = () => {
           dy = - dy;
           b.status = false;
           score++;
+          if (score === brickRowCount * brickColumnCount) {
+            alert('YOU WIN. CONGRATULATIONS!');
+            document.location.reload();
+          }
         }
       }
     }
