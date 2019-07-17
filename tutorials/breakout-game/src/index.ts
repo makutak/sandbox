@@ -61,7 +61,10 @@ const keyUpHandler = (e: KeyboardEvent): void => {
 };
 
 const mouseMoveHandler = (e: MouseEvent) => {
-  console.dir(e);
+  const relativeX = e.clientX - canvas.offsetLeft;
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth / 2;
+  }
 };
 
 const collisionDetection = () => {
