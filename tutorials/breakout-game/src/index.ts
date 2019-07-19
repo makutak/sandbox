@@ -94,6 +94,12 @@ const drawScore = () => {
   ctx.fillText('Score:' + score, 8, 20);
 }
 
+const drawLives = () => {
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095DD';
+  ctx.fillText('Lives:' + lives, canvas.width - 65, 20);
+}
+
 const drawPaddle = (): void => {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
