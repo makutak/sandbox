@@ -121,6 +121,7 @@ const draw = (): void => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPaddle();
   drawScore();
+  drawLives();
   collisionDetection();
   drawBricks();
   drawBall();
