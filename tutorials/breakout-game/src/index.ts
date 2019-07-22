@@ -161,6 +161,8 @@ const draw = (): void => {
 
   x += dx;
   y += dy;
+
+  requestAnimationFrame(draw)
 };
 
 const drawBricks = () => {
@@ -185,4 +187,4 @@ document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
-const intervl = setInterval(draw, 10);
+draw();
