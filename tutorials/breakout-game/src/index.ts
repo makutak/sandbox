@@ -14,7 +14,7 @@ let paddleX: number = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false
 
-let brickRowCount = 3;
+let brickRowCount = 5;
 let brickColumnCount = 5;
 let brickWidth = 75;
 let brickHeight = 20;
@@ -162,7 +162,7 @@ const draw = (): void => {
   x += dx;
   y += dy;
 
-  requestAnimationFrame(draw)
+  requestAnimationFrame(draw);
 };
 
 const drawBricks = () => {
