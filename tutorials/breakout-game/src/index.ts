@@ -24,7 +24,7 @@ let brickOffsetLeft = 30;
 
 let score = 0;
 
-let lives = 3;
+let lives = 5;
 
 interface Brick {
   x: number;
