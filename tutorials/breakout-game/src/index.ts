@@ -3,8 +3,8 @@ const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
 let x: number = canvas.width / 2;
 let y: number = canvas.height - 30;
-let dx: number = 2;
-let dy: number = -2;
+let dx: number = 3;
+let dy: number = -3;
 const ballRadius = 10;
 
 const paddleHeight: number = 10;
@@ -144,8 +144,8 @@ const draw = (): void => {
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
-        dx = 2;
-        dy = -2;
+        dx = 3;
+        dy = -3;
         paddleX = (canvas.width - paddleWidth) / 2;
       }
     }
