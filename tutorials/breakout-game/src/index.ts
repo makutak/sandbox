@@ -1,8 +1,8 @@
 const canvas = <HTMLCanvasElement>document.getElementById('myCanvas');
 const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
-const DX = 3;
-const DY = -3;
+const DX = 2;
+const DY = -2;
 
 let x: number = canvas.width / 2;
 let y: number = canvas.height - 30;
@@ -45,22 +45,18 @@ for (let c = 0; c < brickColumnCount; c++) {
 
 const keyDownHandler = (e: KeyboardEvent): void => {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
-    console.log('right down');
     rightPressed = true;
   }
   if (e.key === 'Left' || e.key === 'ArrowLeft') {
-    console.log('left down');
     leftPressed = true;
   }
 };
 
 const keyUpHandler = (e: KeyboardEvent): void => {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
-    console.log('right up');
     rightPressed = false;
   }
   if (e.key === 'Left' || e.key === 'ArrowLeft') {
-    console.log('left up');
     leftPressed = false;
   }
 };
@@ -81,6 +77,16 @@ const collisionDetection = () => {
           dy = - dy;
           b.status = false;
           score++;
+          if (score % 10 === 0) {
+            const speed = score / 10;
+            console.log("##################");
+            console.log(speed);
+            console.log("##################");
+            dy = DY - speed;
+            dx = DX + speed;
+            console.log("dy:", dy);
+            console.log("dx:", dx);
+          }
           if (score === brickRowCount * brickColumnCount) {
             alert('YOU WIN. CONGRATULATIONS!');
             document.location.reload();
@@ -147,8 +153,8 @@ const draw = (): void => {
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
-        dx = DX;
-        dy = DY;
+        dx = dx;
+        dy = dy;
         paddleX = (canvas.width - paddleWidth) / 2;
       }
     }
