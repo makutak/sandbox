@@ -1,10 +1,13 @@
 const canvas = <HTMLCanvasElement>document.getElementById('myCanvas');
 const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
+const DX = 3;
+const DY = -3;
+
 let x: number = canvas.width / 2;
 let y: number = canvas.height - 30;
-let dx: number = 3;
-let dy: number = -3;
+let dx: number = DX;
+let dy: number = DY;
 const ballRadius = 10;
 
 const paddleHeight: number = 10;
@@ -144,8 +147,8 @@ const draw = (): void => {
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
-        dx = 3;
-        dy = -3;
+        dx = DX;
+        dy = DY;
         paddleX = (canvas.width - paddleWidth) / 2;
       }
     }
