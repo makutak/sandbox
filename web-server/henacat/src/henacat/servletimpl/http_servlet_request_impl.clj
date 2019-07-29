@@ -5,8 +5,13 @@
            [java.nio.charset Charset])
   (:require [henacat.servletinterfaces.http_servlet_request :refer [HttpServletRequest]]
             [henacat.servletinterfaces.cookie :refer [make-Cookie]]
+            [henacat.servletimpl.session_manager :refer [create-session]]
             [clojure.string :as s])
   (:refer-clojure :exclude [get-method]))
+
+(declare add-session-cookie)
+
+(def SESSION_COOKIE_ID "JSESSIONID")
 
 (defn parse-cookies
   [cookie-string]
@@ -23,7 +28,7 @@
                        (conj ret (make-Cookie (first pair) (second pair)))
                        (rest cookies)))))))))
 
-(defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies]
+(defrecord HttpServletRequestImpl [method character-encoding parameter-map cookies response sessoin]
   HttpServletRequest
   (get-method [this]
     (:method this))
@@ -44,9 +49,36 @@
   (get-cookies [this]
     @(:cookies this)))
 
+(defmulti get-session class)
+(defmethod get-session HttpServletRequestImpl [this create]
+  (cond
+    (not create) @(:session this)
+    (nil? @(:session this)) (do
+                              (reset! (:session this) (create-session))
+                              (add-session-cookie))
+    :else @(:session this)))
+
+(defmethod get-session HttpServletRequestImpl [this]
+  (get-session this true))
+
+(defn get-session-internal
+  [this]
+  (if (nil? (:cookies this))
+    nil
+    (do
+      (doseq [temp-cookie  @(:cookies this)]
+        (println temp-cookie)))))
+
+(defn add-session-cookie
+  [this]
+  (.add-cookie (:response this)
+               (make-Cookie SESSION_COOKIE_ID (str (.get-id (:session this)) "; HttpOnly"))))
+
 (defn make-HttpServletRequestImpl
-  [method request-header parameter-map]
+  [method request-header parameter-map resp]
   (HttpServletRequestImpl. method
                            (atom request-header)
                            parameter-map
-                           (atom (parse-cookies (:COOKIE request-header)))))
+                           (atom (parse-cookies (:COOKIE request-header)))
+                           resp
+                           (atom (get-session-internal))))
