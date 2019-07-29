@@ -61,14 +61,14 @@ const keyUpHandler = (e: KeyboardEvent): void => {
   }
 };
 
-const mouseMoveHandler = (e: MouseEvent) => {
+const mouseMoveHandler = (e: MouseEvent): void => {
   const relativeX = e.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
     paddleX = relativeX - paddleWidth / 2;
   }
 };
 
-const collisionDetection = () => {
+const collisionDetection = (): void => {
   for (let c = 0; c < brickColumnCount; c++) {
     for (let r = 0; r < brickRowCount; r++) {
       const b = bricks[c][r];
@@ -92,13 +92,13 @@ const collisionDetection = () => {
   }
 };
 
-const drawScore = () => {
+const drawScore = (): void => {
   ctx.font = '16px Arial';
   ctx.fillStyle = '#0095DD';
   ctx.fillText('Score:' + score, 8, 20);
 }
 
-const drawLives = () => {
+const drawLives = (): void => {
   ctx.font = '16px Arial';
   ctx.fillStyle = '#0095DD';
   ctx.fillText('Lives:' + lives, canvas.width - 65, 20);
