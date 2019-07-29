@@ -79,13 +79,8 @@ const collisionDetection = () => {
           score++;
           if (score % 10 === 0) {
             const speed = score / 10;
-            console.log("##################");
-            console.log(speed);
-            console.log("##################");
             dy = DY - speed;
             dx = DX + speed;
-            console.log("dy:", dy);
-            console.log("dx:", dx);
           }
           if (score === brickRowCount * brickColumnCount) {
             alert('YOU WIN. CONGRATULATIONS!');
