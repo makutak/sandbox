@@ -9,8 +9,6 @@ fn main() {
 
     let secrete_number = rand::thread_rng().gen_range(1, 101);
 
-    println!("The secrete number is: {}", secrete_number);
-
     loop {
         println!("Please input your guess.");
 
