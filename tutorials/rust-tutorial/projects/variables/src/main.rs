@@ -3,5 +3,8 @@ fn main() {
     println!("The value of x is: {}", x);
 
     x = 6;
-    println!("Ther value of x is: {}", x);
+    println!("The value of x is: {}", x);
+
+    const MAX_POINTS: u32 = 100_000;
+    println!("The MAX_POINTS is: {}", MAX_POINTS);
 }
