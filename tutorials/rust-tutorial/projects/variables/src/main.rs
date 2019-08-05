@@ -9,6 +9,7 @@ fn main() {
     println!("The MAX_POINTS is: {}", MAX_POINTS);
 
     shadowing();
+    data_types();
 }
 
 fn shadowing() {
@@ -31,4 +32,17 @@ fn shadowing() {
     println!("The length of spaces is {}: ", spaces);
 
     println!("##########################");
+}
+
+fn data_types() {
+    println!("##############################################");
+    println!("float test.");
+
+    let x = 2.0;
+    println!("{} is f64", x);
+
+    let y: f32 = 3.0;
+
+    println!("{} is f32", y);
+    println!("##############################################");
 }
