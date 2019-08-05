@@ -24,10 +24,10 @@ fn shadowing() {
     let x = x * 100_0;
     println!("The value of x is: {}", x);
 
-    let mut spaces = "    ";
+    let spaces = "    ";
     println!("The value of spaces is {}: ", spaces);
 
-    spaces = spaces.len();
+    let spaces = spaces.len();
     println!("The length of spaces is {}: ", spaces);
 
     println!("##########################");
