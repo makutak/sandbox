@@ -18,10 +18,10 @@ fn shadowing() {
     let x = 5;
     println!("The value of x is: {}", x);
 
-    let x = 6;
+    let x = x * 2;
     println!("The value of x is: {}", x);
 
-    let x = 100_000;
+    let x = x * 100_0;
     println!("The value of x is: {}", x);
 
     println!("##########################");
