@@ -44,5 +44,21 @@ fn data_types() {
     let y: f32 = 3.0;
 
     println!("{} is f32", y);
+
+    let sum = 5 + 10;
+    println!("sum: {}", sum);
+
+    let diff = 95.5 - 4.3;
+    println!("diff: {}", diff);
+
+    let prod = 4 * 30;
+    println!("prod: {}", prod);
+
+    let quot = 56.7 / 32.2;
+    println!("quot: {}", quot);
+
+    let rem = 43 % 5;
+    println!("rem: {}", rem);
+
     println!("##############################################");
 }
