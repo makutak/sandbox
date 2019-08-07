@@ -60,5 +60,11 @@ fn data_types() {
     let rem = 43 % 5;
     println!("rem: {}", rem);
 
+    let t = true;
+    println!("t: {}", t);
+
+    let f: bool = false;
+    println!("f: {}", f);
+
     println!("##############################################");
 }
