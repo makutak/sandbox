@@ -76,7 +76,8 @@ fn data_types() {
     println!("heart_eyed_cat, {}", heart_eyed_cat);
 
     let tup: (i32, f64, u8) = (500, 6.4, 1);
-    println!("tup: {}", tup);
+    let (a, b, c) = tup;
+    println!("a: {}, b: {}, c: {}", a, b, c);
 
     println!("##############################################");
 }
