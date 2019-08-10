@@ -88,5 +88,10 @@ fn data_types() {
     let z = tup.2;
     println!("z: {}", z);
 
+    let ary = [1, 2, 3, 4, 5];
+    let first = ary[0];
+    let second = ary[1];
+    println!("first: {}, second: {}", first, second);
+
     println!("##############################################");
 }
