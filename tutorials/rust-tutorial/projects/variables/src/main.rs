@@ -93,5 +93,21 @@ fn data_types() {
     let second = ary[1];
     println!("first: {}, second: {}", first, second);
 
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    println!("months: {:?}", months);
+
     println!("##############################################");
 }
