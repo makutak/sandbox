@@ -79,5 +79,14 @@ fn data_types() {
     let (a, b, c) = tup;
     println!("a: {}, b: {}, c: {}", a, b, c);
 
+    let x = tup.0;
+    println!("x: {}", x);
+
+    let y = tup.1;
+    println!("y: {}", y);
+
+    let z = tup.2;
+    println!("z: {}", z);
+
     println!("##############################################");
 }
