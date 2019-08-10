@@ -109,5 +109,8 @@ fn data_types() {
     ];
     println!("months: {:?}", months);
 
+    let index = 10;
+    println!("{}", ary[index]);
+
     println!("##############################################");
 }
