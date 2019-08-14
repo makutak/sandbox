@@ -15,5 +15,10 @@ fn statement_test() {
     let a = 5;
     println!("a: {}: ", a);
 
-    let x = (let y = 6);
+    let y = {
+        let x = 3;
+        x + 1
+    };
+
+    println!("y: {}", y);
 }
