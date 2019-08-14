@@ -14,4 +14,6 @@ fn another_function(x: i32, y: i32) {
 fn statement_test() {
     let a = 5;
     println!("a: {}: ", a);
+
+    let x = (let y = 6);
 }
