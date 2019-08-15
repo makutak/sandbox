@@ -4,6 +4,8 @@ fn main() {
     another_function(5, 10);
 
     statement_test();
+
+    println!("five(): {}", five());
 }
 
 fn another_function(x: i32, y: i32) {
@@ -21,4 +23,8 @@ fn statement_test() {
     };
 
     println!("y: {}", y);
+}
+
+fn five() -> i32 {
+    5
 }
