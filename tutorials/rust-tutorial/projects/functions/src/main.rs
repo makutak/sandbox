@@ -5,7 +5,8 @@ fn main() {
 
     statement_test();
 
-    println!("five(): {}", five());
+    let x = five();
+    println!("five(): {}", x);
 }
 
 fn another_function(x: i32, y: i32) {
