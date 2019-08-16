@@ -7,6 +7,9 @@ fn main() {
 
     let x = five();
     println!("five(): {}", x);
+
+    let added = plus_one(100_0);
+    println!("added: {}", added);
 }
 
 fn another_function(x: i32, y: i32) {
@@ -28,4 +31,8 @@ fn statement_test() {
 
 fn five() -> i32 {
     5
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1
 }
