@@ -1,5 +1,5 @@
 fn main() {
-    let number = 7;
+    let number = 3;
 
     if number < 5 {
         println!("condition was true");
