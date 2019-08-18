@@ -6,4 +6,10 @@ fn main() {
     } else {
         println!("condition was false");
     }
+
+    let number = 3;
+
+    if number {
+        println!("number was three");
+    }
 }
