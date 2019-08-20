@@ -14,6 +14,8 @@ fn main() {
     }
 
     if_else();
+
+    let_if();
 }
 
 fn if_else() {
@@ -28,4 +30,11 @@ fn if_else() {
     } else {
         println!("number is not divisible by 4, 3, 2");
     }
+}
+
+fn let_if() {
+    let condition = true;
+    let number = if condition { 5 } else { 6 };
+
+    println!("number: {}", number);
 }
