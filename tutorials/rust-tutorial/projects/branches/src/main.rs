@@ -34,7 +34,7 @@ fn if_else() {
 
 fn let_if() {
     let condition = true;
-    let number = if condition { 5 } else { "six" };
+    let number = if condition { 5 } else { 6 };
 
     println!("number: {}", number);
 }
