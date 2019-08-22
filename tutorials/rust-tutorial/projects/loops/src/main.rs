@@ -1,9 +1,15 @@
 fn main() {
-    loop_test();
+    while_test();
 }
 
-fn loop_test() {
-    loop {
-        println!("again!!");
+fn while_test() {
+    let mut number = 3;
+
+    while number != 0 {
+        println!("{}", number);
+
+        number -= 1;
     }
+
+    println!("LIFTOFF!!");
 }
