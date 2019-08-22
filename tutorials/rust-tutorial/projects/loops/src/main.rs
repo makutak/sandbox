@@ -1,3 +1,9 @@
 fn main() {
-    println!("Hello, world!");
+    loop_test();
+}
+
+fn loop_test() {
+    loop {
+        println!("again!!");
+    }
 }
