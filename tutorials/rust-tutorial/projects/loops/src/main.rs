@@ -31,4 +31,8 @@ fn for_test() {
     for element in a.iter() {
         println!("{}", element);
     }
+
+    for i in 1..5 {
+        println!("value of {}", i);
+    }
 }
