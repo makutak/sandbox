@@ -35,4 +35,9 @@ fn for_test() {
     for i in 1..5 {
         println!("value of {}", i);
     }
+
+    for i in (1..4).rev() {
+        println!("{}!", i);
+    }
+    println!("LIFTOFF!!!!!!!");
 }
