@@ -1,6 +1,7 @@
 fn main() {
     assert_eq!(0, fahrenheit_to_centigrade(32));
-    assert_eq!(100, fahrenheit_to_centigrade(212))
+    assert_eq!(100, fahrenheit_to_centigrade(212));
+    assert_eq!(23, fahrenheit_to_centigrade(74));
 }
 
 //華氏から摂氏への変換
