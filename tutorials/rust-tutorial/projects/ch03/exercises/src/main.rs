@@ -7,6 +7,8 @@ fn main() {
     assert_eq!(1, fib(1));
     assert_eq!(1, fib(2));
     assert_eq!(55, fib(10));
+
+    the_twelve_days_of_christmas();
 }
 
 //華氏から摂氏への変換
@@ -22,4 +24,9 @@ fn fib(n: i32) -> i32 {
     } else {
         fib(n - 1) + fib(n - 2)
     }
+}
+
+fn the_twelve_days_of_christmas() {
+    println!("On the first day of Christmas my true love sent to me");
+    println!("A partridge in a pear tree");
 }
