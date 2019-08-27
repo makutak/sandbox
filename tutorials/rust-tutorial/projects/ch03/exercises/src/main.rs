@@ -27,6 +27,8 @@ fn fib(n: i32) -> i32 {
 }
 
 fn the_twelve_days_of_christmas() {
-    println!("On the first day of Christmas my true love sent to me");
-    println!("A partridge in a pear tree");
+    let ary = ["first", "second", "third"];
+    for i in ary.iter() {
+        println!("On the {} day of Christmas my true love sent to me", i);
+    }
 }
