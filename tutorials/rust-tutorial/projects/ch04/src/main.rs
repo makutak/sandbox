@@ -4,4 +4,4 @@ fn main() {
 
     s.push_str(", world!"); //メモリを更に要求する
     assert_eq!("hello, world!", s);
-}
+} //drop関数が呼ばれsのスコープが終わる
