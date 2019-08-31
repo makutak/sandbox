@@ -5,10 +5,18 @@ fn main() {
     s.push_str(", world!"); //メモリを更に要求する
     assert_eq!("hello, world!", s);
     move_test();
+    clone_test();
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
     let s1 = String::from("hello");
     let s2 = s1;
     println!("{}", s2);
+}
+
+fn clone_test() {
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
+
+    println!("s1 = {}, s2 = {}", s1, s2);
 }
