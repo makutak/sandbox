@@ -7,6 +7,9 @@ fn main() {
     move_test();
     clone_test();
     stack_copy_test();
+
+    takes_ownership(s);
+    println!("{}", s);
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
@@ -27,4 +30,8 @@ fn stack_copy_test() {
     let y = x;
 
     println!("x = {}, y = {}", x, y);
+}
+
+fn takes_ownership(some_string: String) {
+    println!("{}", some_string);
 }
