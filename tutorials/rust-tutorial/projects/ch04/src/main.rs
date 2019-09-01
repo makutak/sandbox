@@ -15,6 +15,9 @@ fn main() {
     makes_copy(x);
     println!("{}", x);
 
+    let s1 = gives_ownership();
+    println!("{}", s1);
+
     let s2 = String::from("hello");
     println!("{}", s2);
     let s3 = takes_and_gives_back(s2);
