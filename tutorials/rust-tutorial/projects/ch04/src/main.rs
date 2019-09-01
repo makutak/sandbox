@@ -18,7 +18,7 @@ fn main() {
     let s2 = String::from("hello");
     println!("{}", s2);
     let s3 = takes_and_gives_back(s2);
-    println!("{}", s2);
+    println!("{}", s3);
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
