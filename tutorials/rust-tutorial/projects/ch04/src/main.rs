@@ -22,6 +22,9 @@ fn main() {
     println!("{}", s2);
     let s3 = takes_and_gives_back(s2);
     println!("{}", s3);
+
+    let (s2, len) = calculate_length(s1);
+    println!("The length of '{}' is {}.", s2, len);
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
@@ -60,4 +63,10 @@ fn gives_ownership() -> String {
 
 fn takes_and_gives_back(a_string: String) -> String {
     a_string
+}
+
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len();
+
+    (s, length)
 }
