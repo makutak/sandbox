@@ -65,6 +65,7 @@ fn takes_and_gives_back(a_string: String) -> String {
     a_string
 }
 
+// アンド記号が参照
 fn calculate_length(s: &String) -> usize {
     s.len()
 }
