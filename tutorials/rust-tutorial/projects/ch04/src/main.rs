@@ -25,6 +25,9 @@ fn main() {
 
     let len = calculate_length(&s1);
     println!("The length of '{}' is {}.", s1, len);
+
+    let s = String::from("hello");
+    change(&s);
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
@@ -68,4 +71,8 @@ fn takes_and_gives_back(a_string: String) -> String {
 // アンド記号が参照
 fn calculate_length(s: &String) -> usize {
     s.len()
+}
+
+fn change(some_string: &String) {
+    some_string.push_str(", world!!")
 }
