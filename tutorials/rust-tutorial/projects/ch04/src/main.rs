@@ -30,10 +30,8 @@ fn main() {
     change(&mut s);
     println!("{}", s);
 
-    let mut str1 = String::from("This is String.");
-    let r1 = &mut str1;
-    let r2 = &mut str1;
-    println!("r1: {}, r2: {}", r1, r2);
+    let r1 = &mut s;
+    let r2 = &mut s;
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
