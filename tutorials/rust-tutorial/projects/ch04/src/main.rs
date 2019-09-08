@@ -85,8 +85,8 @@ fn change(some_string: &mut String) {
     some_string.push_str(", world!!");
 }
 
-fn dangle() -> &String {
+fn dangle() -> String {
     let s = String::from("dangle");
 
-    &s
+    s
 }
