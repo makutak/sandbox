@@ -34,6 +34,8 @@ fn main() {
     let _r1 = &hello;
     let _r2 = &hello;
     let _r3 = &mut hello;
+
+    let reference_to_nothing = dangle();
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
@@ -81,4 +83,10 @@ fn calculate_length(s: &String) -> usize {
 
 fn change(some_string: &mut String) {
     some_string.push_str(", world!!");
+}
+
+fn dangle() -> &String {
+    let s = String::from("dangle");
+
+    &s
 }
