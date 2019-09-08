@@ -31,8 +31,9 @@ fn main() {
     println!("{}", s);
 
     let mut hello = String::from("hello");
-    let _r1 = &mut hello;
-    let _r2 = &mut hello;
+    let _r1 = &hello;
+    let _r2 = &hello;
+    let _r3 = &mut hello;
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
