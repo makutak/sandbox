@@ -36,6 +36,12 @@ fn main() {
     let _r3 = &mut hello;
 
     let reference_to_nothing = dangle();
+
+    let mut s = String::from("hello world");
+    let word = first_words(&s);
+    println!("s: '{}', first word: '{}'", s, word);
+    s.clear();
+    println!("s: '{}', first word: '{}'", s, word);
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
@@ -89,4 +95,16 @@ fn dangle() -> String {
     let s = String::from("dangle");
 
     s
+}
+
+fn first_words(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i
+        }
+    }
+
+    s.len()
 }
