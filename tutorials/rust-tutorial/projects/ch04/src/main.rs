@@ -42,6 +42,8 @@ fn main() {
     println!("s: '{}', first word: '{}'", s, word);
     s.clear(); // sを空にする
     println!("s: '{}', first word: '{}'", s, word); // sが空文字列だがwordは有効である
+
+    string_slice_test();
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
@@ -107,4 +109,13 @@ fn first_words(s: &String) -> usize {
     }
 
     s.len()
+}
+
+fn string_slice_test() {
+    let s = String::from("hello world");
+
+    let hello = &s[0..5];
+    let world = &s[6..11];
+
+    println!("s: '{}', hello: '{}', world: '{}'", s, hello, world);
 }
