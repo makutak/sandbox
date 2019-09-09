@@ -40,6 +40,7 @@ fn main() {
     let mut s = String::from("hello world");
     let word = first_words(&s);
     println!("s: '{}', first word: '{}'", s, word);
+
     s.clear(); // sを空にする
     println!("s: '{}', first word: '{}'", s, word); // sが空文字列だがwordは有効である
 
@@ -99,16 +100,16 @@ fn dangle() -> String {
     s
 }
 
-fn first_words(s: &String) -> usize {
+fn first_words(s: &String) -> &str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
-            return i
+            return &s[..i]
         }
     }
 
-    s.len()
+    &s[..]
 }
 
 fn string_slice_test() {
