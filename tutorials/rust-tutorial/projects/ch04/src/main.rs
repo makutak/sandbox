@@ -42,9 +42,9 @@ fn main() {
     println!("s: '{}', first word: '{}'", s, word);
 
     s.clear(); // sを空にする
-    println!("s: '{}', first word: '{}'", s, word); // 不変として借用されているので、`s`を可変で借用できません
+    // println!("s: '{}', first word: '{}'", s, word); // 不変として借用されているので、`s`を可変で借用できません
 
-    string_slice_test();
+    // string_slice_test();
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
