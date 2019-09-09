@@ -44,6 +44,9 @@ fn main() {
     // println!("s: '{}', first word: '{}'", s, word); // 不変として借用されているので、`s`を可変で借用できません
 
     // string_slice_test();
+
+    let s: &str = "Hello, world";
+    println!("{}", s);
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
