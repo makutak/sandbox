@@ -40,8 +40,8 @@ fn main() {
     let mut s = String::from("hello world");
     let word = first_words(&s);
     println!("s: '{}', first word: '{}'", s, word);
-    s.clear();
-    println!("s: '{}', first word: '{}'", s, word);
+    s.clear(); // sを空にする
+    println!("s: '{}', first word: '{}'", s, word); // sが空文字列だがwordは有効である
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
