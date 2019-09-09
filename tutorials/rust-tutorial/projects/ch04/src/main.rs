@@ -37,11 +37,10 @@ fn main() {
 
     let _reference_to_nothing = dangle();
 
-    let mut s = String::from("hello world");
+    let s = String::from("hello world");
     let word = first_words(&s);
     println!("s: '{}', first word: '{}'", s, word);
 
-    s.clear(); // sを空にする
     // println!("s: '{}', first word: '{}'", s, word); // 不変として借用されているので、`s`を可変で借用できません
 
     // string_slice_test();
@@ -105,7 +104,7 @@ fn first_words(s: &String) -> &str {
 
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
-            return &s[..i]
+            return &s[..i];
         }
     }
 
