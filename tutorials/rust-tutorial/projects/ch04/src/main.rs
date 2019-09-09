@@ -35,7 +35,7 @@ fn main() {
     let _r2 = &hello;
     let _r3 = &mut hello;
 
-    let reference_to_nothing = dangle();
+    let _reference_to_nothing = dangle();
 
     let mut s = String::from("hello world");
     let word = first_words(&s);
