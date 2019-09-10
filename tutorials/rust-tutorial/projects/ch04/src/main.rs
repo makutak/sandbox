@@ -102,7 +102,7 @@ fn dangle() -> String {
     s
 }
 
-fn first_words(s: &String) -> &str {
+fn first_words(s: &str) -> &str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
