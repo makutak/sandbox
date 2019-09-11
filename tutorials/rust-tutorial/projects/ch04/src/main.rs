@@ -47,6 +47,7 @@ fn main() {
 
     let s: &str = "Hello &str";
     println!("{}", first_words(&s[..]));
+    println!("{}", first_words(s));
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
