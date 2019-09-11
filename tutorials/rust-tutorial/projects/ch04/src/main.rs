@@ -48,6 +48,10 @@ fn main() {
     let s: &str = "Hello &str";
     println!("{}", first_words(&s[..]));
     println!("{}", first_words(s));
+
+    let s: String = String::from("Hello String");
+    println!("{}", first_words(&s[..]));
+    println!("{}", first_words(&s));
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
