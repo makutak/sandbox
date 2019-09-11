@@ -45,8 +45,8 @@ fn main() {
 
     // string_slice_test();
 
-    let s: &str = "Hello, world";
-    println!("{}", s);
+    let s: &str = "Hello &str";
+    println!("{}", first_words(&s[..]));
 } //drop関数が呼ばれsのスコープが終わる
 
 fn move_test() {
