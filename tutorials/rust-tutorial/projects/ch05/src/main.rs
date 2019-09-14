@@ -26,4 +26,17 @@ fn main() {
 
     user_2.email = String::from("updated@example.com");
     assert_eq!(user_2.email, "updated@example.com");
+
+    let user_3: User = build_user(String::from("user_3@example.com"), String::from("user_3"));
+    assert_eq!(user_3.username, "user_3");
+    assert_eq!(user_3.email, "user_3@example.com");
+}
+
+fn build_user(email: String, username: String) -> User {
+    User {
+        username: username,
+        email: email,
+        sign_in_count: 1,
+        active: true,
+    }
 }
