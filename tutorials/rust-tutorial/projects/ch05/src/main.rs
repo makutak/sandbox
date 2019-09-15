@@ -34,8 +34,8 @@ fn main() {
 
 fn build_user(email: String, username: String) -> User {
     User {
-        username: username,
-        email: email,
+        username,
+        email,
         sign_in_count: 1,
         active: true,
     }
