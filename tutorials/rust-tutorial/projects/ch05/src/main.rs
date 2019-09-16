@@ -34,8 +34,7 @@ fn main() {
     let new_user: User = User {
         username: String::from("new user"),
         email: String::from("new_user@example.com"),
-        sign_in_count: user.sign_in_count,
-        active: user.active,
+        ..user
     };
     assert_eq!(new_user.sign_in_count, user.sign_in_count);
     assert_eq!(new_user.active, user.active);
