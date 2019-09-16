@@ -30,6 +30,15 @@ fn main() {
     let user_3: User = build_user(String::from("user_3@example.com"), String::from("user_3"));
     assert_eq!(user_3.username, "user_3");
     assert_eq!(user_3.email, "user_3@example.com");
+
+    let new_user: User = User {
+        username: String::from("new user"),
+        email: String::from("new_user@example.com"),
+        sign_in_count: user.sign_in_count,
+        active: user.active,
+    };
+    assert_eq!(new_user.sign_in_count, user.sign_in_count);
+    assert_eq!(new_user.active, user.active);
 }
 
 fn build_user(email: String, username: String) -> User {
