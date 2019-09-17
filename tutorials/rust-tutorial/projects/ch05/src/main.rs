@@ -38,6 +38,17 @@ fn main() {
     };
     assert_eq!(new_user.sign_in_count, user.sign_in_count);
     assert_eq!(new_user.active, user.active);
+
+    #[derive(Debug)]
+    struct Color(i32, i32, i32);
+    #[derive(Debug)]
+    struct Point(i32, i32, i32);
+
+    let black = Color(0, 0, 0);
+    println!("black: {:?}", black);
+
+    let origin = Point(0, 0, 0);
+    println!("origin: {:?}", origin);
 }
 
 fn build_user(email: String, username: String) -> User {
