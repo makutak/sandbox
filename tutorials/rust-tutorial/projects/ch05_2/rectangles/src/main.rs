@@ -10,7 +10,7 @@ fn main() {
         height: 50,
     };
 
-    println!("rect is {:?}", rect);
+    println!("rect is {:#?}", rect);
 
     println!(
         "The area of the rectangle is {} square pixels.",
