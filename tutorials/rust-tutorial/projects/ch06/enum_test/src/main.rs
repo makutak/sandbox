@@ -1,3 +1,5 @@
+use std::net::{Ipv4Addr, Ipv6Addr};
+
 #[derive(Debug)]
 enum IpAddrKind {
     V4,
@@ -11,9 +13,9 @@ struct IpAddr {
 }
 
 #[derive(Debug)]
-enum IpAddrEnum {
-    V4(u8, u8, u8, u8),
-    V6(String),
+enum IpAddrType {
+    V4(Ipv4Addr),
+    V6(Ipv6Addr),
 }
 
 fn main() {
@@ -39,8 +41,8 @@ fn main() {
 
     println!("{:#?}", loopback);
 
-    let home = IpAddrEnum::V4(127, 0, 0, 1);
-    let loopback = IpAddrEnum::V6(String::from("::1"));
+    let home = IpAddrType::V4(Ipv4Addr::new(127, 0, 0, 1));
+    let loopback = IpAddrType::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1));
 
     println!("{:#?}", home);
     println!("{:#?}", loopback);
