@@ -18,6 +18,20 @@ enum IpAddrType {
     V6(Ipv6Addr),
 }
 
+#[derive(Debug)]
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+impl Message {
+    fn call(&self) {
+        println!("{:#?}", self);
+    }
+}
+
 fn main() {
     let four = IpAddrKind::V4;
     let six = IpAddrKind::V6;
@@ -46,6 +60,9 @@ fn main() {
 
     println!("{:#?}", home);
     println!("{:#?}", loopback);
+
+    let m = Message::Write(String::from("hello"));
+    m.call();
 }
 
 fn route(ip_type: IpAddrKind) {
