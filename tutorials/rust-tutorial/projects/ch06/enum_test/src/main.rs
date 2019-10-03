@@ -32,6 +32,23 @@ impl Message {
     }
 }
 
+#[derive(Debug)]
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u32 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+
 fn main() {
     let four = IpAddrKind::V4;
     let six = IpAddrKind::V6;
@@ -63,6 +80,9 @@ fn main() {
 
     let m = Message::Write(String::from("hello"));
     m.call();
+
+    let penny = Coin::Penny;
+    println!("penny is {:#?}", value_in_cents(penny));
 }
 
 fn route(ip_type: IpAddrKind) {
