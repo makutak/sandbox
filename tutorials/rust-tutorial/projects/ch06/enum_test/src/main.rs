@@ -37,7 +37,13 @@ enum Coin {
     Penny,
     Nickel,
     Dime,
-    Quarter,
+    Quarter(UsState),
+}
+
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
 }
 
 fn value_in_cents(coin: Coin) -> u32 {
@@ -48,7 +54,10 @@ fn value_in_cents(coin: Coin) -> u32 {
         }
         Coin::Nickel => 5,
         Coin::Dime => 10,
-        Coin::Quarter => 25,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:#?}", state);
+            25
+        }
     }
 }
 
@@ -85,7 +94,9 @@ fn main() {
     m.call();
 
     let penny = Coin::Penny;
+    let quarter = Coin::Quarter;
     println!("penny is {:#?}", value_in_cents(penny));
+    println!("{:?}", value_in_cents(quarter(UsState::Alaska)));
 }
 
 fn route(ip_type: IpAddrKind) {
