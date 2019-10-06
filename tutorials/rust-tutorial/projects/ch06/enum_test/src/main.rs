@@ -61,6 +61,13 @@ fn value_in_cents(coin: Coin) -> u32 {
     }
 }
 
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
 fn main() {
     let four = IpAddrKind::V4;
     let six = IpAddrKind::V6;
@@ -97,6 +104,13 @@ fn main() {
     let quarter = Coin::Quarter;
     println!("penny is {:#?}", value_in_cents(penny));
     println!("{:?}", value_in_cents(quarter(UsState::Alaska)));
+
+    let five = Some(5);
+    println!("five: {:#?}", five);
+    let six = plus_one(five);
+    println!("five plus one is: {:#?}", six);
+    let none = plus_one(None);
+    println!("None: {:#?}", none);
 }
 
 fn route(ip_type: IpAddrKind) {
