@@ -111,6 +111,15 @@ fn main() {
     println!("five plus one is: {:#?}", six);
     let none = plus_one(None);
     println!("None: {:#?}", none);
+
+    let some_u8_value = 0u8;
+    match some_u8_value {
+        1 => println!("one!"),
+        3 => println!("three!"),
+        5 => println!("five!"),
+        7 => println!("seven!"),
+        _ => (),
+    }
 }
 
 fn route(ip_type: IpAddrKind) {
