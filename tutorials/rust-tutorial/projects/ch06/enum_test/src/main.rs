@@ -126,6 +126,12 @@ fn main() {
         Some(3) => println!("Three!!"),
         _ => (),
     }
+
+    let some_u8_value = Some(3);
+    match some_u8_value {
+        Some(3) => println!("Matched!! Three!!"),
+        _ => (),
+    }
 }
 
 fn route(ip_type: IpAddrKind) {
