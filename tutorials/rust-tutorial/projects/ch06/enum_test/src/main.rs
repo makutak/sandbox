@@ -131,6 +131,14 @@ fn main() {
     if let Some(3) = some_u8_value {
         println!("Matched!! Three!!");
     }
+
+    let coin = Coin::Penny;
+    let mut count = 0;
+    match coin {
+        Coin::Quarter(state) => println!("State quarter from {:?}!", state),
+        _ => count += 1,
+    }
+    println!("count is: {}", count);
 }
 
 fn route(ip_type: IpAddrKind) {
