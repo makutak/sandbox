@@ -10,4 +10,11 @@ fn main() {
     v2.push(7);
     v2.push(8);
     println!("{:?}", v2);
+
+    let v3 = vec![1, 2, 3, 4, 5];
+
+    let third: &i32 = &v3[2];
+    println!("{}", third);
+    let third: Option<&i32> = v.get(2);
+    println!("{:?}", third);
 }
