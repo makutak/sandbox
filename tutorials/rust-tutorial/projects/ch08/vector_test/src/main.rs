@@ -20,8 +20,8 @@ fn main() {
 
     let v4 = vec![1, 2, 3, 4, 5];
 
-    let does_not_exist = &v4[100];
-    println!("{:?}", does_not_exist);
+    // let does_not_exist = &v4[100];
+    // println!("{:?}", does_not_exist);
 
     let does_not_exist = v4.get(100);
     println!("{:?}", does_not_exist);
