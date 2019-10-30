@@ -26,7 +26,7 @@ fn main() {
     let does_not_exist = v.get(100);
     println!("{:?}", does_not_exist);
 
-    let v = vec![1, 2, 3, 4, 5];
-    let first = &v[0];
-    v.push(6);
+    // let v = vec![1, 2, 3, 4, 5];
+    // let first = &v[0];
+    // v.push(6);
 }
