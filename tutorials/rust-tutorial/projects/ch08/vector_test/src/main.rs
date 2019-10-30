@@ -29,4 +29,10 @@ fn main() {
     // let v = vec![1, 2, 3, 4, 5];
     // let first = &v[0];
     // v.push(6);
+
+    println!("for loop...");
+    let v = vec![100, 32, 57];
+    for i in &v {
+        println!("{}", i);
+    }
 }
