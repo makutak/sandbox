@@ -13,4 +13,10 @@ fn main() {
 
     let s = String::from("initial contents");
     println!("s: {}", s);
+
+    let mut s = String::from("foo");
+    println!("s: {}", s);
+
+    s.push_str("bar");
+    println!("s: {}", s);
 }
