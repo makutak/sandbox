@@ -10,4 +10,7 @@ fn main() {
 
     let s = "initial contents".to_string();
     println!("s: {}", s);
+
+    let s = String::from("initial contents");
+    println!("s: {}", s);
 }
