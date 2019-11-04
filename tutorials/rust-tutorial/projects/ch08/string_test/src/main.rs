@@ -45,4 +45,7 @@ fn main() {
 
     let len = String::from("Hola").len();
     println!("len is {}", len);
+
+    let len = String::from("Здравствуйте").len();
+    println!("len is {}", len);
 }
