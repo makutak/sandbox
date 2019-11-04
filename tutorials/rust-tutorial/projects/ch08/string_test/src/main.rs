@@ -48,4 +48,8 @@ fn main() {
 
     let len = String::from("Здравствуйте").len();
     println!("len is {}", len);
+
+    let hello = "Здравствуйте";
+    let s = &hello[0..4];
+    println!("s is {}", s);
 }
