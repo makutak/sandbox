@@ -42,4 +42,7 @@ fn main() {
 
     // let s1 = String::from("hello");
     // let h = s1[0];
+
+    let len = String::from("Hola").len();
+    println!("len is {}", len);
 }
