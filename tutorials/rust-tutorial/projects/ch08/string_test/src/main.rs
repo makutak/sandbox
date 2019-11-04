@@ -40,6 +40,6 @@ fn main() {
     let s = format!("{}-{}-{}", s1, s2, s3);
     println!("s is {}", s);
 
-    let s1 = String::from("hello");
-    let h = s1[0];
+    // let s1 = String::from("hello");
+    // let h = s1[0];
 }
