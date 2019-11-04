@@ -39,4 +39,7 @@ fn main() {
     let s3 = String::from("toe");
     let s = format!("{}-{}-{}", s1, s2, s3);
     println!("s is {}", s);
+
+    let s1 = String::from("hello");
+    let h = s1[0];
 }
