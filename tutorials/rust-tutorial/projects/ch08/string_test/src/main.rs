@@ -52,4 +52,8 @@ fn main() {
     let hello = "Здравствуйте";
     let s = &hello[0..4];
     println!("s is {}", s);
+
+    for c in "नमस्ते".chars() {
+        println!("{}", c);
+    }
 }
