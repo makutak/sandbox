@@ -12,4 +12,13 @@ fn main() {
 
     let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
     println!("scores is {:?}", scores);
+
+    let field_name = String::from("Favorite color");
+    let field_value = String::from("Blue");
+    println!("field_name: {}, field_value: {}", field_name, field_value);
+
+    let mut map = HashMap::new();
+    map.insert(field_name, field_value);
+    println!("map: {:?}", map);
+    println!("field_name: {}, field_value: {}", field_name, field_value);
 }
