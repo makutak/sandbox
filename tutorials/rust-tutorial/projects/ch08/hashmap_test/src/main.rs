@@ -34,4 +34,11 @@ fn main() {
     for (key, value) in scores {
         println!("{}: {}", key, value);
     }
+
+    let mut scores = HashMap::new();
+
+    scores.insert(String::from("Blue"), 10);
+    println!("Blue's score: {:?}", scores);
+    scores.insert(String::from("Blue"), 50);
+    println!("Blue's score: {:?}", scores);
 }
