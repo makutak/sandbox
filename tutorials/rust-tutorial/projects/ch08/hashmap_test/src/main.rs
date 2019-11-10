@@ -41,4 +41,12 @@ fn main() {
     println!("Blue's score: {:?}", scores);
     scores.insert(String::from("Blue"), 50);
     println!("Blue's score: {:?}", scores);
+
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    println!("scores: {:?}", scores);
+
+    scores.entry(String::from("Yellow")).or_insert(50);
+    scores.entry(String::from("Blue")).or_insert(50);
+    println!("scores: {:?}", scores);
 }
