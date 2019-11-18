@@ -13,5 +13,6 @@ fn main() {
     //      Err(error) => panic!("There was a problem opening the file: {:?}", error),
     //  };
 
-    let f = File::open("hello.txt").unwrap();
+    // let f = File::open("hello.txt").unwrap();
+    let f = File::open("hello.txt").expect("Failed to open hello.txt");
 }
