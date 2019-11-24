@@ -4,7 +4,7 @@ use std::io;
 use std::io::Read;
 
 fn main() {
-    let f = File::open("hello.txt")?;
+    //let f = File::open("hello.txt")?;
 
     // let f = match f {
     //      Ok(file) => file,
@@ -17,7 +17,7 @@ fn main() {
 
     // let f = File::open("hello.txt").unwrap();
     // let f = File::open("hello.txt").expect("Failed to open hello.txt");
-    // let f = read_username_from_file();
+    let f = read_username_from_file();
 }
 
 fn read_username_from_file() -> Result<String, io::Error> {
