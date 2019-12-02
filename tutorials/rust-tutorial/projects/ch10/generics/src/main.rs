@@ -10,6 +10,14 @@ fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     largest
 }
 
+fn longest(x: &str, y: &str) -> &str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
 fn main() {
     let number_list = vec![34, 50, 25, 100, 65];
     let result = largest(&number_list);
@@ -26,4 +34,10 @@ fn main() {
         r = &x;
         println!("r: {}", r);
     }
+
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
 }
