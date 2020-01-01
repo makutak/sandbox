@@ -32,4 +32,4 @@ console.dir(rect);
 const human = new Human(170, 55);
 console.log("your BMI is: ", human.calcBmi());
 
-console.log("hello");
+console.log("hello, world");
