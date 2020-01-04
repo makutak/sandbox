@@ -1,9 +1,7 @@
-"use strict";
-
 import { statement } from "./invoice";
-import plays from "./playes.json";
-import invoices from "./invoices.json";
+const plays = require("./playes.json");
+const invoices = require("./invoices.json");
 
 
-console.log(plays);
-console.log(invoices);
+console.log(JSON.stringify(plays, null, "  "));
+console.log(JSON.stringify(invoices, null, "  "));
