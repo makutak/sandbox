@@ -1,13 +1,15 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist",
-        "sourceMap": true,
-        "module": "es6",
-        "target": "es5",
-        "moduleResolution": "node",
-        "removeComments": true
-    },
-    "include": [
-        "./src/**/*"
-    ]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "sourceMap": true,
+    "module": "es6",
+    "target": "es5",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
 }
