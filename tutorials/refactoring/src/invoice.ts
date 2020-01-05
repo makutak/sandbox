@@ -18,5 +18,8 @@ interface Invoice {
 }
 
 export function statement(invoice: Invoice, plays: Plays): void {
-  console.log("this is statement function");
+  let totalAmount: number = 0;
+  let volumeCredits: number = 0;
+  let result = `Statement for ${invoice.customer}`;
+  console.log(result);
 }
