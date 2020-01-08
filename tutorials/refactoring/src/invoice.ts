@@ -12,7 +12,7 @@ interface Performance {
   audience: number;
 }
 
-interface Invoice {
+export interface Invoice {
   customer: string;
   performances: Performance[];
 }
