@@ -32,11 +32,15 @@ export function statement(invoice: Invoice, plays: Plays): string {
     const play = plays[perf.playID];
     let thisAmount: number = amountFor(perf, play);
 
+    // ボリューム特典のポイントを加算
     volumeCredits += Math.max(perf.audience - 30, 0);
 
+    // 喜劇のときは10人につき、さらにポイントを追加
     if ("comedy" === play.type) {
       volumeCredits += Math.floor(perf.audience / 5);
     }
+
+    // 注文の内訳を出力
     result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats) \n`;
     totalAmount += thisAmount;
   }
