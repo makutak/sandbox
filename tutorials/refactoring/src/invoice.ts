@@ -22,6 +22,10 @@ export function statement(invoice: Invoice, plays: Plays): string {
   let volumeCredits: number = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
+  const playFor = (aPerformance: Performance) => {
+    return plays[aPerformance.playID];
+  }
+
   const format = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -29,7 +33,7 @@ export function statement(invoice: Invoice, plays: Plays): string {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
+    const play = playFor(perf);
     let thisAmount: number = amountFor(perf, play);
 
     // ボリューム特典のポイントを加算
