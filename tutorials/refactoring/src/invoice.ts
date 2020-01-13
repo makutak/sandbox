@@ -1,3 +1,6 @@
+const plays = require("./playes.json");
+const invoices = require("./invoices.json");
+
 interface Play {
   name: string;
   type: string;
@@ -17,14 +20,15 @@ export interface Invoice {
   performances: Performance[];
 }
 
+function playFor(aPerformance: Performance) {
+  return plays[aPerformance.playID];
+}
+
 export function statement(invoice: Invoice, plays: Plays): string {
   let totalAmount: number = 0;
   let volumeCredits: number = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
-  const playFor = (aPerformance: Performance) => {
-    return plays[aPerformance.playID];
-  }
 
   const format = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -55,7 +59,7 @@ export function statement(invoice: Invoice, plays: Plays): string {
 export function amountFor(aPerformance: Performance, play: Play): number {
   let result: number = 0;
 
-  switch (play.type) {
+  switch (playFor(aPerformance).type) {
     case "tragedy":
       result = 40000;
       if (aPerformance.audience > 30) {
@@ -74,4 +78,15 @@ export function amountFor(aPerformance: Performance, play: Play): number {
   }
 
   return result;
+}
+
+export function exec() {
+  console.log(JSON.stringify(plays, null, "  "));
+  console.log(JSON.stringify(invoices, null, "  "));
+  invoices.forEach((invoice: Invoice) => {
+    console.log("Invoice:, ", invoice);
+
+    const ret = statement(invoice, plays);
+    console.log(ret);
+  });
 }
