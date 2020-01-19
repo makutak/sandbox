@@ -34,7 +34,7 @@ impl event::EventHandler for MainState {
             2.0,
             graphics::WHITE,
         )?;
-        graphics::draw(ctx, &circle, (na::Point2::new(self.pos_x, 380.0),))?;
+        graphics::draw(ctx, &circle, (na::Point2::new(self.pos_x, 480.0),))?;
 
         graphics::present(ctx)?;
         Ok(())
