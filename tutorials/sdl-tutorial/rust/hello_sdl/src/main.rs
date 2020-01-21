@@ -11,6 +11,7 @@ fn main() {
         .unwrap();
 
     let mut event_pump = sdl_context.event_pump().unwrap();
+    // 'main is nani
     'main: loop {
         for event in event_pump.poll_iter() {
             println!("event: {:?}", event);
