@@ -17,4 +17,6 @@ fn main() {
     canvas.set_draw_color(Color::RGB(0, 255, 255));
     canvas.clear();
     canvas.present();
+
+    'running: loop {}
 }
