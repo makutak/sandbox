@@ -7,6 +7,7 @@ fn main() {
     let window = video_subsystem
         .window("hello", 800, 600)
         .position_centered()
+        .resizable()
         .build()
         .unwrap();
 
