@@ -10,6 +10,9 @@ class App {
         }
 }
 
+fun start(): String = "OK";
+
 fun main(args: Array<String>) {
     println(App().greeting)
+    println(start())
 }
