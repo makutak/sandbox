@@ -1,6 +1,6 @@
 pub struct Array {
-    a: Vec<u32>,
-    n: u32,
+    pub a: Vec<u32>,
+    pub n: u32,
 }
 
 impl Array {
