@@ -12,4 +12,14 @@ impl Array {
     pub fn size(&self) -> u32 {
         self.n
     }
+
+    pub fn get(&self, i: usize) -> u32 {
+        self.a[i]
+    }
+
+    pub fn set(&mut self, i: usize, x: u32) -> u32 {
+        let y = self.a[i];
+        self.a[i] = x;
+        y
+    }
 }
