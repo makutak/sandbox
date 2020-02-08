@@ -22,4 +22,8 @@ impl Array {
         self.a[i] = x;
         y
     }
+
+    pub fn add(&mut self, i: usize, x: u32) {
+        print!("this is add function!!");
+    }
 }
