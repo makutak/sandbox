@@ -22,4 +22,7 @@ mod tests {
         let ary = Array::new();
         assert_eq!(ary.size(), 0);
     }
+
+    #[test]
+    fn array_stack_can_be_added_value() {}
 }
