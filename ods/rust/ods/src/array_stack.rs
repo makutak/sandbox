@@ -1,18 +1,19 @@
-pub struct Array {
-    pub a: Vec<u32>,
+pub struct ArrayStack {
+    pub a: [u8; 1],
     pub n: u32,
 }
 
-impl Array {
-    pub fn new() -> Array {
-        let mut vec = Vec::new();
-        Array { a: vec, n: 0 }
+impl ArrayStack {
+    pub fn new() -> ArrayStack {
+        let ary: [u8; 1] = [0];
+        ArrayStack { a: ary, n: 0 }
     }
 
     pub fn size(&self) -> u32 {
         self.n
     }
 
+    /*
     pub fn get(&self, i: usize) -> u32 {
         self.a[i]
     }
@@ -26,4 +27,5 @@ impl Array {
     pub fn add(&mut self, i: usize, x: u32) {
         print!("this is add function!!");
     }
+    */
 }
