@@ -1,16 +1,15 @@
-#[derive(Debug, Copy, Clone)]
 pub struct ArrayStack {
-    pub a: [u32; 0],
-    pub n: u32,
+    pub a: [u32; 1],
+    pub n: usize,
 }
 
 impl ArrayStack {
     pub fn new() -> ArrayStack {
-        let ary: [u32; 0] = [];
+        let ary: [u32; 1] = [0];
         ArrayStack { a: ary, n: 0 }
     }
 
-    pub fn size(&self) -> u32 {
+    pub fn size(&self) -> usize {
         self.n
     }
 
@@ -25,6 +24,12 @@ impl ArrayStack {
     }
 
     pub fn add(&self, i: usize, x: u32) {
-        print!("this is add function!!");
+        if self.n + 1 > self.a.len() {
+            print!("resize!!!");
+        }
     }
+
+    pub fn remove(&self, i: usize) {}
+
+    pub fn resize(&self) {}
 }

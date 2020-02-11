@@ -17,7 +17,6 @@ mod tests {
         assert_eq!(ary.n, 0);
     }
 
-    /*
     #[test]
     fn new_array_stack_size_is_zero() {
         let ary = ArrayStack::new();
@@ -25,6 +24,8 @@ mod tests {
     }
 
     #[test]
-    fn array_stack_can_be_added_value() {}
-    */
+    fn array_stack_can_be_added_value() {
+        let ary = ArrayStack::new();
+        ary.add(0, 1);
+    }
 }
