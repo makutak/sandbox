@@ -7,13 +7,13 @@ mod tests {
 
     #[test]
     fn new_array_stack_n_is_zero() {
-        let ary = ArrayStack::<u32>::new();
+        let ary = ArrayStack::new();
         assert_eq!(ary.n, 0);
     }
 
     #[test]
     fn new_array_stack_a_is_empty() {
-        let ary = ArrayStack::<u32>::new();
+        let ary = ArrayStack::new();
         assert_eq!(ary.n, 0);
     }
 

@@ -1,11 +1,12 @@
-pub struct ArrayStack<T> {
-    pub a: [T; 0],
+#[derive(Debug, Copy, Clone)]
+pub struct ArrayStack {
+    pub a: [u32; 0],
     pub n: u32,
 }
 
-impl<T> ArrayStack<T> {
-    pub fn new() -> ArrayStack<T> {
-        let ary: [T; 0] = [];
+impl ArrayStack {
+    pub fn new() -> ArrayStack {
+        let ary: [u32; 0] = [];
         ArrayStack { a: ary, n: 0 }
     }
 
@@ -13,21 +14,17 @@ impl<T> ArrayStack<T> {
         self.n
     }
 
-    pub fn add(&self, i: usize, x: T) {}
-
-    /*
-    pub fn get(&self, i: usize) -> u32 {
-        self.a[i]
+    pub fn get(&mut self, i: usize) -> &u32 {
+        &self.a[i]
     }
 
     pub fn set(&mut self, i: usize, x: u32) -> u32 {
-        let y = self.a[i];
+        let y: u32 = self.a[i].clone();
         self.a[i] = x;
         y
     }
 
-    pub fn add(&mut self, i: usize, x: u32) {
+    pub fn add(&self, i: usize, x: u32) {
         print!("this is add function!!");
     }
-    */
 }
