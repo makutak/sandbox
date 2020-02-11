@@ -1,17 +1,19 @@
-pub struct ArrayStack {
-    pub a: [u8; 1],
+pub struct ArrayStack<T> {
+    pub a: [T; 0],
     pub n: u32,
 }
 
-impl ArrayStack {
-    pub fn new() -> ArrayStack {
-        let ary: [u8; 1] = [0];
+impl<T> ArrayStack<T> {
+    pub fn new() -> ArrayStack<T> {
+        let ary: [T; 0] = [];
         ArrayStack { a: ary, n: 0 }
     }
 
     pub fn size(&self) -> u32 {
         self.n
     }
+
+    pub fn add(&self, i: usize, x: T) {}
 
     /*
     pub fn get(&self, i: usize) -> u32 {
