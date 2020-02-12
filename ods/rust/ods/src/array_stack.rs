@@ -3,6 +3,7 @@ pub struct ArrayStack {
     pub n: usize,
 }
 
+// FIXME: 値渡し、ポインタ渡し、参照渡し 説明できる？？？
 impl ArrayStack {
     pub fn new() -> ArrayStack {
         let ary: [u32; 1] = [0];
@@ -23,7 +24,7 @@ impl ArrayStack {
         y
     }
 
-    pub fn add(&self, i: usize, x: u32) {
+    pub fn add(&mut self, i: usize, x: u32) {
         if self.n + 1 > self.a.len() {
             print!("resize!!!");
         }
@@ -33,3 +34,12 @@ impl ArrayStack {
 
     pub fn resize(&self) {}
 }
+
+/*
+   def add(self, i, x):
+       if i < 0 or i > self.n: raise IndexError()
+       if self.n == len(self.a): self._resize()
+       self.a[i+1:self.n+1] = self.a[i:self.n]
+       self.a[i] = x
+       self.n += 1
+*/
