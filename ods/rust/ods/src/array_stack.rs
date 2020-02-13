@@ -24,9 +24,15 @@ impl ArrayStack {
         y
     }
 
-    pub fn add(&mut self, i: usize, x: u32) {
+    // Result使う？
+    pub fn add(&mut self, index: usize, x: u32) {
         if self.n + 1 > self.a.len() {
             print!("resize!!!");
+        }
+
+        match index {
+            i if i < 0 || i > self.n => println!("indexError!!"),
+            _ => println!("safe!!"),
         }
     }
 
