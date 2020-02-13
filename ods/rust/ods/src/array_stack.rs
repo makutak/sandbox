@@ -1,12 +1,14 @@
+use std::cmp::max;
+
 pub struct ArrayStack {
-    pub a: [u32; 1],
+    pub a: Vec<u32>,
     pub n: usize,
 }
 
 // FIXME: 値渡し、ポインタ渡し、参照渡し 説明できる？？？
 impl ArrayStack {
     pub fn new() -> ArrayStack {
-        let ary: [u32; 1] = [0];
+        let ary = Vec::new();
         ArrayStack { a: ary, n: 0 }
     }
 
@@ -27,18 +29,32 @@ impl ArrayStack {
     // Result使う？
     pub fn add(&mut self, i: usize, x: u32) {
         if self.n + 1 > self.a.len() {
-            print!("resize!!!");
+            self.resize();
         }
 
         match i {
             idx if idx < usize::min_value() || idx > self.n => println!("IndexError!!"),
-            _ => println!("safe!!"),
+            _ => {
+                let mut tmp = vec![0; self.n + 1];
+                for j in i..self.n {
+                    tmp[j + i] = self.a[j]
+                }
+                tmp[i] = x;
+                self.a = tmp;
+                self.n += 1;
+            }
         }
     }
 
     pub fn remove(&self, i: usize) {}
 
-    pub fn resize(&self) {}
+    pub fn resize(&mut self) {
+        let mut b = vec![0; max(1, 2 * self.n)];
+        for i in 0..self.n {
+            b[i] = self.a[i];
+        }
+        self.a = b;
+    }
 }
 
 /*

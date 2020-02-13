@@ -23,11 +23,17 @@ mod tests {
         let ary = ArrayStack::new();
         assert_eq!(ary.size(), 0);
     }
+     */
 
-    */
     #[test]
     fn array_stack_can_be_added_value() {
         let mut ary = ArrayStack::new();
-        ary.add(10, 10);
+        println!("a: {:?}, n: {}", ary.a, ary.n);
+        ary.add(0, 10);
+        println!("a: {:?}, n: {}", ary.a, ary.n);
+        ary.add(1, 20);
+        println!("a: {:?}, n: {}", ary.a, ary.n);
+        ary.add(2, 30);
+        println!("a: {:?}, n: {}", ary.a, ary.n);
     }
 }
