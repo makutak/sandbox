@@ -8,7 +8,7 @@ pub struct ArrayStack {
 // FIXME: 値渡し、ポインタ渡し、参照渡し 説明できる？？？
 impl ArrayStack {
     pub fn new() -> ArrayStack {
-        let ary = Vec::new();
+        let ary = vec![0];
         ArrayStack { a: ary, n: 0 }
     }
 
@@ -37,7 +37,8 @@ impl ArrayStack {
             _ => {
                 let mut tmp = vec![0; self.n + 1];
                 for j in i..self.n {
-                    tmp[j + i] = self.a[j]
+                    println!("self.a[j], {}", self.a[j]);
+                    tmp[j + 1] = self.a[j];
                 }
                 tmp[i] = x;
                 self.a = tmp;
@@ -53,6 +54,7 @@ impl ArrayStack {
         for i in 0..self.n {
             b[i] = self.a[i];
         }
+        println!("resize: a: {:?}, b: {:?}", self.a, b);
         self.a = b;
     }
 }

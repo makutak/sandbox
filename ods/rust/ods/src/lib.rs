@@ -28,6 +28,14 @@ mod tests {
     #[test]
     fn array_stack_can_be_added_value() {
         let mut ary = ArrayStack::new();
+        ary.add(0, 10);
+        println!("add, a: {:?}, n: {}", ary.a, ary.n);
+        ary.add(0, 20);
+        println!("add, a: {:?}, n: {}", ary.a, ary.n);
+        ary.add(1, 30);
+        println!("add, a: {:?}, n: {}", ary.a, ary.n);
+
+        /*
         println!("a: {:?}, n: {}", ary.a, ary.n);
         ary.add(0, 10);
         println!("a: {:?}, n: {}", ary.a, ary.n);
@@ -35,5 +43,6 @@ mod tests {
         println!("a: {:?}, n: {}", ary.a, ary.n);
         ary.add(2, 30);
         println!("a: {:?}, n: {}", ary.a, ary.n);
+        */
     }
 }
