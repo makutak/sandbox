@@ -25,13 +25,13 @@ impl ArrayStack {
     }
 
     // Result使う？
-    pub fn add(&mut self, index: usize, x: u32) {
+    pub fn add(&mut self, i: usize, x: u32) {
         if self.n + 1 > self.a.len() {
             print!("resize!!!");
         }
 
-        match index {
-            i if i < 0 || i > self.n => println!("indexError!!"),
+        match i {
+            idx if idx < usize::min_value() || idx > self.n => println!("IndexError!!"),
             _ => println!("safe!!"),
         }
     }
