@@ -26,18 +26,16 @@ impl ArrayStack {
         y
     }
 
-    // Result使う？
     pub fn add(&mut self, i: usize, x: u32) {
         if self.n + 1 > self.a.len() {
             self.resize();
         }
 
         match i {
-            idx if idx < usize::min_value() || idx > self.n => println!("IndexError!!"),
+            idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
                 let mut tmp = vec![0; self.n + 1];
                 for j in i..self.n {
-                    println!("self.a[j], {}", self.a[j]);
                     tmp[j + 1] = self.a[j];
                 }
                 tmp[i] = x;
