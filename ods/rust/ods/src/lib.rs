@@ -28,7 +28,6 @@ mod tests {
     #[test]
     fn array_stack_can_be_added_value() {
         let mut ary = ArrayStack::new();
-        //ary.add(0, 1);
         ary.add(10, 10);
     }
 }
