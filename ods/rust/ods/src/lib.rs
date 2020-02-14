@@ -30,6 +30,16 @@ mod tests {
         let mut ary = ArrayStack::new();
         ary.add(0, 10);
         assert_eq!(ary.a[0], 10);
+        ary.add(0, 20);
+        assert_eq!(ary.a[0], 20);
+        println!("ary: {:?}", ary.a);
+        ary.add(1, 30);
+        //assert_eq!(ary.a[0], 20);
+        println!("ary: {:?}", ary.a);
+        for i in (0..10).rev() {
+            println!("i: {}", i);
+        }
+
         /*
         println!("a: {:?}, n: {}", ary.a, ary.n);
         ary.add(0, 10);
