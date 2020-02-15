@@ -18,6 +18,18 @@ mod tests {
     }
 
     #[test]
+    fn array_stack_size_is_variable() {
+        let mut ary = ArrayStack::new();
+        assert_eq!(ary.size(), 0);
+        ary.add(0, 1);
+        assert_eq!(ary.size(), 1);
+        ary.add(0, 2);
+        assert_eq!(ary.size(), 2);
+        ary.add(0, 3);
+        assert_eq!(ary.size(), 3);
+    }
+
+    #[test]
     fn array_stack_can_get_selected_value() {
         let mut ary = ArrayStack::new();
         ary.add(0, 1);
