@@ -11,19 +11,11 @@ mod tests {
         assert_eq!(ary.n, 0);
     }
 
-    /*
     #[test]
-    fn new_array_stack_a_is_empty() {
+    fn new_array_stack_a_length_is_zero() {
         let ary = ArrayStack::new();
-        assert_eq!(ary.n, 0);
+        assert_eq!(ary.a.len(), 0);
     }
-
-    #[test]
-    fn new_array_stack_size_is_zero() {
-        let ary = ArrayStack::new();
-        assert_eq!(ary.size(), 0);
-    }
-     */
 
     #[test]
     fn array_stack_can_be_added_value() {
