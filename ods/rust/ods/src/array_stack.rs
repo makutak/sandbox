@@ -5,10 +5,9 @@ pub struct ArrayStack {
     pub n: usize,
 }
 
-// FIXME: 値渡し、ポインタ渡し、参照渡し 説明できる？？？
 impl ArrayStack {
     pub fn new() -> ArrayStack {
-        let ary = vec![0];
+        let ary = vec![];
         ArrayStack { a: ary, n: 0 }
     }
 
