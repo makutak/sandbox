@@ -54,7 +54,6 @@ impl ArrayStack {
         for i in 0..self.n {
             b[i] = self.a[i];
         }
-        println!("resize: a: {:?}, b: {:?}", self.a, b);
         self.a = b;
     }
 }
