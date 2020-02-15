@@ -29,6 +29,17 @@ mod tests {
     }
 
     #[test]
+    fn array_stack_can_set_selected_value() {
+        let mut ary = ArrayStack::new();
+        ary.add(0, 1);
+        ary.add(0, 2);
+        ary.add(0, 3);
+        assert_eq!(ary.a, [3, 2, 1, 0]);
+        ary.set(1, 4);
+        assert_eq!(ary.a, [3, 4, 1, 0]);
+    }
+
+    #[test]
     fn array_stack_can_be_added_value() {
         let mut ary = ArrayStack::new();
         ary.add(0, 10);
