@@ -30,19 +30,13 @@ impl ArrayStack {
         if self.n + 1 > self.a.len() {
             self.resize();
         }
-        println!("i: {}, n: {}", i, self.n);
         match i {
             idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
-                let mut tmp = vec![0; self.n + 1];
-                let foo = &self.a[i..self.n];
-                for j in (i..self.n + 1) {
-                    println!("j: {}", j);
-                    tmp[j + 1] = foo[j];
-                    println!("tmp: {:?}", self.a);
+                for j in i..self.n {
+                    self.a[j + 1] = self.a[j];
                 }
-                tmp[i] = x;
-                self.a = tmp;
+                self.a[i] = x;
                 self.n += 1;
             }
         }

@@ -29,25 +29,13 @@ mod tests {
     fn array_stack_can_be_added_value() {
         let mut ary = ArrayStack::new();
         ary.add(0, 10);
-        assert_eq!(ary.a[0], 10);
+        let mut expected = vec![10];
+        assert_eq!(ary.a, expected);
         ary.add(0, 20);
-        assert_eq!(ary.a[0], 20);
-        println!("ary: {:?}", ary.a);
+        expected = vec![20, 10];
+        assert_eq!(ary.a, expected);
         ary.add(1, 30);
-        //assert_eq!(ary.a[0], 20);
-        println!("ary: {:?}", ary.a);
-        for i in (0..10).rev() {
-            println!("i: {}", i);
-        }
-
-        /*
-        println!("a: {:?}, n: {}", ary.a, ary.n);
-        ary.add(0, 10);
-        println!("a: {:?}, n: {}", ary.a, ary.n);
-        ary.add(1, 20);
-        println!("a: {:?}, n: {}", ary.a, ary.n);
-        ary.add(2, 30);
-        println!("a: {:?}, n: {}", ary.a, ary.n);
-        */
+        expected = vec![20, 30, 10, 0];
+        assert_eq!(ary.a, expected);
     }
 }
