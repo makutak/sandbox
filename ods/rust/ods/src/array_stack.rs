@@ -15,8 +15,8 @@ impl ArrayStack {
         self.n
     }
 
-    pub fn get(&mut self, i: usize) -> &u32 {
-        &self.a[i]
+    pub fn get(&mut self, i: usize) -> u32 {
+        self.a[i]
     }
 
     pub fn set(&mut self, i: usize, x: u32) -> u32 {
