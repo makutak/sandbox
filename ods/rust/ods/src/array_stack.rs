@@ -41,7 +41,18 @@ impl ArrayStack {
         }
     }
 
-    pub fn remove(&self, i: usize) {}
+    pub fn remove(&mut self, i: usize) -> u32 {
+        let x = self.a[i];
+        for j in i..self.n {
+            self.a[j] = self.a[j + 1];
+        }
+        self.n -= 1;
+        self.resize();
+        if self.a.len() >= (3 * self.n) {
+            self.resize();
+        }
+        x
+    }
 
     pub fn resize(&mut self) {
         let mut b = vec![0; max(1, 2 * self.n)];
