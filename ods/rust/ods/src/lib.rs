@@ -64,4 +64,20 @@ mod tests {
         expected = vec![20, 30, 10, 0];
         assert_eq!(ary.a, expected);
     }
+
+    #[test]
+    fn array_stack_can_be_removed_value() {
+        let mut ary = ArrayStack::new();
+        ary.add(0, 1);
+        ary.add(0, 2);
+        ary.add(0, 3);
+        ary.add(0, 4);
+        ary.add(0, 5);
+        println!("######## remove test ##############\n");
+        println!("{:?}", ary.a);
+        println!("######## remove test ##############\n");
+        let expected = [5, 4, 2, 1, 0, 0, 0];
+        ary.remove(2);
+        assert_eq!(ary.a, expected);
+    }
 }
