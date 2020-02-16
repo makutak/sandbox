@@ -5,6 +5,7 @@ mod tests {
     use super::*;
     use array_stack::*;
 
+    /*
     #[test]
     fn new_array_stack_n_is_zero() {
         let ary = ArrayStack::new();
@@ -51,6 +52,7 @@ mod tests {
         assert_eq!(ary.a, [3, 4, 1, 0]);
     }
 
+
     #[test]
     fn array_stack_can_be_added_value() {
         let mut ary = ArrayStack::new();
@@ -64,6 +66,7 @@ mod tests {
         expected = vec![20, 30, 10, 0];
         assert_eq!(ary.a, expected);
     }
+    */
 
     #[test]
     fn array_stack_can_be_removed_value() {
@@ -73,10 +76,7 @@ mod tests {
         ary.add(0, 3);
         ary.add(0, 4);
         ary.add(0, 5);
-        println!("######## remove test ##############\n");
-        println!("{:?}", ary.a);
-        println!("######## remove test ##############\n");
-        let expected = [5, 4, 2, 1, 0, 0, 0];
+        let expected = [5, 4, 2, 1, 0, 0, 0, 0];
         ary.remove(2);
         assert_eq!(ary.a, expected);
     }
