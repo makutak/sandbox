@@ -32,16 +32,10 @@ impl ArrayStack {
         match i {
             idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
-                println!("#############################################");
-                println!("before self.a: {:?}", self.a);
                 for j in (i..self.n).rev() {
-                    println!("j: {}", j);
-                    println!("self.a[j]: {}", self.a[j]);
                     self.a[j + 1] = self.a[j];
                 }
                 self.a[i] = x;
-                println!("after self.a: {:?}", self.a);
-                println!("#############################################");
                 self.n += 1;
             }
         }
