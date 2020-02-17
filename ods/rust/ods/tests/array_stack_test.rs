@@ -72,3 +72,34 @@ fn array_stack_can_be_removed_value() {
     ary.remove(2);
     assert_eq!(ary.a, expected);
 }
+
+#[test]
+#[should_panic]
+fn get_out_of_range_array() {
+    let mut ary = ArrayStack::new();
+    ary.add(0, 1);
+    ary.get(2);
+}
+
+#[test]
+#[should_panic]
+fn set_out_of_range_array() {
+    let mut ary = ArrayStack::new();
+    ary.add(0, 1);
+    ary.set(2, 2);
+}
+
+#[test]
+#[should_panic]
+fn add_out_of_range_array() {
+    let mut ary = ArrayStack::new();
+    ary.add(1, 1);
+}
+
+#[test]
+#[should_panic]
+fn remove_out_of_range_array() {
+    let mut ary = ArrayStack::new();
+    ary.add(1, 1);
+    ary.remove(100);
+}

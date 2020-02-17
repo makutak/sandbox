@@ -16,13 +16,21 @@ impl ArrayStack {
     }
 
     pub fn get(&mut self, i: usize) -> u32 {
-        self.a[i]
+        match i {
+            idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
+            _ => self.a[i],
+        }
     }
 
     pub fn set(&mut self, i: usize, x: u32) -> u32 {
-        let y: u32 = self.a[i].clone();
-        self.a[i] = x;
-        y
+        match i {
+            idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
+            _ => {
+                let y: u32 = self.a[i].clone();
+                self.a[i] = x;
+                y
+            }
+        }
     }
 
     pub fn add(&mut self, i: usize, x: u32) {
@@ -42,16 +50,21 @@ impl ArrayStack {
     }
 
     pub fn remove(&mut self, i: usize) -> u32 {
-        let x = self.a[i];
-        for j in i..self.n {
-            self.a[j] = self.a[j + 1];
+        match i {
+            idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
+            _ => {
+                let x = self.a[i];
+                for j in i..self.n {
+                    self.a[j] = self.a[j + 1];
+                }
+                self.n -= 1;
+                self.resize();
+                if self.a.len() >= (3 * self.n) {
+                    self.resize();
+                }
+                x
+            }
         }
-        self.n -= 1;
-        self.resize();
-        if self.a.len() >= (3 * self.n) {
-            self.resize();
-        }
-        x
     }
 
     pub fn resize(&mut self) {
