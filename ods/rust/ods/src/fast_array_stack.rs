@@ -8,7 +8,7 @@ pub struct FastArrayStack {
 impl FastArrayStack {
     pub fn new() -> FastArrayStack {
         let ary = vec![];
-        ArrayStack { a: ary, n: 0 }
+        FastArrayStack { a: ary, n: 0 }
     }
 
     pub fn size(&self) -> usize {
@@ -31,7 +31,6 @@ impl FastArrayStack {
                 y
             }
         }
-        n
     }
 
     pub fn add(&mut self, i: usize, x: u32) {
