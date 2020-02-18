@@ -69,9 +69,7 @@ impl FastArrayStack {
 
     pub fn resize(&mut self) {
         let mut b = vec![0; max(1, 2 * self.n)];
-        for i in 0..self.n {
-            b[i] = self.a[i];
-        }
+        b[..self.a.len()].clone_from_slice(&self.a);
         self.a = b;
     }
 }
