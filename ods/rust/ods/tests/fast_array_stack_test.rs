@@ -1,19 +1,19 @@
 use ods_rust::fast_array_stack::*;
 
 #[test]
-fn new_array_stack_n_is_zero() {
+fn new_fast_array_stack_n_is_zero() {
     let ary = FastArrayStack::new();
     assert_eq!(ary.n, 0);
 }
 
 #[test]
-fn new_array_stack_a_length_is_zero() {
+fn new_fast_array_stack_a_length_is_zero() {
     let ary = FastArrayStack::new();
     assert_eq!(ary.a.len(), 0);
 }
 
 #[test]
-fn array_stack_size_is_variable() {
+fn fast_array_stack_size_is_variable() {
     let mut ary = FastArrayStack::new();
     assert_eq!(ary.size(), 0);
     ary.add(0, 1);
@@ -25,7 +25,7 @@ fn array_stack_size_is_variable() {
 }
 
 #[test]
-fn array_stack_can_get_selected_value() {
+fn fast_array_stack_can_get_selected_value() {
     let mut ary = FastArrayStack::new();
     ary.add(0, 1);
     ary.add(0, 2);
@@ -36,7 +36,7 @@ fn array_stack_can_get_selected_value() {
 }
 
 #[test]
-fn array_stack_can_set_selected_value() {
+fn fast_array_stack_can_set_selected_value() {
     let mut ary = FastArrayStack::new();
     ary.add(0, 1);
     ary.add(0, 2);
@@ -47,7 +47,7 @@ fn array_stack_can_set_selected_value() {
 }
 
 #[test]
-fn array_stack_can_be_added_value() {
+fn fast_array_stack_can_be_added_value() {
     let mut ary = FastArrayStack::new();
     ary.add(0, 10);
     let mut expected = vec![10];
@@ -61,7 +61,7 @@ fn array_stack_can_be_added_value() {
 }
 
 #[test]
-fn array_stack_can_be_removed_value() {
+fn fast_array_stack_can_be_removed_value() {
     let mut ary = FastArrayStack::new();
     ary.add(0, 1);
     ary.add(0, 2);
@@ -75,7 +75,7 @@ fn array_stack_can_be_removed_value() {
 
 #[test]
 #[should_panic]
-fn get_out_of_range_array() {
+fn get_out_of_range_fast_array() {
     let mut ary = FastArrayStack::new();
     ary.add(0, 1);
     ary.get(2);
@@ -83,7 +83,7 @@ fn get_out_of_range_array() {
 
 #[test]
 #[should_panic]
-fn set_out_of_range_array() {
+fn set_out_of_range_fast_array() {
     let mut ary = FastArrayStack::new();
     ary.add(0, 1);
     ary.set(2, 2);
@@ -91,14 +91,14 @@ fn set_out_of_range_array() {
 
 #[test]
 #[should_panic]
-fn add_out_of_range_array() {
+fn add_out_of_range_fast_array() {
     let mut ary = FastArrayStack::new();
     ary.add(1, 1);
 }
 
 #[test]
 #[should_panic]
-fn remove_out_of_range_array() {
+fn remove_out_of_range_fast_array() {
     let mut ary = FastArrayStack::new();
     ary.add(1, 1);
     ary.remove(100);
