@@ -40,9 +40,21 @@ impl FastArrayStack {
         match i {
             idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
-                for j in (i..self.n).rev() {
-                    self.a[j + 1] = self.a[j];
-                }
+                let mut vec = vec![0; self.a.len()];
+                println!("initial vec: {:?}", vec);
+                println!("self.a: {:?}", self.a);
+                println!("i: {}", i);
+                //vec[..self.a.len()].clone_from_slice(&self.a[i..self.n]);
+                println!("cloned vec: {:?}", vec);
+
+                println!("####################");
+                println!("vec: {:?}", vec);
+                println!("&vec[..vec.len()]: {:?}", &vec[i..]);
+                println!("self.a[i+1..self.n]: {:?}", &self.a[i + i..self.n + 1]);
+                println!("self.a: {:?}", &self.a);
+                println!("####################");
+
+                // self.a[i + 1..self.n + 1].clone_from_slice(&vec[..vec.len()]);
                 self.a[i] = x;
                 self.n += 1;
             }
