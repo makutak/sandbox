@@ -40,31 +40,10 @@ impl FastArrayStack {
         match i {
             idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
-                println!("####################");
-                println!("self.n: {}", self.n);
                 let mut vec = vec![0; max(1, 2 * self.n)];
-                println!("initial vec: {:?}, vec.length is: {}", vec, vec.len());
-                println!("self.a: {:?}, self.a.length is: {}", self.a, self.a.len());
-                println!("i: {}, x: {}", i, x);
-                vec[..self.n].clone_from_slice(&self.a[i..self.n]);
-                println!("cloned vec: {:?}, vec.length is: {}", vec, vec.len());
-
-                println!("vec: {:?}", vec);
-                //println!("&vec[..vec.len()]: {:?}", &vec[i..]);
-                println!("self.a[i+1..self.n+1]: {:?}", &self.a[i + i..self.n + 1]);
-                println!("self.a: {:?}", &self.a);
-                println!("vec[0..self.n]: {:?}", &vec[0..self.n]);
-                println!("vec[..self.n]: {:?}", &vec[..self.n]);
-                println!("vec[..self.a.len()]: {:?}", &vec[..self.a.len()]);
-
-                let len = self.a.len();
-                println!("vec[..len]: {:?}", &vec[..len]);
-                println!("vec[i..self.n]: {:?}", &vec[i..self.n]);
-                println!("a[i + 1..]: {:?}", &self.a[i + 1..]);
-
-                self.a[i + 1..].clone_from_slice(&vec[i..len - 1]);
+                vec[i..self.n].clone_from_slice(&self.a[i..self.n]);
+                self.a[i + 1..self.n + 1].clone_from_slice(&vec[i..self.n]);
                 self.a[i] = x;
-                println!("####################");
                 self.n += 1;
             }
         }
@@ -90,9 +69,7 @@ impl FastArrayStack {
 
     pub fn resize(&mut self) {
         let mut b = vec![0; max(1, 2 * self.n)];
-        println!("initial resize b: {:?}", b);
         b[..self.a.len()].clone_from_slice(&self.a);
-        println!("resize: {:?}", b);
         self.a = b;
     }
 }
