@@ -40,9 +40,9 @@ impl FastArrayStack {
         match i {
             idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
-                let mut vec = vec![0; max(1, 2 * self.n)];
-                vec[i..self.n].clone_from_slice(&self.a[i..self.n]);
-                self.a[i + 1..self.n + 1].clone_from_slice(&vec[i..self.n]);
+                let mut tmp = vec![0; max(1, 2 * self.n)];
+                tmp[i..self.n].clone_from_slice(&self.a[i..self.n]);
+                self.a[i + 1..self.n + 1].clone_from_slice(&tmp[i..self.n]);
                 self.a[i] = x;
                 self.n += 1;
             }
