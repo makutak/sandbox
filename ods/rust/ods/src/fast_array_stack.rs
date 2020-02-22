@@ -54,9 +54,9 @@ impl FastArrayStack {
             idx if idx < usize::min_value() || idx > self.n => panic!("IndexError!!"),
             _ => {
                 let x = self.a[i];
-                for j in i..self.n {
-                    self.a[j] = self.a[j + 1];
-                }
+                let mut tmp = vec![0; max(1, 2 * self.n)];
+                tmp[i + 1..self.n + 1].clone_from_slice(&self.a[i + 1..self.n + 1]);
+                self.a[i..self.n].clone_from_slice(&tmp[i + 1..self.n + 1]);
                 self.n -= 1;
                 self.resize();
                 if self.a.len() >= (3 * self.n) {
