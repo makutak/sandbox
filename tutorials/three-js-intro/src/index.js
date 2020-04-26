@@ -13,12 +13,10 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
 
   const scene = new THREE.Scene();
-  console.log("scene: ", scene);
 
   // new THREE.PerspectiveCamera(画角, アスペクト比, 描画開始距離, 描画終了距離)
   const camera = new THREE.PerspectiveCamera(45, 800 / 600, 1, 10000);
-  console.log("camera: ", camera);
-
+  camera.position.set(0, 0, +1000);
 
   /**
    * 立方体は「メッシュ」という表示オブジェクトを使用して作成する。
