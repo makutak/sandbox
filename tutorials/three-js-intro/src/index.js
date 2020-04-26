@@ -11,4 +11,7 @@ function init() {
   });
   renderer.setSize(WIDTH, HEIGHT);
   renderer.setPixelRatio(window.devicePixelRatio);
+
+  const scene = new THREE.Scene();
+  console.log("scene: ", scene);
 }
