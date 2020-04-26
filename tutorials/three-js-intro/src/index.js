@@ -9,6 +9,6 @@ function init() {
   const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector("#my-canvas"),
   });
-  console.log("renderer: ", renderer);
   renderer.setSize(WIDTH, HEIGHT);
+  renderer.pixelRatio(window.devicePixelRatio);
 }
