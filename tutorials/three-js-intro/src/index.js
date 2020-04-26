@@ -26,10 +26,8 @@ function init() {
   // new THREE.BoxGeometry(幅, 高さ, 奥行き)
   // - ジオメトリは頂点情報や面情報を持ってる。
   const geometry = new THREE.BoxGeometry(500, 500, 500);
-
   // - マテリアルは色や質感の情報を持ってる。
   const material = new THREE.MeshStandardMaterial({ color: 0x0000ff });
-
   // new THREE.Mesh(ジオメトリ,マテリアル)
   const mesh = new THREE.Mesh(geometry, material);
   // シーンに追加
@@ -43,4 +41,6 @@ function init() {
   light.position.set(1, 1, 1);
   // シーンに追加
   scene.add(light);
+
+  renderer.render(scene, camera);
 }
