@@ -10,5 +10,5 @@ function init() {
     canvas: document.querySelector("#my-canvas"),
   });
   renderer.setSize(WIDTH, HEIGHT);
-  renderer.pixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(window.devicePixelRatio);
 }
