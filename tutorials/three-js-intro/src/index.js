@@ -14,4 +14,7 @@ function init() {
 
   const scene = new THREE.Scene();
   console.log("scene: ", scene);
+
+  const camera = new THREE.PerspectiveCamera(45, 800 / 600, 1, 10000);
+  console.log("camera: ", camera);
 }
