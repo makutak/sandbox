@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.764"]]
   :plugins [[lein-cljsbuild "1.1.8" :exclusions [[org.clojure/clojure]]]
-            [lein-figwheel "0.5.18"]]
+            [lein-figwheel "0.5.20"]]
   :cljsbuild {
               :builds [{:id "dev"             ; development configuration
                         :source-paths ["src"] ; Paths to monitor for build
