@@ -7,13 +7,14 @@
                  [org.clojure/clojurescript "1.10.764"]]
   :plugins [[lein-cljsbuild "1.1.8" :exclusions [[org.clojure/clojure]]]
             [lein-figwheel "0.5.20"]]
+  :clean-targets ^{:protect false} [:target-path "out" "resources/public/cljs"]
   :cljsbuild {
-              :builds [{:id "dev"             ; development configuration
+              :builds [{:id "dev"       ; development configuration
                         :source-paths ["src"] ; Paths to monitor for build
                         :figwheel true        ; Enable Figwheel
-                        :compiler {:main clojurescript_tdd_application.core     ; your main namespace
-                                   :asset-path "cljs/out"                       ; Where load-dependent files will go, mind you this one is relative
-                                   :output-to "resources/public/cljs/main.js"   ; Where the main file will be built
-                                   :output-dir "resources/public/cljs/out"      ; Directory for temporary files
-                                   :source-map-timestamp true}                  ; Sourcemaps hurray!
+                        :compiler {:main clojurescript_tdd_application.core ; your main namespace
+                                   :asset-path "cljs/out" ; Where load-dependent files will go, mind you this one is relative
+                                   :output-to "resources/public/cljs/main.js" ; Where the main file will be built
+                                   :output-dir "resources/public/cljs/out" ; Directory for temporary files
+                                   :source-map-timestamp true} ; Sourcemaps hurray!
                         }]})
