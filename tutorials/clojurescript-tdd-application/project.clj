@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.764"]]
   :plugins [[lein-cljsbuild "1.1.8" :exclusions [[org.clojure/clojure]]]
+            [lein-doo "0.1.10"]
             [lein-figwheel "0.5.20"]]
   :clean-targets ^{:protect false} [:target-path "out" "resources/public/cljs"]
   :figwheel {:css-dirs ["resources/public/css"]}
@@ -18,4 +19,9 @@
                                    :output-to "resources/public/cljs/main.js" ; Where the main file will be built
                                    :output-dir "resources/public/cljs/out" ; Directory for temporary files
                                    :source-map-timestamp true} ; Sourcemaps hurray!
-                        }]})
+                        }
+                       {:id "test"
+                        :source-paths ["src" "test"]
+                        :compiler {:main runners.doo
+                                   :optimizations :none
+                                   :output-to "resources/public/cljs/tests/all-tests.js"}}]})
