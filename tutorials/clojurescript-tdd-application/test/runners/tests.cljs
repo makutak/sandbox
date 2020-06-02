@@ -3,5 +3,6 @@
   ;;           [space-invaders.view-test]
   ;;           [util.game-loop-test]
   ;;           [util.image-loader-test])
+  (:require [clojurescript-tdd-application.core-test])
   )
 

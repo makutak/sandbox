@@ -1,6 +1,6 @@
 (ns clojurescript-tdd-application.core-test
-  (:require [clojure.test :refer :all]
-            [clojurescript-tdd-application.core :refer :all]))
+  (:require [cljs.test :refer-macros [is testing async]]
+            [devcards.core :refer-macros [deftest]]))
 
 (deftest a-test
   (testing "FIXME, I fail."
