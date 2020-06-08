@@ -4,6 +4,9 @@
 (enable-console-print!)
 ;; Set *print-fn* to console.log
 
+(def unit-width 90)
+(def unit-height 45)
+
 (defn init []
   (let [scene (js/THREE.Scene.)
         p-camera (js/THREE.PerspectiveCamera. view-angle aspect near far)
