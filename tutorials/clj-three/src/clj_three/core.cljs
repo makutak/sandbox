@@ -14,7 +14,7 @@
 
 (defn init
   []
-  (let [container (-> js/document (.getElementById "app"))]
+  (let [container (-> js/document (.getElementById "container"))]
     (set! scene (js/THREE.Scene.))
     (set! renderer (js/THREE.WebGLRenderer.))
     (set! camera (js/THREE.PerspectiveCamera.
