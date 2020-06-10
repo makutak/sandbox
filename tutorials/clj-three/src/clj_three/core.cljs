@@ -6,18 +6,22 @@
 
 (def unit-width 90)
 (def unit-height 45)
+(def scene)
+(def camera)
+(def renderer)
+
+(declare create-maze-cubes add-lights on-window-resize animate render degrees->radians)
 
 (defn init
   []
-  (let [scene (js/THREE.Scene.)
-        ;;fog (.-fog scene (js/THREE.FogExp2. 0xcccccc 0015))
-        renderer (js/THREE.WebGLRenderer.)
-        container (-> js/document (.getElementById "app"))
-        camera (js/THREE.PerspectiveCamera.
-                60
-                (/ (. js/window -innerWidth ) (. js/window -innerHeight))
-                1
-                2000)]
+  (let [container (-> js/document (.getElementById "app"))]
+    (set! scene (js/THREE.Scene.))
+    (set! renderer (js/THREE.WebGLRenderer.))
+    (set! camera (js/THREE.PerspectiveCamera.
+                  60
+                  (/ (. js/window -innerWidth ) (. js/window -innerHeight))
+                  1
+                  2000))
     (aset scene "fog" (js/THREE.FogExp2. 0xcccccc 0015))
     ;; renderer
     (.setClearColor renderer (.. scene -fog -color))
@@ -30,10 +34,21 @@
     (aset camera "position" "x" 0)
     (aset camera "position" "z" 0)
     (.add scene camera)
+    (create-maze-cubes)
     (. js/window addEventListener "resize" on-window-resize false)))
 
 (defn create-maze-cubes
-  [])
+  []
+  (let [cubu-geo (js/THREE.BoxGeometry. unit-width unit-height unit-width)
+        cube-met (js/THREE.MeshPhongMaterial. (js-obj {:color 0x81cfe0}))
+        cube (js/THREE.Mesh. cubu-geo cube-met)]
+    (.add scene cube)
+    (*print-fn* cube)
+    (aset cube "position" "y" (/ unit-height 2))
+    (aset cube "position" "x" 0)
+    (aset cube "position" "z" -100)
+    (aset cube "position" "rotation" "y" )
+    (degrees->radians 30)))
 
 (defn add-lights
   [])
@@ -47,6 +62,10 @@
 
 (defn render
   [])
+
+(defn degrees->radians
+  [degrees]
+  (/ (* degrees js/Math.PI) 180))
 
 ;; (defn old-init []
 ;;   (let [scene (js/THREE.Scene.)
