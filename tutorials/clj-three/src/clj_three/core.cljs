@@ -35,6 +35,7 @@
     (aset camera "position" "z" 0)
     (.add scene camera)
     (create-maze-cubes)
+    (add-lights)
     (. js/window addEventListener "resize" on-window-resize false)))
 
 (defn create-maze-cubes
@@ -47,11 +48,16 @@
     (aset cube "position" "y" (/ unit-height 2))
     (aset cube "position" "x" 0)
     (aset cube "position" "z" -100)
-    (aset cube "position" "rotation" "y" )
-    (degrees->radians 30)))
+    (aset cube "rotation" "y" (degrees->radians 30))))
 
 (defn add-lights
-  [])
+  []
+  (let [light-one (js/THREE.DirectionalLight. 0xffffff)
+        light-two (js/THREE.DirectionalLight. 0xffffff 0.5)]
+    (.set (. light-one -position) 1 1 1)
+    (.set (. light-two -position) 1 -1 -1)
+    (.add scene light-one)
+    (.add scene light-two)))
 
 (defn on-window-resize
   []
