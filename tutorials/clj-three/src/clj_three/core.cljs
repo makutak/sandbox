@@ -14,7 +14,7 @@
 
 (defn init
   []
-  (let [container (-> js/document (.getElementById "container"))]
+  (let [container (. js/document getElementById "container")]
     (set! scene (js/THREE.Scene.))
     (set! renderer (js/THREE.WebGLRenderer.))
     (set! camera (js/THREE.PerspectiveCamera.
@@ -41,10 +41,10 @@
 (defn create-maze-cubes
   []
   (let [cubu-geo (js/THREE.BoxGeometry. unit-width unit-height unit-width)
-        cube-met (js/THREE.MeshPhongMaterial. (js-obj {:color 0x81cfe0}))
-        cube (js/THREE.Mesh. cubu-geo cube-met)]
-    (.add scene cube)
+        cube-mat (js/THREE.MeshPhongMaterial. (js-obj {:color 0x81cfe0}))
+        cube (js/THREE.Mesh. cubu-geo cube-mat)]
     (*print-fn* cube)
+    (.add scene cube)
     (aset cube "position" "y" (/ unit-height 2))
     (aset cube "position" "x" 0)
     (aset cube "position" "z" -100)
@@ -66,10 +66,13 @@
   (. renderer setSize (. js/window -innerWidth ) (. js/window -innerHeight)))
 
 (defn animate
-  [])
+  []
+  (render)
+  (js/requestAnimationFrame animate))
 
 (defn render
-  [])
+  []
+  (. renderer render scene camera))
 
 (defn degrees->radians
   [degrees]
@@ -105,3 +108,4 @@
 ;;     (animate)))
 
 (init)
+(animate)
