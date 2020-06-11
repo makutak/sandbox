@@ -22,7 +22,7 @@
                   (/ (. js/window -innerWidth ) (. js/window -innerHeight))
                   1
                   2000))
-    (aset scene "fog" (js/THREE.FogExp2. 0xcccccc 0015))
+    (aset scene "fog" (js/THREE.FogExp2. 0xcccccc 0.0015))
     ;; renderer
     (.setClearColor renderer (.. scene -fog -color))
     (.setPixelRatio renderer (. js/window -devicePixelRatio))
@@ -40,10 +40,9 @@
 
 (defn create-maze-cubes
   []
-  (let [cubu-geo (js/THREE.BoxGeometry. unit-width unit-height unit-width)
-        cube-mat (js/THREE.MeshPhongMaterial. (js-obj {:color 0x81cfe0}))
-        cube (js/THREE.Mesh. cubu-geo cube-mat)]
-    (*print-fn* cube)
+  (let [cube-geo (js/THREE.BoxGeometry. unit-width unit-height unit-width)
+        cube-mat (js/THREE.MeshPhongMaterial. (js-obj "color" 0x81cfe0))
+        cube (js/THREE.Mesh. cube-geo cube-mat)]
     (.add scene cube)
     (aset cube "position" "y" (/ unit-height 2))
     (aset cube "position" "x" 0)
@@ -54,6 +53,7 @@
   []
   (let [light-one (js/THREE.DirectionalLight. 0xffffff)
         light-two (js/THREE.DirectionalLight. 0xffffff 0.5)]
+    ;;(.set (. light-one -position) 1 1 1)
     (.set (. light-one -position) 1 1 1)
     (.set (. light-two -position) 1 -1 -1)
     (.add scene light-one)
@@ -62,8 +62,8 @@
 (defn on-window-resize
   []
   (aset camera "aspect" (/ (. js/window -innerWidth ) (. js/window -innerHeight)))
-  (. camera updateProjectionMatrix)
-  (. renderer setSize (. js/window -innerWidth ) (. js/window -innerHeight)))
+  (.updateProjectionMatrix camera)
+  (.setSize renderer (. js/window -innerWidth ) (. js/window -innerHeight)))
 
 (defn animate
   []
@@ -72,11 +72,11 @@
 
 (defn render
   []
-  (. renderer render scene camera))
+  (.render renderer scene camera))
 
 (defn degrees->radians
   [degrees]
-  (/ (* degrees js/Math.PI) 180))
+  (-> (* degrees js/Math.PI) (/ 180)))
 
 ;; (defn old-init []
 ;;   (let [scene (js/THREE.Scene.)
