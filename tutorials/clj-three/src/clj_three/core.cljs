@@ -61,7 +61,9 @@
 
 (defn on-window-resize
   []
-  (prn "on-window-resize!!"))
+  (aset camera "aspect" (/ (. js/window -innerWidth ) (. js/window -innerHeight)))
+  (. camera updateProjectionMatrix)
+  (. renderer setSize (. js/window -innerWidth ) (. js/window -innerHeight)))
 
 (defn animate
   [])
