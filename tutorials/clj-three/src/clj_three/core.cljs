@@ -53,7 +53,6 @@
   []
   (let [light-one (js/THREE.DirectionalLight. 0xffffff)
         light-two (js/THREE.DirectionalLight. 0xffffff 0.5)]
-    ;;(.set (. light-one -position) 1 1 1)
     (.set (. light-one -position) 1 1 1)
     (.set (. light-two -position) 1 -1 -1)
     (.add scene light-one)
@@ -81,6 +80,9 @@
 (defn radians->degrees
   [radians]
   (-> (* radians 180) (/ js/Math.PI)))
+
+(init)
+(animate)
 
 ;; (defn old-init []
 ;;   (let [scene (js/THREE.Scene.)
@@ -111,5 +113,3 @@
 
 ;;     (animate)))
 
-(init)
-(animate)
