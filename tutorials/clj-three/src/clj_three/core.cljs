@@ -10,6 +10,14 @@
 (def camera)
 (def renderer)
 
+(def total-cubes-wide)
+(def collidable-objects [])
+
+(def maze-map [[0 0 1 0]
+               [0 1 0 0]
+               [1 0 0 1]
+               [0 1 0 0]])
+
 (declare create-maze-cubes add-lights on-window-resize animate render degrees->radians)
 
 (defn init
@@ -42,7 +50,10 @@
   []
   (let [cube-geo (js/THREE.BoxGeometry. unit-width unit-height unit-width)
         cube-mat (js/THREE.MeshPhongMaterial. (js-obj "color" 0x81cfe0))
-        cube (js/THREE.Mesh. cube-geo cube-mat)]
+        cube (js/THREE.Mesh. cube-geo cube-mat)
+        width-offset (/ unit-width 2)
+        height-offset (/ unit-height 2)
+        total-cubes-wide (count (first maze-map)) ]
     (.add scene cube)
     (aset cube "position" "y" (/ unit-height 2))
     (aset cube "position" "x" 0)
