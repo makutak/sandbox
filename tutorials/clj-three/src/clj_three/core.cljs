@@ -78,6 +78,10 @@
   [degrees]
   (-> (* degrees js/Math.PI) (/ 180)))
 
+(defn radians->degrees
+  [radians]
+  (-> (* radians 180) (/ js/Math.PI)))
+
 ;; (defn old-init []
 ;;   (let [scene (js/THREE.Scene.)
 ;;         p-camera (js/THREE.PerspectiveCamera. view-angle aspect near far)
