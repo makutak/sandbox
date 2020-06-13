@@ -11,12 +11,28 @@
 (def renderer)
 
 (def total-cubes-wide)
-(def collidable-objects [])
+(def collidable-objects (array))
 
-(def maze-map [[0 0 1 0]
-               [0 1 0 0]
-               [1 0 0 1]
-               [0 1 0 0]])
+(def maze-map (js->clj [[0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, ],
+                        [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, ],
+                        [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, ],
+                        [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, ],
+                        [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, ],
+                        [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, ],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, ],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, ],
+                        [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, ],
+                        [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, ],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
+                        [1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, ],
+                        [0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, ]]))
 
 (declare create-maze-cubes add-lights on-window-resize animate render degrees->radians)
 
@@ -50,23 +66,19 @@
   []
   (let [cube-geo (js/THREE.BoxGeometry. unit-width unit-height unit-width)
         cube-mat (js/THREE.MeshPhongMaterial. (js-obj "color" 0x81cfe0))
-        cube (js/THREE.Mesh. cube-geo cube-mat)
         width-offset (/ unit-width 2)
         height-offset (/ unit-height 2)
         total-cubes-wide (count (first maze-map)) ]
-    (loop [i 0]
-      (if (< i total-cubes-wide)
-        (do
-          (*print-fn* i)
-          (.add scene cube)
-          (aset cube "position" "y" (/ unit-height 2))
-          (aset cube "position" "x" 0)
-          (aset cube "position" "z" -100)
-          (aset cube "rotation" "y" (degrees->radians 30))
-          (recur (inc i)))
-        i))
-
-    ))
+    (dotimes [i total-cubes-wide]
+      (dotimes [j (count (get maze-map i))]
+        (if (-> (get maze-map i) (get j))
+          (let [cube (js/THREE.Mesh. cube-geo cube-mat)]
+            (*print-fn* i)
+            (aset cube "position" "z" (+ (* (- i (/ total-cubes-wide 2)) unit-width) width-offset ))
+            (aset cube "position" "y" height-offset)
+            (aset cube "position" "x" (+ (* (- j (/ total-cubes-wide 2)) unit-width) width-offset ))
+            (.add scene cube)
+            (.push collidable-objects cube)))))))
 
 (defn add-lights
   []
