@@ -9,10 +9,9 @@
 (def scene)
 (def camera)
 (def renderer)
-
 (def total-cubes-wide)
 (def collidable-objects (array))
-
+(def map-size)
 (def maze-map (js->clj [[0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, ],
                         [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, ],
                         [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, ],
@@ -78,7 +77,8 @@
             (aset cube "position" "y" height-offset)
             (aset cube "position" "x" (+ (* (- j (/ total-cubes-wide 2)) unit-width) width-offset ))
             (.add scene cube)
-            (.push collidable-objects cube)))))))
+            (.push collidable-objects cube)))))
+    (set! map-size (* total-cubes-wide unit-width))))
 
 (defn add-lights
   []
