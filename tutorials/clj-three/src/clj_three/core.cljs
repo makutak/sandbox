@@ -54,11 +54,19 @@
         width-offset (/ unit-width 2)
         height-offset (/ unit-height 2)
         total-cubes-wide (count (first maze-map)) ]
-    (.add scene cube)
-    (aset cube "position" "y" (/ unit-height 2))
-    (aset cube "position" "x" 0)
-    (aset cube "position" "z" -100)
-    (aset cube "rotation" "y" (degrees->radians 30))))
+    (loop [i 0]
+      (if (< i total-cubes-wide)
+        (do
+          (*print-fn* i)
+          (.add scene cube)
+          (aset cube "position" "y" (/ unit-height 2))
+          (aset cube "position" "x" 0)
+          (aset cube "position" "z" -100)
+          (aset cube "rotation" "y" (degrees->radians 30))
+          (recur (inc i)))
+        i))
+
+    ))
 
 (defn add-lights
   []
