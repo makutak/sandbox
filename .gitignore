@@ -50,4 +50,19 @@ Session.vim
 .cargo
 !/src/test/run-make/thumb-none-qemu/example/.cargo
 no_llvm_build
+node_modules/
+public/js
+/resources/public/js/compiled/**
+figwheel_server.log
+pom.xml
+*jar
+/lib/
+/classes/
+/out/
+/target/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.repl
+.nrepl-port
 # Before adding new lines, see the comment at the top.
