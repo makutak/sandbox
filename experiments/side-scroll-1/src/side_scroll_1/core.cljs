@@ -8,16 +8,18 @@
 
 (def ball-radius 10)
 (def x ball-radius)
-;;(def y (- (. canvas -height) ball-radius))
-(def y ball-radius)
+(def y (- (. canvas -height) ball-radius))
+;;(def y ball-radius)
 
 
 (def t 0)
-(def dt 0.1)
+(def dt 1)
+;;(def dt 1)
 (def v 10)
-(def g 9.8)
-(def dx 2)
-(def dy -2)
+;;(def g 9.8)
+(def g 0.4)
+(def dx 10)
+(def dy 10)
 
 (defn draw-ball []
   (.beginPath ctx)
@@ -31,8 +33,9 @@
   (draw-ball)
   ;; 水平投射
   (set! t (+ t dt))
-  (set! x (+ x (* v t)))
-  (set! y (+ y (* (/ 1 2) g (* t t))))
+  (set! x (* dx t))
+  ;;(set! y (+ y (* (/ 1 2) g (* t t))))
+  (set! y (+ (- (* (/ 1 2) g (* t t)) (* dy t)) (- (. canvas -height) ball-radius)))
   (js/requestAnimationFrame draw)
   )
 (draw)
