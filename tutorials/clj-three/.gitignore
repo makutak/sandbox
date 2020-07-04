@@ -1,15 +1,3 @@
-/target
-/classes
-/checkouts
-profiles.clj
-pom.xml
-pom.xml.asc
-*.jar
-*.class
-/.lein-*
-/.nrepl-port
-.hgignore
-.hg/
 /resources/public/js/compiled/**
 /resources/public/cljs/*
 figwheel_server.log
