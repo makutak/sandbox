@@ -6,7 +6,7 @@ fn main() -> Result<(), Error> {
 
     match server_socket {
         Ok(v) => println!("{:?}", v),
-        Err(e) => panic!("Bind failed!!!: {:?}", e),
+        Err(e) => panic!("Error!!!!!!!!!!!!!: {:?}", e),
     }
 
     Ok(())
