@@ -1,13 +1,12 @@
+use std::io::Error;
 use std::net::TcpListener;
 
-fn main() -> Result<(), String> {
-    let server_socket = TcpListener::bind("127.0.0.1:8080");
+fn main() -> Result<(), Error> {
+    let server_socket = TcpListener::bind("127.0.0.1:80");
 
     match server_socket {
         Ok(v) => println!("{:?}", v),
-        Err(_e) => {
-            return Err(format!("bind failed!!!: {}", _e));
-        }
+        Err(e) => panic!("Bind failed!!!: {:?}", e),
     }
 
     Ok(())
