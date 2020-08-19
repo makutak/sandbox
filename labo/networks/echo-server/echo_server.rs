@@ -6,6 +6,7 @@ fn main() -> Result<(), Error> {
     let listners = TcpListener::bind("127.0.0.1:54321");
     match listners {
         Ok(listner) => {
+            println!("starting server...");
             for stream in listner.incoming() {
                 match stream {
                     Ok(stream) => {
