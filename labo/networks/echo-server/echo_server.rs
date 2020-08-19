@@ -7,9 +7,15 @@ fn main() -> Result<(), Error> {
     match listners {
         Ok(listner) => {
             for stream in listner.incoming() {
-                thread::spawn(move || {
-                    println!("{:?}", stream);
-                });
+                match stream {
+                    Ok(stream) => {
+                        thread::spawn(move || {
+                            let client = stream.peer_addr().unwrap();
+                            println!("accepcted from: {}:{}", client.ip(), client.port());
+                        });
+                    }
+                    Err(e) => panic!("{:?}", e),
+                }
             }
             drop(listner);
         }
