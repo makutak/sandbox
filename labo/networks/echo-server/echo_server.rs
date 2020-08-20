@@ -1,16 +1,19 @@
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::net::{TcpListener, TcpStream};
+use std::str;
 use std::thread;
 
-fn recv_msg(reader: &mut BufReader<&TcpStream>) {
-    for line in reader.lines() {
-        let input = match line {
-            Ok(line) => line,
-            Err(e) => String::from(format!("read error: {:?}", e)),
-        };
-
-        println!("input: {:?}", input);
+fn recv_msg(stream: &TcpStream) {
+    for line in BufReader::new(stream).lines() {
+        let msg = line.unwrap_or(String::from("Error"));
+        println!("{}", msg);
+        send_msg(&stream, &msg)
     }
+}
+
+fn send_msg(stream: &TcpStream, msg: &str) {
+    let mut writer = BufWriter::new(stream);
+    writeln!(writer, "echo: {}", msg.to_string()).unwrap();
 }
 
 fn main() -> Result<(), String> {
@@ -26,8 +29,7 @@ fn main() -> Result<(), String> {
                         thread::spawn(move || {
                             let client = stream.peer_addr().unwrap();
                             println!("accepcted from: {}:{}", client.ip(), client.port());
-                            let mut reader = BufReader::new(&stream);
-                            recv_msg(&mut reader);
+                            recv_msg(&stream);
                         });
                     }
                     Err(e) => println!("accept failed!!!: {:?}", e),
