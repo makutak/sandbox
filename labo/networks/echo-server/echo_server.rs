@@ -2,7 +2,7 @@ use std::io::{BufRead, BufReader};
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 
-fn recv(reader: &mut BufReader<&TcpStream>) {
+fn recv_msg(reader: &mut BufReader<&TcpStream>) {
     for line in reader.lines() {
         let input = match line {
             Ok(line) => line,
@@ -27,7 +27,7 @@ fn main() -> Result<(), String> {
                             let client = stream.peer_addr().unwrap();
                             println!("accepcted from: {}:{}", client.ip(), client.port());
                             let mut reader = BufReader::new(&stream);
-                            recv(&mut reader);
+                            recv_msg(&mut reader);
                         });
                     }
                     Err(e) => println!("accept failed!!!: {:?}", e),
