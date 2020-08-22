@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """ソケットを使って ADD プロトコルを実装したサーバスクリプト"""
 
 import socket
@@ -69,6 +68,8 @@ def main():
     result_msg = struct.pack('!q', result)
     # ソケットにバイト列を書き込む
     send_msg(client_socket, result_msg)
+    # 書き込んだバイト列を表示する
+    print(f'sent: {result_msg}')
     # ソケットの接続を終了する
     client_socket.close()
     server_socket.close()
