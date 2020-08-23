@@ -8,9 +8,17 @@ fn recv_msg(sock: &TcpStream, total_msg_size: i64) {
 }
 
 fn main() {
-    let listner = TcpListener::bind("127.0.0.1:54321").expect("server start failed!");
+    let listner = match TcpListener::bind("127.0.0.1:54321") {
+        Ok(listner) => listner,
+        Err(e) => panic!("server start failed!!!: {:?}", e),
+    };
+
     println!("starting server...");
 
-    let (_client_socket, addr) = listner.accept().expect("accept failed!");
+    let (client_socket, addr) = match listner.accept() {
+        Ok((socket, addr)) => (socket, addr),
+        Err(e) => panic!("socket accepted failed!!!: {:?}", e),
+    };
+
     println!("accepted from: {}", addr);
 }
