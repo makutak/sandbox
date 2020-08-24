@@ -12,7 +12,7 @@ def send_msg(sock, msg):
     total_msg_len = len(msg)
     # まだ送信したいデータが残っているか判定する
     while total_sent_len < total_msg_len:
-        # ソケットにバイト列がをカキコmんで、書き込めたバイト数を得る
+        # ソケットにバイト列を書き込んで、書き込めたバイト数を得る
         sent_len = sock.send(msg[total_sent_len:])
         # まったく書き込めなかったらソケットの接続が終了している
         if sent_len == 0:
