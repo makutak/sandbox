@@ -1,6 +1,5 @@
 use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::net::{Shutdown, TcpStream};
-use std::str;
 
 fn recv_msg(reader: &mut BufReader<&TcpStream>) {
     for line in reader.lines() {
