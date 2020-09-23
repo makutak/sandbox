@@ -1,4 +1,5 @@
 mod my_box;
+mod my_iterator;
 mod my_loop;
 mod result;
 
@@ -13,5 +14,9 @@ fn main() {
 
     println!("############# loop label ########");
     my_loop::exec();
+    println!("\n");
+
+    println!("############# Iterator ########");
+    my_iterator::exec();
     println!("\n");
 }
