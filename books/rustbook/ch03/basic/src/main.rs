@@ -22,6 +22,8 @@ fn main() {
     println!("\n");
 
     println!("############# Macro ########");
-    my_macro::exec();
+    my_macro::output_macro();
+    println!("\n");
+    my_macro::access_resource_macro();
     println!("\n");
 }
