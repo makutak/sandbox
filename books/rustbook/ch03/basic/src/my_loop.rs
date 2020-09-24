@@ -5,8 +5,8 @@ pub fn exec() {
             println!("sub loop start");
 
             break 'main;
-            println!("sub loop end"); //ここまで来ないのでo表示されない
+            println!("sub loop end"); //ここまで来ないので表示されない
         }
-        println!("main loop end"); //ここまで来ないのでo表示されない
+        println!("main loop end"); //ここまで来ないので表示されない
     }
 }
