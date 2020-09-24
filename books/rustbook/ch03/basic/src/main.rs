@@ -26,4 +26,6 @@ fn main() {
     println!("\n");
     my_macro::access_resource_macro();
     println!("\n");
+    my_macro::support_impliment_macro();
+    println!("\n");
 }
