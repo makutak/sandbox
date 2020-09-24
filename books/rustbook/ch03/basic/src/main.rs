@@ -2,6 +2,7 @@ mod my_box;
 mod my_iterator;
 mod my_loop;
 mod my_macro;
+mod my_trait;
 mod result;
 
 fn main() {
@@ -27,5 +28,9 @@ fn main() {
     my_macro::access_resource_macro();
     println!("\n");
     my_macro::support_impliment_macro();
+    println!("\n");
+
+    println!("############# Trait ########");
+    my_trait::exec();
     println!("\n");
 }
