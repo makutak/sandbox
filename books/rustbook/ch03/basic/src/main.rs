@@ -1,6 +1,7 @@
 mod my_box;
 mod my_iterator;
 mod my_loop;
+mod my_macro;
 mod result;
 
 fn main() {
@@ -18,5 +19,9 @@ fn main() {
 
     println!("############# Iterator ########");
     my_iterator::exec();
+    println!("\n");
+
+    println!("############# Macro ########");
+    my_macro::exec();
     println!("\n");
 }
