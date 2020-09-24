@@ -4,6 +4,7 @@ mod my_loop;
 mod my_macro;
 mod my_trait;
 mod result;
+mod tweet;
 
 fn main() {
     println!("############# Result #################");
@@ -32,5 +33,9 @@ fn main() {
 
     println!("############# Trait ########");
     my_trait::exec();
+    println!("\n");
+
+    println!("############# Tweet ########");
+    tweet::exec();
     println!("\n");
 }
