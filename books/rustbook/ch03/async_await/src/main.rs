@@ -42,15 +42,17 @@ async fn something_great_async_function_3() -> i32 {
 }
 
 async fn print_result(value: i32) {
-    println!("{}", value)
+    println!("value: {}", value)
 }
 
 async fn caluculate() -> i32 {
     let add1 = async_add(2, 3).await;
+    // これはy評価されない
     print_result(add1);
 
     let add2 = async_add(3, 4).await;
-    print_result(add2);
+    // これは評価される
+    print_result(add2).await;
     async_add(add1, add2).await
 }
 
