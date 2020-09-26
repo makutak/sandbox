@@ -1,9 +1,9 @@
-use std::sync::Arc;
+
 
 fn main() {
-    let mut s = "Hello, World!";
+    let s = "Hello, World!";
     println!("{}", s);
 
-    let string = &s;
+    let _string = &s;
     println!("{}", s);
 }
