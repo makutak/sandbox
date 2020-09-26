@@ -5,6 +5,7 @@ fn main() {
     executor::block_on(somothing_great_async_function());
     executor::block_on(something_great_async_function_2());
     executor::block_on(something_great_async_function_3());
+    executor::block_on(caluculate());
 }
 
 async fn async_add(left: i32, right: i32) -> i32 {
@@ -38,6 +39,19 @@ async fn something_great_async_function_3() -> i32 {
     let result = ans1 + ans2 + ans3;
     println!("{}", result);
     result
+}
+
+async fn print_result(value: i32) {
+    println!("{}", value)
+}
+
+async fn caluculate() -> i32 {
+    let add1 = async_add(2, 3).await;
+    print_result(add1);
+
+    let add2 = async_add(3, 4).await;
+    print_result(add2);
+    async_add(add1, add2).await
 }
 
 // async ではないので下記はコンパイルエラーとなる。
