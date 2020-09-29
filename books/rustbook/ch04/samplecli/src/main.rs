@@ -92,3 +92,11 @@ fn run<R: BufRead>(reader: R, verbose: bool) {
         calc.eval(&line);
     }
 }
+
+#[cfg(test)]
+mod test {
+    #[test]
+    fn test_ok() {
+        assert_eq!(2 * 2, 4);
+    }
+}
