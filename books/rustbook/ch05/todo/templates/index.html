@@ -5,7 +5,13 @@
     <title>Todo App</title>
 
     <body>
-      hello
+      <div>
+        {% for entry in entries %}
+        <div>
+          <div>id: {{ entry.id }}, text {{ entry.text }}</div>
+        </div>
+        {% endfor %}
+      </div>
     </body>
   </head>
 </html>
