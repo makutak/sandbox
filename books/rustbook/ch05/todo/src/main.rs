@@ -15,6 +15,11 @@ struct AddParams {
     text: String,
 }
 
+#[derive(Deserialize)]
+struct DelelteParams {
+    id: u32,
+}
+
 #[derive(Template)]
 #[template(path = "index.html")]
 struct IndexTemplate {
@@ -70,6 +75,18 @@ async fn add_todo(
         .finish())
 }
 
+#[post("/delete")]
+async fn delete_todo(
+    params: web::Form<DelelteParams>,
+    db: web::Data<Pool<SqliteConnectionManager>>,
+) -> Result<HttpResponse, MyError> {
+    let conn = db.get()?;
+    conn.execute("DELETE FROM todo WHERE id=?", &[&params.id])?;
+    Ok(HttpResponse::SeeOther()
+        .header(header::LOCATION, "/")
+        .finish())
+}
+
 #[actix_rt::main]
 async fn main() -> Result<(), actix_web::Error> {
     let manager = SqliteConnectionManager::file("todo.db");
@@ -90,6 +107,7 @@ CREATE TABLE IF NOT EXISTS todo (
         App::new()
             .service(index)
             .service(add_todo)
+            .service(delete_todo)
             .data(pool.clone())
     })
     .bind("0.0.0.0:8080")?
