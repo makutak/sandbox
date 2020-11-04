@@ -1,4 +1,5 @@
-FROM rust:1.43
+# ビルド用のイメージを用意
+FROM rust:1.43 AS builder
 
 WORKDIR /todo
 
@@ -21,5 +22,9 @@ RUN rm -f target/release/deps/todo*
 # 改めてアプリケーションをビルドする。
 RUN cargo build --release
 
-RUN cargo install --path .
+# 新しくリリース用のイメージを用意
+FROM rust:1.43
+
+# builder イメージから todo のみをコピーして /usr/local/bin に配置する
+COPY --from=builder /todo/target/release/todo /usr/local/bin/todo
 CMD ["todo"]
