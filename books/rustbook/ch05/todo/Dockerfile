@@ -23,7 +23,7 @@ RUN rm -f target/release/deps/todo*
 RUN cargo build --release
 
 # 新しくリリース用のイメージを用意
-FROM rust:1.43
+FROM debian:10.4
 
 # builder イメージから todo のみをコピーして /usr/local/bin に配置する
 COPY --from=builder /todo/target/release/todo /usr/local/bin/todo
