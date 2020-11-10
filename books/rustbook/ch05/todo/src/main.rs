@@ -1,4 +1,10 @@
 use actix_web::{get, App, HttpResponse, HttpServer};
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+enum MyError {}
+
+impl ResponseError for MyError {}
 
 #[get("/")]
 async fn index() -> Result<HttpResponse, actix_web::Error> {
