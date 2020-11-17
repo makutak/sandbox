@@ -24,7 +24,7 @@ macro_rules! measure_elapsed_time {
     ($t:tt,$s:block) => {{
         let window = web_sys::window().expect("should have a window in this context");
         let performance = window
-            .perfomance()
+            .performance()
             .expect("performance should be availabled");
         let start = performance.now();
         let result = { $s };
