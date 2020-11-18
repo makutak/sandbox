@@ -33,3 +33,18 @@ macro_rules! measure_elapsed_time {
         result
     }};
 }
+
+#[wasm_bindgen]
+pub fn generate_mandelbrot_set(
+    canvas_w: usize,
+    canvas_h: usize,
+    x_min: f64,
+    x_max: f64,
+    y_min: f64,
+    y_max: f64,
+    max_iter: usize,
+) -> Vec<u8> {
+    measure_elapsed_time!("generate:wasm\telapsed:", {
+        logic::generate_mandelbrot_set(canvas_w, canvas_h, x_min, x_max, y_min, y_max, max_iter)
+    })
+}
