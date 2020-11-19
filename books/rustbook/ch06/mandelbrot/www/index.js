@@ -6,7 +6,7 @@ function draw(ctx, canvas_w, canvas_h, data) {
 }
 
 const X_MIN = -1.5;
-const x_MAX = 0.5;
+const X_MAX = 0.5;
 const Y_MIN = -1.0;
 const Y_MAX = 1.0;
 const MAX_ITER = 64;
@@ -27,7 +27,7 @@ Promise.all([mandelbrot]).then(async function ([
       let canvas = document.getElementById(CANVAS_ID);
       let context = canvas.getContext("2d");
       const canvasWidth = canvas.width;
-      const canvasHeight = canvash.height;
+      const canvasHeight = canvas.height;
 
       const generateStartTime = Date.now();
       wasmResult = generate_mandelbrot_set(
@@ -44,9 +44,10 @@ Promise.all([mandelbrot]).then(async function ([
       draw(context, canvasWidth, canvasHeight, wasmResult);
       const drawEndTime = Date.now();
 
-      const elapsed = generateEndTime = generateStartTime;
-      console.log(`\tgenerate:wasm\tgenerate_elapsed:${ellapsed}[ms]`);
-      console.log(`\tdraw: js\tdraw_elapsed: ${drawEndTime - draw}[ms]`);
+      const elapsed = generateEndTime - generateStartTime;
+      console.log(`\tgenerate:wasm\tgenerate_elapsed:${elapsed}[ms]`);
+      console.log(`\tdraw: js\tdraw_elapsed: ${drawEndTime - drawStartTime}[ms]`);
     }
   });
-})
+});
+
