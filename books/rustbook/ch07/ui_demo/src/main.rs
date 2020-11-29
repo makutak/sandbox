@@ -1,5 +1,7 @@
-use iced::Settings;
-use iced::{executor, Application, Command, Element, Text};
+use iced::{
+    button, executor, Align, Application, Button, Column, Command, Element, Font,
+    HorizontalAlignment, Length, Row, Settings, Subscription, Text,
+};
 
 struct GUI;
 
