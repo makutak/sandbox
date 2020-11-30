@@ -3,7 +3,10 @@ use iced::{
     HorizontalAlignment, Length, Row, Settings, Subscription, Text,
 };
 
-struct GUI;
+struct GUI {
+    start_stop_button_state: button::State,
+    reset_button_state: button::State,
+}
 
 impl Application for GUI {
     type Executor = executor::Null;
