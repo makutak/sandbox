@@ -14,7 +14,13 @@ impl Application for GUI {
     type Flags = ();
 
     fn new(_flags: ()) -> (GUI, Command<Self::Message>) {
-        (GUI, Command::none())
+        (
+            GUI {
+                start_stop_button_state: button::State::new(),
+                reset_button_state: button::State::new(),
+            },
+            Command::none(),
+        )
     }
 
     fn title(&self) -> String {
