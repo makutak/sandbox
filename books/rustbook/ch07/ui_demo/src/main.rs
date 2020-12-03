@@ -3,24 +3,38 @@ use iced::{
     HorizontalAlignment, Length, Row, Settings, Subscription, Text,
 };
 
+#[derive(Debug, Clone)]
+pub enum Message {
+    Start,
+    Stop,
+    Reset,
+}
+
+pub enum TickState {
+    Stopped,
+    Ticking,
+}
+
 const FONT: Font = Font::External {
     name: "PixelMplus12-Regular",
     bytes: include_bytes!("../rsc/PixelMplus12-Regular.ttf"),
 };
 
 struct GUI {
+    tick_state: TickState,
     start_stop_button_state: button::State,
     reset_button_state: button::State,
 }
 
 impl Application for GUI {
     type Executor = executor::Null;
-    type Message = ();
+    type Message = Message;
     type Flags = ();
 
     fn new(_flags: ()) -> (GUI, Command<Self::Message>) {
         (
             GUI {
+                tick_state: TickState::Stopped,
                 start_stop_button_state: button::State::new(),
                 reset_button_state: button::State::new(),
             },
