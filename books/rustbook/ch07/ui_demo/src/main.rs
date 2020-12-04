@@ -3,6 +3,9 @@ use iced::{
     HorizontalAlignment, Length, Row, Settings, Subscription, Text,
 };
 
+use iced_futures::{self, futures};
+use std::time::{Duration, Instant};
+
 #[derive(Debug, Clone)]
 pub enum Message {
     Start,
@@ -114,4 +117,37 @@ impl Application for GUI {
 
 fn main() {
     GUI::run(Settings::default());
+}
+
+pub struct Timer {
+    duration: Duration,
+}
+
+impl Timer {
+    fn new(duration: Duration) -> Timer {
+        Timer { duration: duration }
+    }
+}
+
+impl<H, E> iced_native::subscription::Recipe<H, E> for Timer
+where
+    H: std::hash::Hasher,
+{
+    type Output = Instant;
+
+    fn hash(&self, state: &mut H) {
+        use std::hash::Hash;
+        std::any::TypeId::of::<Self>().hash(state);
+        self.duration.hash(state);
+    }
+
+    fn stream(
+        self: Box<Self>,
+        _input: futures::stream::BoxStream<'static, E>,
+    ) -> futures::stream::BoxStream<'static, Self::Output> {
+        use futures::stream::StreamExt;
+        async_std::stream::interval(self.duration)
+            .map(|_| Instant::now())
+            .boxed()
+    }
 }
