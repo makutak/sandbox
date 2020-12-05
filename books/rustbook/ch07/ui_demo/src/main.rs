@@ -11,6 +11,7 @@ pub enum Message {
     Start,
     Stop,
     Reset,
+    Update,
 }
 
 pub enum TickState {
