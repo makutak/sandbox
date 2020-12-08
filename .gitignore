@@ -66,3 +66,6 @@ pom.xml
 .repl
 .nrepl-port
 # Before adding new lines, see the comment at the top.
+
+.vagrant
+*.log
