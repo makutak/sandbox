@@ -36,7 +36,7 @@ struct GUI {
 }
 
 impl Application for GUI {
-    type Executor = executor::Null;
+    type Executor = executor::Default;
     type Message = Message;
     type Flags = ();
 
