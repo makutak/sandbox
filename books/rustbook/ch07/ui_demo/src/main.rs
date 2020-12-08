@@ -119,6 +119,11 @@ impl Application for GUI {
             .align_items(Align::Center)
             .into()
     }
+
+    fn subscription(&self) -> Subscription<Message> {
+        let timer = Timer::new(Duration::from_millis(MILLISEC / FPS));
+        iced::Subscription::from_recipe(timer).map(|_| Message::Update)
+    }
 }
 
 fn main() {
