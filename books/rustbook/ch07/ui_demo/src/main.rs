@@ -14,15 +14,20 @@ pub enum Message {
     Update,
 }
 
-pub enum TickState {
-    Stopped,
-    Ticking,
-}
-
 const FONT: Font = Font::External {
     name: "PixelMplus12-Regular",
     bytes: include_bytes!("../rsc/PixelMplus12-Regular.ttf"),
 };
+
+const FPS: u64 = 30;
+const MILLISEC: u64 = 1000;
+const MINUTE: u64 = 60;
+const HOUR: u64 = 60;
+
+pub enum TickState {
+    Stopped,
+    Ticking,
+}
 
 struct GUI {
     tick_state: TickState,
