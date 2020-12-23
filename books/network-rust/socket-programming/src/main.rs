@@ -36,17 +36,53 @@ fn main() {
         .get_matches();
 
     match matches.value_of("protocol") {
-        Some(p) => println!("protocol: {}", p),
-        None => println!("No protocol specified"),
-    }
+        Some(p) => match p {
+            "tcp" => match matches.value_of("role") {
+                Some(r) => match r {
+                    "server" => {
+                        // TCPサーバの呼び出し
+                    }
+                    "client" => {
+                        // TCPクライアントの呼び出し
+                    }
+                    _ => {
+                        missing_role();
+                    }
+                },
+                None => println!("No role specified"),
+            },
 
-    match matches.value_of("role") {
-        Some(r) => println!("role: {}", r),
-        None => println!("No role specified"),
+            "udp" => match matches.value_of("role") {
+                Some(r) => match r {
+                    "server" => {
+                        // udpサーバの呼び出し
+                    }
+                    "client" => {
+                        // udpクライアントの呼び出し
+                    }
+                    _ => {
+                        missing_role();
+                    }
+                },
+                None => println!("No role specified"),
+            },
+
+            _ => {
+                error!("Please specify tcp or udp on the 1st argument.");
+                std::process::exit(1);
+            }
+        },
+
+        None => println!("No protocol specified"),
     }
 
     match matches.value_of("address") {
         Some(a) => println!("address: {}", a),
         None => println!("No address specified"),
     }
+}
+
+fn missing_role() {
+    error!("Please specify server or client on the 2nd argument.");
+    std::process::exit(1);
 }
