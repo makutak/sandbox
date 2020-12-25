@@ -39,7 +39,7 @@ fn main() {
 
     let address = matches
         .value_of("address")
-        .unwrap_or_else(|| "No address specified");
+        .unwrap_or_else(|| panic!("No address specified"));
 
     match matches.value_of("protocol") {
         Some(p) => match p {
