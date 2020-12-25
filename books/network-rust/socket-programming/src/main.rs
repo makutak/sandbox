@@ -37,49 +37,38 @@ fn main() {
         )
         .get_matches();
 
-    let address = matches
-        .value_of("address")
-        .unwrap_or_else(|| panic!("No address specified"));
+    let protocol = matches.value_of("protocol").unwrap();
+    let role = matches.value_of("role").unwrap();
+    let address = matches.value_of("address").unwrap();
 
-    match matches.value_of("protocol") {
-        Some(p) => match p {
-            "tcp" => match matches.value_of("role") {
-                Some(r) => match r {
-                    "server" => {
-                        tcp_server::serve(address).unwrap_or_else(|e| error!("{}", e));
-                    }
-                    "client" => {
-                        // TCPクライアントの呼び出し
-                    }
-                    _ => {
-                        missing_role();
-                    }
-                },
-                None => println!("No role specified"),
-            },
-
-            "udp" => match matches.value_of("role") {
-                Some(r) => match r {
-                    "server" => {
-                        // udpサーバの呼び出し
-                    }
-                    "client" => {
-                        // udpクライアントの呼び出し
-                    }
-                    _ => {
-                        missing_role();
-                    }
-                },
-                None => println!("No role specified"),
-            },
-
+    match protocol {
+        "tcp" => match role {
+            "server" => {
+                tcp_server::serve(address).unwrap_or_else(|e| error!("{}", e));
+            }
+            "client" => {
+                // TCPクライアントの呼び出し
+            }
             _ => {
-                error!("Please specify tcp or udp on the 1st argument.");
-                std::process::exit(1);
+                missing_role();
+            }
+        },
+        "udp" => match role {
+            "server" => {
+                // UDPサーバの呼び出し
+            }
+            "client" => {
+                // UDPクライアントの呼び出し
+            }
+            _ => {
+                missing_role();
             }
         },
 
-        None => println!("No protocol specified"),
+        _ => {
+            error!("Please specify tcp or udp on the 1st argument.");
+            std::process::exit(1);
+        }
     }
 }
 
