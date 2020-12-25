@@ -4,6 +4,8 @@ use std::env;
 #[macro_use]
 extern crate log;
 
+mod tcp_server;
+
 fn main() {
     env::set_var("RUST_LOG", "debug");
     env_logger::init();
@@ -35,12 +37,16 @@ fn main() {
         )
         .get_matches();
 
+    let address = matches
+        .value_of("address")
+        .unwrap_or_else(|| "No address specified");
+
     match matches.value_of("protocol") {
         Some(p) => match p {
             "tcp" => match matches.value_of("role") {
                 Some(r) => match r {
                     "server" => {
-                        // TCPサーバの呼び出し
+                        tcp_server::serve(address).unwrap_or_else(|e| error!("{}", e));
                     }
                     "client" => {
                         // TCPクライアントの呼び出し
@@ -74,11 +80,6 @@ fn main() {
         },
 
         None => println!("No protocol specified"),
-    }
-
-    match matches.value_of("address") {
-        Some(a) => println!("address: {}", a),
-        None => println!("No address specified"),
     }
 }
 
