@@ -1,5 +1,6 @@
 use clap::{App, Arg};
 use pnet::datalink;
+use pnet::datalink::Channel::Ethernet;
 use std::env;
 
 fn main() {
@@ -27,5 +28,9 @@ fn main() {
         .find(|iface| iface.name == interface_name)
         .expect("Failed to get interface");
 
-    println!("{}", interface);
+    let (_tx, mut rx) = match datalink::channel(&interface, Default::default()) {
+        Ok(Ethernet(tx, rx)) => (tx, rx),
+        Ok(_) => panic!("Unhandled channel type"),
+        Err(e) => panic!("Failed to create datalink channel {}", e),
+    };
 }
