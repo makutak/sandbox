@@ -2,6 +2,9 @@ use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::{str, thread};
 
+/**
+ *  指定のソケットアドレスで接続を待ち受ける
+ */
 pub fn serve(address: &str) -> Result<(), failure::Error> {
     let listner = TcpListener::bind(address)?;
 
@@ -14,6 +17,9 @@ pub fn serve(address: &str) -> Result<(), failure::Error> {
     }
 }
 
+/**
+ * クライアントからの入力を待ち受け、受信したら同じものを返却する
+ */
 fn handler(mut stream: TcpStream) -> Result<(), failure::Error> {
     debug!("Handling data from {}", stream.peer_addr()?);
     let mut buffer = [0u8; 1024];
