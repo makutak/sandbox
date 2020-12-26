@@ -6,6 +6,7 @@ extern crate log;
 
 mod tcp_client;
 mod tcp_server;
+mod udp_client;
 mod udp_server;
 
 fn main() {
@@ -60,7 +61,7 @@ fn main() {
                 udp_server::serve(address).unwrap_or_else(|e| error!("{}", e));
             }
             "client" => {
-                // UDPクライアントの呼び出し
+                udp_client::connect(address).unwrap_or_else(|e| error!("{}", e));
             }
             _ => {
                 missing_role();
