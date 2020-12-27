@@ -1,7 +1,11 @@
 use clap::{App, Arg};
 use pnet::datalink;
 use pnet::datalink::Channel::Ethernet;
+use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
 use std::env;
+
+#[macro_use]
+extern crate log;
 
 fn main() {
     env::set_var("RUST_LOG", "debug");
@@ -33,4 +37,27 @@ fn main() {
         Ok(_) => panic!("Unhandled channel type"),
         Err(e) => panic!("Failed to create datalink channel {}", e),
     };
+
+    loop {
+        match rx.next() {
+            Ok(frame) => {
+                // 受信データからイーサネットフレームの構築
+                let frame = EthernetPacket::new(frame).unwrap();
+                match frame.get_ethertype() {
+                    EtherTypes::Ipv4 => {
+                        println!("ipv4");
+                    }
+                    EtherTypes::Ipv6 => {
+                        println!("ipv6");
+                    }
+                    _ => {
+                        info!("Not an IPv4 or IPv6 packet");
+                    }
+                }
+            }
+            Err(e) => {
+                error!("failed to read: {}", e);
+            }
+        }
+    }
 }
