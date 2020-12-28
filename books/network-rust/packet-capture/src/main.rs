@@ -11,8 +11,13 @@ use pnet::packet::Packet;
 
 use std::env;
 
+mod packet;
+use packet::GettableEndPoints;
+
 #[macro_use]
 extern crate log;
+
+const WIDTH: usize = 20;
 
 fn main() {
     env::set_var("RUST_LOG", "debug");
@@ -76,13 +81,13 @@ fn ipv4_handler(ethernet: &EthernetPacket) {
     if let Some(packet) = Ipv4Packet::new(ethernet.payload()) {
         match packet.get_next_level_protocol() {
             IpNextHeaderProtocols::Tcp => {
-                println!("tcp");
+                tcp_handler(&packet);
             }
             IpNextHeaderProtocols::Udp => {
-                println!("udp");
+                udp_handler(&packet);
             }
             _ => {
-                info!("Not a TCP or UDP packet.");
+                info!("Not a TCP or UDP packet");
             }
         }
     }
@@ -95,14 +100,76 @@ fn ipv6_handler(ethernet: &EthernetPacket) {
     if let Some(packet) = Ipv6Packet::new(ethernet.payload()) {
         match packet.get_next_header() {
             IpNextHeaderProtocols::Tcp => {
-                println!("tcp");
+                tcp_handler(&packet);
             }
             IpNextHeaderProtocols::Udp => {
                 println!("udp");
+                udp_handler(&packet);
             }
             _ => {
                 info!("not a TCP or UDP packet.")
             }
         }
     }
+}
+
+/**
+ * TCP パケットを構築する
+ */
+fn tcp_handler(packet: &dyn GettableEndPoints) {
+    let tcp = TcpPacket::new(packet.get_payload());
+    if let Some(tcp) = tcp {
+        print_packet_info(packet, &tcp, "TCP");
+    }
+}
+
+/**
+ * UDP パケットを構築する
+ */
+fn udp_handler(packet: &dyn GettableEndPoints) {
+    let udp = UdpPacket::new(packet.get_payload());
+    if let Some(udp) = udp {
+        print_packet_info(packet, &udp, "UDP");
+    }
+}
+
+/**
+ *アプリケーション層のデータをバイナリで表示する
+ */
+
+fn print_packet_info(l3: &dyn GettableEndPoints, l4: &dyn GettableEndPoints, proto: &str) {
+    println!(
+        "Captured a {} packet from {}|{} to {}|{} \n",
+        proto,
+        l3.get_source(), // IP
+        l4.get_source(), // port
+        l3.get_destination(),
+        l4.get_destination(),
+    );
+
+    let payload = l4.get_payload();
+    let len = payload.len();
+
+    // ペイロードの表示
+    // 指定した定数幅で表示を行う
+    for i in 0..len {
+        print!("{:<02X} ", payload[i]);
+        if i % WIDTH == WIDTH - 1 || i == len - 1 {
+            for _j in 0..WIDTH - 1 - (i % (WIDTH)) {
+                print!("   ");
+            }
+            print!("| ");
+            for j in i - i % WIDTH..=i {
+                if payload[j].is_ascii_alphabetic() {
+                    print!("{}", payload[j] as char);
+                } else {
+                    // 非ascii文字は.で表示
+                    print!(".");
+                }
+            }
+            println!();
+        }
+    }
+    println!("{}", "=".repeat(WIDTH * 3));
+    println!();
 }
