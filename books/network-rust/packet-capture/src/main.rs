@@ -2,6 +2,13 @@ use clap::{App, Arg};
 use pnet::datalink;
 use pnet::datalink::Channel::Ethernet;
 use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
+use pnet::packet::ip::IpNextHeaderProtocols;
+use pnet::packet::ipv4::Ipv4Packet;
+use pnet::packet::ipv6::Ipv6Packet;
+use pnet::packet::tcp::TcpPacket;
+use pnet::packet::udp::UdpPacket;
+use pnet::packet::Packet;
+
 use std::env;
 
 #[macro_use]
@@ -45,10 +52,10 @@ fn main() {
                 let frame = EthernetPacket::new(frame).unwrap();
                 match frame.get_ethertype() {
                     EtherTypes::Ipv4 => {
-                        println!("ipv4");
+                        ipv4_handler(&frame);
                     }
                     EtherTypes::Ipv6 => {
-                        println!("ipv6");
+                        ipv6_handler(&frame);
                     }
                     _ => {
                         info!("Not an IPv4 or IPv6 packet");
@@ -57,6 +64,44 @@ fn main() {
             }
             Err(e) => {
                 error!("failed to read: {}", e);
+            }
+        }
+    }
+}
+
+/**
+ * IPv4パケットを構築し次のレイヤのハンドラを呼び出す
+ */
+fn ipv4_handler(ethernet: &EthernetPacket) {
+    if let Some(packet) = Ipv4Packet::new(ethernet.payload()) {
+        match packet.get_next_level_protocol() {
+            IpNextHeaderProtocols::Tcp => {
+                println!("tcp");
+            }
+            IpNextHeaderProtocols::Udp => {
+                println!("udp");
+            }
+            _ => {
+                info!("Not a TCP or UDP packet.");
+            }
+        }
+    }
+}
+
+/**
+ * IPv6パケットを構築し次のレイヤのハンドラを呼び出す
+ */
+fn ipv6_handler(ethernet: &EthernetPacket) {
+    if let Some(packet) = Ipv6Packet::new(ethernet.payload()) {
+        match packet.get_next_header() {
+            IpNextHeaderProtocols::Tcp => {
+                println!("tcp");
+            }
+            IpNextHeaderProtocols::Udp => {
+                println!("udp");
+            }
+            _ => {
+                info!("not a TCP or UDP packet.")
             }
         }
     }
