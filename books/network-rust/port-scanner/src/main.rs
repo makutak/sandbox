@@ -1,8 +1,13 @@
 use clap::{App, Arg};
-use pnet::packet::tcp::TcpFlags;
+use pnet::packet::ip::IpNextHeaderProtocols;
+use pnet::packet::tcp::{self, MutableTcpPacket, TcpFlags};
+use pnet::transport::{
+    self, TransportChannelType, TransportProtocol, TransportReceiver, TransportSender,
+};
 use std::collections::HashMap;
-use std::fs;
-use std::net::Ipv4Addr;
+use std::net::{IpAddr, Ipv4Addr};
+use std::time::Duration;
+use std::{fs, thread};
 
 use std::{env, process};
 
@@ -11,6 +16,8 @@ extern crate log;
 
 #[macro_use]
 extern crate clap;
+
+const TCP_SIZE: usize = 20;
 
 #[derive(Debug)]
 struct PacketInfo {
@@ -89,4 +96,126 @@ fn main() {
     };
 
     println!("packet info: {:?}", packet_info);
+
+    let (mut ts, mut tr) = transport::transport_channel(
+        1024,
+        TransportChannelType::Layer4(TransportProtocol::Ipv4(IpNextHeaderProtocols::Tcp)),
+    )
+    .expect("Failed to open channe.");
+
+    let (_, _) = rayon::join(
+        || send_packet(&mut ts, &packet_info),
+        || receive_packets(&mut tr, &packet_info),
+    );
+}
+
+/**
+ * パケットを生成する
+ */
+fn build_packet(packet_info: &PacketInfo) -> [u8; TCP_SIZE] {
+    // TCPヘッダの作成
+    let mut tcp_buffer = [0u8; TCP_SIZE];
+    let mut tcp_header = MutableTcpPacket::new(&mut tcp_buffer[..]).unwrap();
+    tcp_header.set_source(packet_info.my_port);
+
+    // オプションを含まないので、20オクテットまでがTCPヘッダ。4オクテット単位で指定する。
+    tcp_header.set_data_offset(5);
+    tcp_header.set_flags(packet_info.scan_type as u16);
+    let checksum = tcp::ipv4_checksum(
+        &tcp_header.to_immutable(),
+        &packet_info.my_ipaddr,
+        &packet_info.target_ipaddr,
+    );
+    tcp_header.set_checksum(checksum);
+
+    tcp_buffer
+}
+
+/**
+ * 指定のレンジにパケットを送信
+ */
+fn send_packet(ts: &mut TransportSender, packet_info: &PacketInfo) -> Result<(), failure::Error> {
+    let mut packet = build_packet(packet_info);
+    for i in 1..=packet_info.maximum_port {
+        let mut tcp_header =
+            MutableTcpPacket::new(&mut packet).ok_or_else(|| failure::err_msg("invalid packet"))?;
+
+        register_destination_port(i, &mut tcp_header, packet_info);
+        thread::sleep(Duration::from_millis(5));
+        ts.send_to(tcp_header, IpAddr::V4(packet_info.target_ipaddr))?;
+    }
+    Ok(())
+}
+
+/**
+ * TCPヘッダの宛先ポート情報を書き換える。
+ * チェックサムを計算し直す必要がある。
+ */
+fn register_destination_port(
+    target: u16,
+    tcp_header: &mut MutableTcpPacket,
+    packet_info: &PacketInfo,
+) {
+    tcp_header.set_destination(target);
+    let checksum = tcp::ipv4_checksum(
+        &tcp_header.to_immutable(),
+        &packet_info.my_ipaddr,
+        &packet_info.target_ipaddr,
+    );
+    tcp_header.set_checksum(checksum);
+}
+
+/**
+ * パケットを受信してスキャン結果を出力する。
+ */
+fn receive_packets(
+    tr: &mut TransportReceiver,
+    packet_info: &PacketInfo,
+) -> Result<(), failure::Error> {
+    let mut reply_ports = Vec::new();
+    let mut packet_iter = transport::tcp_packet_iter(tr);
+    loop {
+        // ターゲットからの返信パケット
+        let tcp_packet = match packet_iter.next() {
+            Ok((tcp_packet, _)) => {
+                if tcp_packet.get_destination() == packet_info.my_port {
+                    tcp_packet
+                } else {
+                    continue;
+                }
+            }
+            Err(_) => continue,
+        };
+
+        let target_port = tcp_packet.get_source();
+        match packet_info.scan_type {
+            ScanType::Syn => {
+                if tcp_packet.get_flags() == TcpFlags::SYN | TcpFlags::ACK {
+                    println!("port {} is open", target_port);
+                }
+            }
+            // SYNスキャン以外はレスポンスが変えてきたポート (=閉じているポート) を記録
+            ScanType::Fin | ScanType::Xmas | ScanType::Null => {
+                reply_ports.push(target_port);
+            }
+        }
+
+        // スキャン対象の最後のポートに対する返信が帰ってくれば終了
+        if target_port != packet_info.maximum_port {
+            continue;
+        }
+
+        match packet_info.scan_type {
+            ScanType::Fin | ScanType::Xmas | ScanType::Null => {
+                for i in 1..packet_info.maximum_port {
+                    if reply_ports.iter().find(|&&x| x == i).is_none() {
+                        println!("port {} is open", i);
+                    }
+                }
+            }
+            _ => {}
+        }
+
+        return Ok(());
+    }
 }
