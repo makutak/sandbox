@@ -3,6 +3,8 @@ use std::{env, net::UdpSocket};
 #[macro_use]
 extern crate log;
 
+mod dhcp;
+
 fn main() {
     env::set_var("RUST_LOG", "debug");
     env_logger::init();
