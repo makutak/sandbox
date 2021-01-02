@@ -17,6 +17,7 @@ const CHADDR: usize = 28;
 const SNAME: usize = 44;
 const FILE: usize = 108;
 const OPTIONS: usize = 236;
+const OPTION_END: u8 = 255;
 
 /**
  * DHCPのパケットを表現する
@@ -27,7 +28,7 @@ pub struct DhcpPacket {
 
 impl DhcpPacket {
     pub fn get_buffer(&self) -> &[u8] {
-        self.buffer().as_ref()
+        self.buffer.as_ref()
     }
 
     pub fn get_op(&self) -> u8 {
@@ -35,15 +36,15 @@ impl DhcpPacket {
     }
 
     pub fn get_options(&self) -> &[u8] {
-        self.buffer[OPTIONS..]
+        &self.buffer[OPTIONS..]
     }
 
     pub fn get_xid(&self) -> &[u8] {
-        self.buffer[XID..SECS]
+        &self.buffer[XID..SECS]
     }
 
     pub fn get_flags(&self) -> &[u8] {
-        self.buffer[FLAGS..CIADDR]
+        &self.buffer[FLAGS..CIADDR]
     }
 
     pub fn get_giaddr(&self) -> Ipv4Addr {
