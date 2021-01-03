@@ -10,6 +10,7 @@ use dhcp::{DhcpPacket, DhcpServer};
 extern crate log;
 
 mod dhcp;
+mod util;
 
 const HTYPE_ETHER: u8 = 1;
 
@@ -72,7 +73,7 @@ fn make_dhcp_packet(
     // 各種フィールドの設定
     dhcp_packet.set_op(BOOTREPRY);
     dhcp_packet.set_htype(HTYPE_ETHER);
-    dhcp_packet.set_xid(6); // MACアドレスのオクテット長
+    dhcp_packet.set_hlen(6); // MACアドレスのオクテット長
     dhcp_packet.set_xid(received_packet.get_xid());
     if message_type == DHCPACK {
         dhcp_packet.set_ciaddr(received_packet.get_ciaddr());
