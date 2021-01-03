@@ -1,6 +1,15 @@
-use std::net::Ipv4Addr;
+use std::{
+    collections::HashMap,
+    net::Ipv4Addr,
+    sync::{Mutex, RwLock},
+};
 
+use ipnetwork::Ipv4Network;
 use pnet::{packet::PrimitiveValues, util::MacAddr};
+use rusqlite::Connection;
+
+use super::database;
+use super::util;
 
 const OP: usize = 0;
 const HTYPE: usize = 1;
@@ -16,7 +25,10 @@ const GIADDR: usize = 24;
 const CHADDR: usize = 28;
 const SNAME: usize = 44;
 const FILE: usize = 108;
-const OPTIONS: usize = 236;
+pub const OPTIONS: usize = 236;
+
+// フィールドだけのDHCPパケットのサイズ
+const DHCP_MINIMUM_SIZE: usize = 237;
 const OPTION_END: u8 = 255;
 
 /**
@@ -27,6 +39,14 @@ pub struct DhcpPacket {
 }
 
 impl DhcpPacket {
+    pub fn new(buf: Vec<u8>) -> Option<DhcpPacket> {
+        if buf.len() > DHCP_MINIMUM_SIZE {
+            let packet = DhcpPacket { buffer: buf };
+            return Some(packet);
+        }
+        None
+    }
+
     pub fn get_buffer(&self) -> &[u8] {
         self.buffer.as_ref()
     }
@@ -150,5 +170,117 @@ impl DhcpPacket {
             }
         }
         None
+    }
+}
+
+pub struct DhcpServer {
+    address_pool: RwLock<Vec<Ipv4Addr>>,
+    pub db_connection: Mutex<Connection>,
+    pub network_addr: Ipv4Network,
+    pub server_address: Ipv4Addr,
+    pub default_gateway: Ipv4Addr,
+    pub subnet_mask: Ipv4Addr,
+    pub dns_server: Ipv4Addr,
+    pub lease_time: Vec<u8>,
+}
+
+impl DhcpServer {
+    pub fn new() -> Result<DhcpServer, failure::Error> {
+        let env = util::load_env();
+
+        // DNSやゲートウェイなどのアドレス
+        let static_addresses = util::obtain_static_addresses(&env)?;
+
+        let network_addr_with_prefix: Ipv4Network = Ipv4Network::new(
+            static_addresses["network_addr"],
+            ipnetwork::ipv4_mask_to_prefix(static_addresses["subnet_mask"])?,
+        )?;
+
+        let con = Connection::open("dhcp.db")?;
+
+        let addr_pool = Self::init_address_pool(&con, &static_addresses, network_addr_with_prefix)?;
+        info!(
+            "There are {} addresses in the address pool",
+            addr_pool.len()
+        );
+
+        let lease_time = util::make_big_endian_vec_from_u32(
+            env.get("LEASE_TIME").expect("Missing lease_time").parse()?,
+        )?;
+
+        Ok(DhcpServer {
+            address_pool: RwLock::new(addr_pool),
+            db_connection: Mutex::new(con),
+            network_addr: network_addr_with_prefix,
+            server_address: static_addresses["dhcp_server_addr"],
+            default_gateway: static_addresses["default_gateway"],
+            subnet_mask: static_addresses["subnet_mask"],
+            dns_server: static_addresses["dns_server"],
+            lease_time,
+        })
+    }
+
+    /**
+     * 新たなホストに割り当て可能なアドレスプールを初期化
+     */
+    pub fn init_address_pool(
+        con: &Connection,
+        static_addresses: &HashMap<String, Ipv4Addr>,
+        network_addr_with_prefix: Ipv4Network,
+    ) -> Result<Vec<Ipv4Addr>, failure::Error> {
+        let network_addr = static_addresses.get("network_addr").unwrap();
+        let defaualt_gatway = static_addresses.get("network_addr").unwrap();
+        let dhcp_server_addr = static_addresses.get("dhcp_server_addr").unwrap();
+        let dns_server_addr = static_addresses.get("dns_addr").unwrap();
+        let broadcast = network_addr_with_prefix.broadcast();
+
+        // すでに使用されていて、開放もされていないIPアドレス
+        let mut used_ip_addrs = database::select_addresses(con, Some(0))?;
+
+        used_ip_addrs.push(*network_addr);
+        used_ip_addrs.push(*defaualt_gatway);
+        used_ip_addrs.push(*dhcp_server_addr);
+        used_ip_addrs.push(*dns_server_addr);
+        used_ip_addrs.push(broadcast);
+
+        // ネットワークのすべてのIPアドレスから、使用されているIPアドレスを除いたものを
+        // アドレスプールとする
+        let mut addr_pool: Vec<Ipv4Addr> = network_addr_with_prefix
+            .iter()
+            .filter(|addr| !used_ip_addrs.contains(addr))
+            .collect();
+
+        addr_pool.reverse();
+        Ok(addr_pool)
+    }
+
+    /**
+     * アドレスプールからIPアドレスを引き抜く
+     */
+    pub fn pick_available_ip(&self) -> Option<Ipv4Addr> {
+        let mut lock = self.address_pool.write().unwrap();
+        lock.pop()
+    }
+
+    /**
+     * アドレスプールから指定のIPアドレスを引き抜く
+     */
+    pub fn pick_specified_ip(&self, requested_ip: Ipv4Addr) -> Option<Ipv4Addr> {
+        let mut lock = self.address_pool.write().unwrap();
+        for i in 0..lock.len() {
+            if lock[i] == requested_ip {
+                return Some(lock.remove(i));
+            }
+        }
+        None
+    }
+
+    /**
+     * ベクタの先頭にアドレスを返す。
+     * 取り出しは後方から行われるため、返されたアドレスは当分他のホストに割り当てられない
+     */
+    pub fn release_address(&self, relleased_ip: Ipv4Addr) {
+        let mut lock = self.address_pool.write().unwrap();
+        lock.insert(0, relleased_ip);
     }
 }

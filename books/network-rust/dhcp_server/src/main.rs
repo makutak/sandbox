@@ -9,6 +9,7 @@ use dhcp::{DhcpPacket, DhcpServer};
 #[macro_use]
 extern crate log;
 
+mod database;
 mod dhcp;
 mod util;
 
