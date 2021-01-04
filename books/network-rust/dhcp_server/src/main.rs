@@ -4,6 +4,7 @@ use std::{
     sync::Arc,
 };
 
+use byteorder::{BigEndian, ByteOrder};
 use dhcp::{DhcpPacket, DhcpServer};
 
 #[macro_use]
@@ -125,4 +126,37 @@ fn make_dhcp_packet(
     );
     dhcp_packet.set_option(&mut cursor, Code::End as u8, 0, None);
     Ok(dhcp_packet)
+}
+
+/**
+ * DHCPリクエストを解析してレスポンスを返す
+ */
+fn dhcp_handler(
+    packet: &DhcpPacket,
+    soc: &UdpSocket,
+    dhcp_server: &Arc<DhcpServer>,
+) -> Result<(), failure::Error> {
+    let message = packet
+        .get_option(Code::MessageType as u8)
+        .ok_or_else(|| failure::err_msg("specified option was not found"))?;
+
+    let message_type = message[0];
+    let transaction_id = BigEndian::read_u32(packet.get_xid());
+    let client_macaddr = packet.get_chaddr();
+
+    match message_type {
+        // TODO: dhcp_discover_message_handler()
+        DHCPDISCOVER => println!("DHCPDICOVER"),
+        // TODO: dhcp_request_message_handler_responded_to_offer()
+        DHCPREQUEST => println!("DHCPREQUEST"),
+        // TODO: dhcp_release_message_handler()
+        DHCPRELEASE => println!("DHCPRELEASE"),
+        _ => {
+            let msg = format!(
+                "{:?}: received unimplemented message, message_type: {}",
+                transaction_id, message_type
+            );
+            Err(failure::err_msg(msg))
+        }
+    }
 }
