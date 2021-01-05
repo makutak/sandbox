@@ -1,5 +1,6 @@
 use std::net::Ipv4Addr;
 
+use pnet::util::MacAddr;
 use rusqlite::{params, Connection, Rows, NO_PARAMS};
 
 /**
@@ -36,5 +37,24 @@ pub fn select_addresses(
         let mut statement = con.prepare("SELECT ip_addr FROM lease_entries")?;
         let ip_addrs = statement.query(NO_PARAMS)?;
         get_addresses_from_row(ip_addrs)
+    }
+}
+
+/**
+ * 指定のMACアドレスを持つエントリ（論理削除されているものも含めて）のIPアドレスを返す。
+ */
+pub fn select_entry(
+    con: &Connection,
+    mac_addr: MacAddr,
+) -> Result<Option<Ipv4Addr>, failure::Error> {
+    let mut stmnt = con.prepare("SELECT ip_addr FROM lease_entries WHERE mac_adr = ?1")?;
+    let mut row = stmnt.query(params![mac_addr.to_string()])?;
+    if let Some(entry) = row.next()? {
+        let ip = entry.get(0)?;
+        let ip_string: String = ip;
+        Ok(Some(ip_string.parse()?))
+    } else {
+        info!("specified MAC addr was not found.");
+        Ok(None)
     }
 }
