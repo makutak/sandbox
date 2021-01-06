@@ -6,6 +6,7 @@ use std::{
 
 use byteorder::{BigEndian, ByteOrder};
 use dhcp::{DhcpPacket, DhcpServer};
+use pnet::util::MacAddr;
 
 #[macro_use]
 extern crate log;
@@ -145,7 +146,6 @@ fn dhcp_handler(
     let client_macaddr = packet.get_chaddr();
 
     match message_type {
-        // TODO: dhcp_discover_message_handler()
         DHCPDISCOVER => dhcp_discover_message_handler(transaction_id, dhcp_server, &packet, soc),
         // TODO: dhcp_request_message_handler_responded_to_offer()
         DHCPREQUEST => {
@@ -247,4 +247,63 @@ fn obtain_available_ip_from_requested_option(
         return Some(requested_ip);
     }
     None
+}
+
+/**
+ * REQUESTメッセージのオプションにserver_identifierが含まれる場合のハンドラ
+ * サーバ返したDHCPOFFERメッセージに対する返答を処理する。
+ */
+fn dhcp_request_message_handler_responded_to_offer(
+    xid: u32,
+    dhcp_server: &Arc<DhcpServer>,
+    received_packet: &DhcpPacket,
+    client_macaddr: MacAddr,
+    soc: &UdpSocket,
+    server_id: Vec<u8>,
+) -> Result<(), failure::Error> {
+    info!("{:?} received DHCPREQUEST with server_id", xid);
+
+    let server_ip = util::u8_to_ipv4addr(&server_id)
+        .ok_or_else(|| failure::err_msg("Failed to convert ip addr."))?;
+
+    if server_ip != dhcp_server.server_address {
+        // クライアントが別のDHCPサーバを選択した場合
+        info!("Client has chosen another dhcp server.");
+        return Ok(());
+    }
+
+    // DHCPOFFER メッセージに対する応答の場合、必ず 'requested IP address' に
+    // 割当予定のIPアドレスが含まれる
+    let ip_bin = received_packet
+        .get_option(Code::RequestedIpAddress as u8)
+        .unwrap();
+
+    let ip_to_be_leased = util::u8_to_ipv4addr(&ip_bin)
+        .ok_or_else(|| failure::err_msg("Failed to convert ip addr."))?;
+
+    let mut con = dhcp_server.db_connection.lock().unwrap();
+    let count = {
+        // トランザクションのクリティカルセクションを短く保つためにブロックにする。
+        let tx = con.transaction()?;
+        let count = database::count_records_by_mac_addr(&tx, client_macaddr)?;
+        match count {
+            // レコードがないならinsert
+            0 => database::insert_entry(&tx, client_macaddr, ip_to_be_leased)?,
+            // レコードがあるならupdate
+            _ => database::update_entry(&tx, client_macaddr, ip_to_be_leased, 0)?,
+        }
+
+        let dhcp_packet =
+            make_dhcp_packet(received_packet, &dhcp_server, DHCPACK, ip_to_be_leased)?;
+        util::send_dhcp_broadcast_response(soc, dhcp_packet.get_buffer())?;
+        info!("{:?}: sent DHCPPACK", xid);
+        tx.commit()?;
+        count
+    };
+    debug!("{:?}: leased address: {}", xid, ip_to_be_leased);
+    match count {
+        0 => debug!("{:?}: inserted into DB", xid),
+        _ => debug!("{:?}: updated DB", xid),
+    }
+    Ok(())
 }
