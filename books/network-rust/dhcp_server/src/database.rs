@@ -1,7 +1,7 @@
 use std::net::Ipv4Addr;
 
 use pnet::util::MacAddr;
-use rusqlite::{params, Connection, Rows, NO_PARAMS};
+use rusqlite::{params, Connection, Rows, Transaction, NO_PARAMS};
 
 /**
  * 結果のレコードからIPアドレスのカラムを取り出し、そのベクタを返す。
@@ -57,4 +57,58 @@ pub fn select_entry(
         info!("specified MAC addr was not found.");
         Ok(None)
     }
+}
+
+/**
+ * 指定のMACアドレスを持つレコードの件数を返す
+ */
+pub fn count_records_by_mac_addr(
+    tx: &Transaction,
+    mac_addr: MacAddr,
+) -> Result<u8, failure::Error> {
+    let mut stmnt = tx.prepare("SELECT COUNT(*) FROM lease_entries WHERE mac_addr = ?")?;
+    let mut count_result = stmnt.query(params![mac_addr.to_string()])?;
+
+    let count: u8 = match count_result.next()? {
+        Some(row) => row.get(0)?,
+        None => {
+            return Err(failure::err_msg("No query returned"));
+        }
+    };
+    Ok(count)
+}
+
+/**
+ * バインディングの追加
+ */
+pub fn insert_entry(
+    tx: &Transaction,
+    mac_addr: MacAddr,
+    ip_addr: Ipv4Addr,
+) -> Result<(), failure::Error> {
+    tx.execute(
+        "INSERT INTO lease entries (mac_addr, ip_addr) VALUES (?1, ?2)",
+        params![mac_addr.to_string(), ip_addr.to_string()],
+    )?;
+    Ok(())
+}
+
+/**
+ * バインディングの更新
+ */
+pub fn update_entry(
+    tx: &Transaction,
+    mac_addr: MacAddr,
+    ip_addr: Ipv4Addr,
+    deleted: u8,
+) -> Result<(), failure::Error> {
+    tx.execute(
+        "UPDATE lease_entries SET ip_addr = ?2, deleted = ?3 WHERE mac_addr = ?1",
+        params![
+            mac_addr.to_string(),
+            ip_addr.to_string(),
+            deleted.to_string()
+        ],
+    )?;
+    Ok(())
 }
