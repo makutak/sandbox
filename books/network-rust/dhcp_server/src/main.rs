@@ -233,7 +233,7 @@ fn select_lease_ip(
 }
 
 /**
-* オプションに'requested IP address'があり、利用可能ならばそれを返す。
+ * オプションに'requested IP address'があり、利用可能ならばそれを返す。
  */
 fn obtain_available_ip_from_requested_option(
     dhcp_server: &Arc<DhcpServer>,
