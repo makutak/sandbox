@@ -147,11 +147,23 @@ fn dhcp_handler(
 
     match message_type {
         DHCPDISCOVER => dhcp_discover_message_handler(transaction_id, dhcp_server, &packet, soc),
-        // TODO: dhcp_request_message_handler_responded_to_offer()
-        DHCPREQUEST => {
-            println!("DHCPREQUEST");
-            Err(failure::err_msg("not yet implimented"))
-        }
+        DHCPREQUEST => match packet.get_option(Code::ServerIdentifier as u8) {
+            Some(server_id) => dhcp_request_message_handler_responded_to_offer(
+                transaction_id,
+                dhcp_server,
+                &packet,
+                client_macaddr,
+                soc,
+                server_id,
+            ),
+            None => dhcp_request_message_handler_to_reallocate(
+                transaction_id,
+                dhcp_server,
+                &packet,
+                client_macaddr,
+                soc,
+            ),
+        },
         // TODO: dhcp_release_message_handler()
         DHCPRELEASE => {
             println!("DHCPRELEASE");
@@ -306,4 +318,75 @@ fn dhcp_request_message_handler_responded_to_offer(
         _ => debug!("{:?}: updated DB", xid),
     }
     Ok(())
+}
+
+/**
+ * DHCPREQUESTメッセージのオプションにserver_identifierが含まれない場合のハンドラ
+ * リース延長要求、以前割り当てられていたIPアドレスの確認などを処理する
+ */
+fn dhcp_request_message_handler_to_reallocate(
+    xid: u32,
+    dhcp_server: &Arc<DhcpServer>,
+    received_packet: &DhcpPacket,
+    client_macaddr: MacAddr,
+    soc: &UdpSocket,
+) -> Result<(), failure::Error> {
+    info!("{:?}: received DHCPREQUEST without server_id", xid);
+
+    if let Some(requested_ip) = received_packet.get_option(Code::RequestedIpAddress as u8) {
+        debug!("clilent is in INIT_REBOOT");
+        // クライアントが以前割り当てられたIPアドレスを記憶していて
+        // 再起動状態にあんるとき
+        let requested_ip = util::u8_to_ipv4addr(&requested_ip)
+            .ok_or_else(|| failure::err_msg("Failed to convert ip addr."))?;
+
+        let con = dhcp_server.db_connection.lock().unwrap();
+        match database::select_entry(&con, client_macaddr)? {
+            Some(ip) => {
+                if ip == requested_ip && dhcp_server.network_addr.contains(ip) {
+                    // 以前割り当てたIPアドレスと要求されたIPアドレスが一致しており、
+                    // ネットワークに含まれていると恋はACKを返す。
+                    let dhcp_packet =
+                        make_dhcp_packet(&received_packet, &dhcp_server, DHCPACK, ip)?;
+                    util::send_dhcp_broadcast_response(soc, dhcp_packet.get_buffer())?;
+                    info!("{:?}: sent DHCPACK", xid);
+                    Ok(())
+                } else {
+                    // 不適切なIPアドレスが要求されるとNAKを返す
+                    let dhcp_packet = make_dhcp_packet(
+                        &received_packet,
+                        &dhcp_server,
+                        DHCPNAK,
+                        "0.0.0.0".parse()?,
+                    )?;
+                    util::send_dhcp_broadcast_response(soc, dhcp_packet.get_buffer())?;
+                    info!("{:?}: sent DHCPNAK", xid);
+                    Ok(())
+                }
+            }
+            None => {
+                // レコードがないなら何もしてはいけない
+                Ok(())
+            }
+        }
+    } else {
+        debug!("client is RENEWING or REBINDING");
+        // リース延長要求、リース切れによる再要求
+        // 本来はこれらの状態で処理を分けるべきだが簡略化のため同じように処理する。
+        let ip_from_client = received_packet.get_ciaddr();
+        if !dhcp_server.network_addr.contains(ip_from_client) {
+            return Err(failure::err_msg(
+                "Invalid ciaddr, Mismatched network address.",
+            ));
+        }
+        let dhcp_packet = make_dhcp_packet(
+            &received_packet,
+            &dhcp_server,
+            DHCPACK,
+            received_packet.get_ciaddr(),
+        )?;
+        util::send_dhcp_broadcast_response(soc, dhcp_packet.get_buffer())?;
+        info!("{:?}: sent DHCPACK", xid);
+        Ok(())
+    }
 }
