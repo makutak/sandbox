@@ -112,3 +112,14 @@ pub fn update_entry(
     )?;
     Ok(())
 }
+
+/**
+ * バインディングの論理削除
+ */
+pub fn delete_entry(tx: &Transaction, mac_addr: MacAddr) -> Result<(), failure::Error> {
+    tx.execute(
+        "UPDATE lease_entries SET deleted = ?1 WHERE mac_addr = ?2",
+        params![1.to_string(), mac_addr.to_string()],
+    )?;
+    Ok(())
+}
