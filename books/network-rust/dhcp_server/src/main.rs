@@ -164,10 +164,8 @@ fn dhcp_handler(
                 soc,
             ),
         },
-        // TODO: dhcp_release_message_handler()
         DHCPRELEASE => {
-            println!("DHCPRELEASE");
-            Err(failure::err_msg("not yet implimented"))
+            dhcp_release_message_handler(transaction_id, dhcp_server, &packet, client_macaddr)
         }
         _ => {
             let msg = format!(
@@ -389,4 +387,29 @@ fn dhcp_request_message_handler_to_reallocate(
         info!("{:?}: sent DHCPACK", xid);
         Ok(())
     }
+}
+
+/**
+ * DHCPRELEASEメッセージを受け取ったときのハンドラ
+ * DBからリース記録を論理削除し、割り当てていたIPアドレスをアドレスプールに戻す。
+ */
+fn dhcp_release_message_handler(
+    xid: u32,
+    dhcp_server: &Arc<DhcpServer>,
+    received_packet: &DhcpPacket,
+    client_macaddr: MacAddr,
+) -> Result<(), failure::Error> {
+    info!("{:?}: received DHCPRELEASEA", xid);
+
+    let mut con = dhcp_server.db_connection.lock().unwrap();
+    let tx = con.transaction()?;
+
+    // 論理削除。DHCPOFFERメッセージを返す際に開放済みのIPアドレスを再割り当てする場合があるから
+    database::delete_entry(&tx, client_macaddr)?;
+    tx.commit()?;
+
+    debug!("{:?}: deleted from DB", xid);
+    //開放されたIPアドレスをアドレスプールに戻す
+    dhcp_server.release_address(received_packet.get_ciaddr());
+    Ok(())
 }
