@@ -217,7 +217,7 @@ impl DhcpServer {
             server_address: static_addresses["dhcp_server_addr"],
             default_gateway: static_addresses["default_gateway"],
             subnet_mask: static_addresses["subnet_mask"],
-            dns_server: static_addresses["dns_server"],
+            dns_server: static_addresses["dns_addr"],
             lease_time,
         })
     }

@@ -54,7 +54,7 @@ pub fn obtain_static_addresses(
         .parse()?;
 
     let dhcp_server_address = env
-        .get("SEVER_IDENTIFIER")
+        .get("SERVER_IDENTIFIER")
         .expect("Missing server_identifier")
         .parse()?;
 
