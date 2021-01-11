@@ -14,7 +14,8 @@ use super::util;
 const OP: usize = 0;
 const HTYPE: usize = 1;
 const HLEN: usize = 2;
-const HOPS: usize = 3;
+// 今回は使わない
+// const HOPS: usize = 3;
 const XID: usize = 4;
 const SECS: usize = 8;
 const FLAGS: usize = 10;
@@ -24,7 +25,8 @@ const SIADDR: usize = 20;
 const GIADDR: usize = 24;
 const CHADDR: usize = 28;
 const SNAME: usize = 44;
-const FILE: usize = 108;
+// 今回は使わない
+// const FILE: usize = 108;
 pub const OPTIONS: usize = 236;
 
 // フィールドだけのDHCPパケットのサイズ
