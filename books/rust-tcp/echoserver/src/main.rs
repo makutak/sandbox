@@ -17,6 +17,7 @@ fn echo_server(address: &str) -> Result<(), Box<dyn Error>> {
     let listnner = TcpListener::bind(address)?;
     loop {
         let (mut stream, _) = listnner.accept()?;
+        // スレッドを立ち上げて接続に対応する
         thread::spawn(move || {
             let mut buffer = [0u8; 1024];
             loop {
