@@ -13,6 +13,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/**
+ * エコーサーバを立ち上げる
+ */
 fn echo_server(address: &str) -> Result<(), Box<dyn Error>> {
     let listnner = TcpListener::bind(address)?;
     loop {
