@@ -7,7 +7,9 @@ use std::{
 };
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let mut file = File::open("../.git/objects/3b/18e512dba79e4c8300dd08aeb37f8e728b8dad").unwrap();
+    let mut file =
+        File::open("/home/tk/work/tmp/repo/.git/objects/3b/18e512dba79e4c8300dd08aeb37f8e728b8dad")
+            .unwrap();
     let mut buf = Vec::new();
 
     file.read_to_end(&mut buf).unwrap();
