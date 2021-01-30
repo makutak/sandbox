@@ -6,15 +6,17 @@ use std::{
     str,
 };
 
+fn usage() {
+    println!("Usage: ");
+    println!("git_cat_file_p blob_file");
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
-    /*
     let args: Vec<String> = std::env::args().collect();
     if args.len() == 1 {
-        eprintln!("Usega: ");
-        eprintln!(" git_cat_file-p blob_file");
+        usage();
         std::process::exit(1)
     }
-    */
 
     let mut file =
         File::open("/home/tk/work/tmp/repo/.git/objects/a4/940ec3db4cd24542203a9447c4259c96294c09")
