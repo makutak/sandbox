@@ -6,18 +6,23 @@
 #include <unistd.h>
 
 
-static void do_cat(const char *path);
+static void do_cat(FILE *f);
 static void die(const char *s);
 
 int main (int argc, char *argv[]) {
     int i;
+    FILE *f;
 
-    if (argc < 2) {
-        fprintf(stderr, "%s: file name not give \n", argv[0]);
+    if (argc == 1) {
+        do_cat(stdin);
     }
 
     for (i = 1; i < argc; i++) {
-        do_cat(argv[i]);
+        f = fopen(argv[i], "r");
+        if (f == NULL) die(argv[i]);
+
+        do_cat(f);
+        fclose(f);
     }
 
     exit(0);
@@ -25,21 +30,12 @@ int main (int argc, char *argv[]) {
 
 #define BUFFER_SIZE 2048
 
-static void do_cat(const char *path) {
-    int fd;
-    unsigned char buf[BUFFER_SIZE];
-    int n;
+static void do_cat(FILE *f) {
+    char buf[BUFFER_SIZE];
 
-    fd = open(path, O_RDONLY);
-    if (fd < 0) die(path);
-
-    for (;;) {
-        n = read(fd, buf, sizeof buf);
-        if (n < 0) die(path);
-        if (n == 0) break;
-        if (write(STDOUT_FILENO, buf, n) < 0) die(path);
+    while((fgets(buf, sizeof buf, f) != NULL)) {
+        printf("%s", buf);
     }
-    if (close(fd) < 0 ) die(path);
 }
 
 static void die(const char *s) {
