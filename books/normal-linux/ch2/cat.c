@@ -17,7 +17,6 @@ int main (int argc, char *argv[]) {
     }
 
     for (i = 1; i < argc; i++) {
-        printf("argv[%d]=%s\n", i, argv[1]);
         do_cat(argv[i]);
     }
 
@@ -31,9 +30,7 @@ static void do_cat(const char *path) {
     unsigned char buf[BUFFER_SIZE];
     int n;
 
-    printf("%s\n", path);
     fd = open(path, O_RDONLY);
-    printf("%d\n", fd);
     if (fd < 0) die(path);
 
     for (;;) {
