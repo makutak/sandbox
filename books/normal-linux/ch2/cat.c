@@ -5,24 +5,22 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-
-static void do_cat(FILE *f);
+static void do_cat(int fd);
 static void die(const char *s);
 
 int main (int argc, char *argv[]) {
     int i;
-    FILE *f;
+    int fd = STDIN_FILENO;
 
-    if (argc == 1) {
-        do_cat(stdin);
-    }
+    if (argc == 1) do_cat(fd);
 
     for (i = 1; i < argc; i++) {
-        f = fopen(argv[i], "r");
-        if (f == NULL) die(argv[i]);
-
-        do_cat(f);
-        fclose(f);
+        if ((fd = open(argv[i], O_RDONLY)) >= 0) {
+            do_cat(fd);
+            close(fd);
+        } else {
+            die(argv[i]);
+        }
     }
 
     exit(0);
@@ -30,11 +28,12 @@ int main (int argc, char *argv[]) {
 
 #define BUFFER_SIZE 2048
 
-static void do_cat(FILE *f) {
+static void do_cat(int fd) {
     char buf[BUFFER_SIZE];
+    int n;
 
-    while((fgets(buf, sizeof buf, f) != NULL)) {
-        printf("%s", buf);
+    while((n = read(fd, buf, sizeof(buf))) != 0) {
+        write(STDOUT_FILENO, buf, n);
     }
 }
 
