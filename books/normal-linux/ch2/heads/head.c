@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   while((opt = getopt_long(argc, argv, "n:h", longopts, NULL)) != -1) {
     switch (opt) {
       case 'n':
-        nlines =atoi(optarg);
+        nlines = atoi(optarg);
         break;
       case 'h':
         fprintf(stdout, "Usage: %s [-n LINES] [FILE ...]\n", argv[0]);
