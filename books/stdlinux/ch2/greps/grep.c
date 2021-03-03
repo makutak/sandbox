@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static void do_grep();
+
 int main(int argc, char **argv) {
   int i;
 
@@ -11,3 +13,5 @@ int main(int argc, char **argv) {
 
   exit(0);
 }
+
+static void do_grep() {}
