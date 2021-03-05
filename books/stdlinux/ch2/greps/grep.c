@@ -27,6 +27,18 @@ int main(int argc, char **argv) {
 
   if (argc == 2) {
     do_grep(&pat, stdin);
+  } else {
+    for (i = 2; i < argc; i++) {
+      FILE *f;
+
+      f = fopen(argv[i], "r");
+      if (!f) {
+        perror(argv[i]);
+        exit(1);
+      }
+      do_grep(&pat, f);
+      fclose(f);
+    }
   }
 
   regfree(&pat);
