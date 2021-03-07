@@ -2,8 +2,16 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <regex.h>
+#define _GNU_SOURCE
+#include <getopt.h>
 
 static void do_grep(regex_t *pat, FILE *f);
+
+static struct option longopts[] = {
+  {"ignore-case", required_argument, NULL, 'i'},
+  {"invert-match", required_argument, NULL, 'v'},
+  {0, 0, 0, 0}
+};
 
 int main(int argc, char **argv) {
   regex_t pat;
