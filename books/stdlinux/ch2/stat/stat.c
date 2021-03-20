@@ -18,5 +18,6 @@ int main(int argc, char **argv) {
   }
 
   printf("type: \t%o\n", (st.st_mode & S_IFMT));
+  printf("mode: \t%o\n", st.st_mode & ~S_IFMT);
   exit(0);
 }
