@@ -12,17 +12,21 @@ maze = [
     [9, 9, 9, 9, 9, 9, 9, 9, 9],
 ]
 
+# 移動する方向
 d = [[0, -1], [-1, 0], [0, 1], [1, 0]]
 
 x, y = 1, 1
 
 while maze[x][y] != 1:
+    # 移動する方向をランダムに取得
     move = random.choice(d)
 
+    # 壁じゃなければ移動する
     if maze[x + move[0]][y + move[1]] != 9:
         x += move[0]
         y += move[1]
         print([x, y])
 
+        # ゴール
         if maze[x][y] == 1:
             print("GOAL!!!!!!!!!!!!!!!", [x, y])
