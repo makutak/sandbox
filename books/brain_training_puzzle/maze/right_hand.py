@@ -27,5 +27,5 @@ while maze[x][y] != 1:
         y += move[1]
         print(x, y)
     else:
-        # 壁の場合は進行方向を右に変える
+        # 壁の場合は進行方向を左に変える
         dir = (dir + 3) % 4
