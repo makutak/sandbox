@@ -11,21 +11,36 @@ maze = [
 ]
 
 # 移動する方向
+# 上、右、下、左
 d = [[0, -1], [-1, 0], [0, 1], [1, 0]]
+
 # 初期値
-x, y = 1, 1
+y, x = 1, 1
 
 # 進行方向をセット
 dir = 0
 
-while maze[x][y] != 1:
+while maze[y][x] != 1:
     move = d[(dir + 1) % 4]  # 進行方向の右側
-    if maze[(x + move[0])][y + move[1]] != 9:
+    if maze[(y + move[0])][x + move[1]] != 9:
         # 壁でなければ移動し、進行方向を右に変える
         dir = (dir + 1) % 4
-        x += move[0]
-        y += move[1]
-        print(x, y)
+        y += move[0]
+        x += move[1]
+        print("y, x", y, x, "num", maze[y][x])
+        tmp = maze[y][x]
+        maze[y][x] = "*"
+        for i in maze:
+            print(i)
+
+        maze[y][x] = tmp
+        print('')
+
     else:
         # 壁の場合は進行方向を左に変える
+        print('#y: %d, x: %d is wall!' % (y + move[0], x + move[1]))
         dir = (dir + 3) % 4
+
+print('## GOAL ##')
+print(y, x)
+print('##########')
