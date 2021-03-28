@@ -20,6 +20,9 @@ log_bw = [[4, 7]]
 fw = [[1, 1]]
 bw = [[4, 7]]
 
+# 深さ
+depth = 0
+
 
 # キュートログから次の位置のリストを得る
 def get_next(queue, log):
@@ -45,3 +48,23 @@ def check_duplicate(fw, bw):
         if i in bw:
             return True
     return False
+
+
+while True:
+    # スタートからゴールに向けて1段進める
+    fw = get_next(fw, log_fw)
+    depth += 1
+
+    if check_duplicate(fw, bw):
+        # 同じ位置にいれば終了
+        break
+
+    # ゴールからスタートに向けて1段進める
+    bw = get_next(bw, log_bw)
+    depth += 1
+
+    if check_duplicate(fw, bw):
+        # 同じ位置にいれば終了
+        break
+
+print(depth)
