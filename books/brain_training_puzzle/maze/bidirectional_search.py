@@ -38,9 +38,10 @@ def get_next(queue, log):
 
     return result
 
+
 # 双方向から同じ位置にいるか調べる
 def check_duplicate(fw, bw):
     for i in fw:
         if i in bw:
             return True
-      return False
+    return False
