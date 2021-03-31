@@ -9,10 +9,31 @@ class Game:
 
     def score(self):
         score = 0
-        i = 0
+        frame_index = 0
         for frame in range(10):
-            score += self.__rolls[i] + self.__rolls[i + 1]
-            i += 2
+            if self.__is_strike(frame_index):
+                score += 10 + self.__strike_bonus(frame_index)
+                frame_index += 1
+            elif self.__is_spare(frame_index):
+                score += 10 + self.__spare_bonus(frame_index)
+                frame_index += 2
+            else:
+                score += self.__sum_of_balls_in_frame(frame_index)
+                frame_index += 2
 
-        print(score)
         return score
+
+    def __is_strike(self, frame_index):
+        return self.__rolls[frame_index] == 10
+
+    def __sum_of_balls_in_frame(self, frame_index):
+        return self.__rolls[frame_index] + self.__rolls[frame_index + 1]
+
+    def __spare_bonus(self, frame_index):
+        return self.__rolls[frame_index + 2]
+
+    def __strike_bonus(self, frame_index):
+        return self.__rolls[frame_index + 1] + self.__rolls[frame_index + 2]
+
+    def __is_spare(self, frame_index):
+        return self.__rolls[frame_index] + self.__rolls[frame_index + 1] == 10
