@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 int main(int argc, char **argv) {
   pid_t pid;
 
   if (argc != 3) {
-    fprintf(stderr, "Usage: %s <command <argv>", argv[0]);
+    fprintf(stderr, "Usage: %s <command <arg>\n", argv[0]);
     exit(1);
   }
 
@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  if (pid == 0 ) {
+  if (pid == 0) {
     // 子プロセス
     execl(argv[1], argv[1], argv[2], NULL);
     // execlが呼び出しから戻ったら失敗
