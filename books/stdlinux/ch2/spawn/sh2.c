@@ -1,8 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+
+struct cmd {
+  int argc;
+  char **argv;
+  int capa;
+  int status;
+  int pid;
+  struct cmd *next;
+};
 
 
 static void prompt(void);
+static struct cmd *parse_command_line(char *cmdline);
+static void free_cmd(struct cmd *p);
+static void* xmalloc(size_t sz);
+static void* xrealloc(void *ptr, size_t sz);
 
 static char *program_name;
 
