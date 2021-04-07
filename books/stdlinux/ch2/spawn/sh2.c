@@ -34,10 +34,18 @@ int main(int argc, char **argv) {
 
 static void prompt(void) {
   static char buf[LINEBUF_MAX];
+  struct cmd  *cmd;
 
   fprintf(stdout, "$ ") ;
   fflush(stdout);
 
   if (fgets(buf, LINEBUF_MAX, stdin) == NULL)
     exit(0);
+
+  cmd = parse_command_line(buf);
+
+  if (cmd == NULL) {
+    fprintf(stderr, "%s: syntac error\n", program_name);
+    return;
+  }
 }
