@@ -49,3 +49,10 @@ static void prompt(void) {
     return;
   }
 }
+
+static void free_cmd(struct cmd *cmd) {
+  if (cmd->next != NULL)
+    free_cmd(cmd->next);
+  free(cmd->argv);
+  free(cmd);
+}
