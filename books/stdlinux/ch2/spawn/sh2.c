@@ -56,3 +56,13 @@ static void free_cmd(struct cmd *cmd) {
   free(cmd->argv);
   free(cmd);
 }
+
+static void* xmalloc(size_t sz) {
+  void *p;
+
+  p = calloc(1, sz);
+  if (!p)
+    exit(3);
+
+  return p;
+}
