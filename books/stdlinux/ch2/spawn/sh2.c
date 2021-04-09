@@ -57,6 +57,7 @@ static void free_cmd(struct cmd *cmd) {
   free(cmd);
 }
 
+
 static void* xmalloc(size_t sz) {
   void *p;
 
