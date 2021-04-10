@@ -67,3 +67,16 @@ static void* xmalloc(size_t sz) {
 
   return p;
 }
+
+static void * xrealloc(void *ptr, size_t sz) {
+  void *p;
+
+  if (!ptr) return xmalloc(sz);
+
+  p = realloc(ptr, sz);
+
+  if (!p)
+    exit(3);
+
+  return p;
+}
