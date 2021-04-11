@@ -50,6 +50,56 @@ static void prompt(void) {
   }
 }
 
+#define INIT_ARGV 8
+#define IDENT_CHAR_P(c) (!isspace((int)c) && ((c) != '|') && ((c) != '>'))
+
+static struct cmd *parse_command_line(char *p) {
+    struct cmd *cmd;
+
+
+    cmd = xmalloc(sizeof(struct cmd));
+    cmd->argc = 0;
+    cmd->argv = xmalloc(sizeof(char*) * INIT_ARGV);
+    cmd->capa = INIT_ARGV;
+    cmd->next = NULL;
+    while (*p) {
+      while (*p && isspace((int)*p))
+        *p++ ='\0';
+
+      if(!IDENT_CHAR_P(*p))
+        break;
+      if (*p && IDENT_CHAR_P(*p)) {
+        if (cmd->capa <= cmd->argc) {
+          cmd->capa *= 2;
+          cmd->argv = xrealloc(cmd->argv, cmd->capa);
+        }
+        cmd->argv[cmd->argc] = p;
+        cmd->argv++;
+      }
+
+      while (*p && IDENT_CHAR_P((*p)))
+        p++;
+    }
+
+    if (cmd->capa <= cmd->argc) {
+      cmd->capa += 1;
+      cmd->argv = xrealloc(cmd->argv, cmd->capa);
+    }
+
+    cmd->argv[cmd->argc] = NULL;
+
+    if (*p == '|' || *p == '>') {
+      if (cmd == NULL || cmd->argc == 0) goto parse_error;
+    }
+
+    return cmd;
+
+
+parse_error:
+    if(cmd) free_cmd(cmd);
+    return NULL;
+}
+
 static void free_cmd(struct cmd *cmd) {
   if (cmd->next != NULL)
     free_cmd(cmd->next);
