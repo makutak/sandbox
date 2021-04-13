@@ -13,6 +13,7 @@ struct cmd {
 
 
 static void prompt(void);
+static int invoke_commands(struct cmd *cmd);
 static struct cmd *parse_command_line(char *cmdline);
 static void free_cmd(struct cmd *p);
 static void* xmalloc(size_t sz);
