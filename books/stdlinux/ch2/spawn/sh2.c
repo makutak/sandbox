@@ -49,6 +49,17 @@ static void prompt(void) {
     fprintf(stderr, "%s: syntac error\n", program_name);
     return;
   }
+
+  if (cmd->argc > 0)
+    invoke_commands(cmd);
+  free_cmd(cmd);
+}
+
+static int invoke_commands(struct cmd *cmdhead) {
+  int st;
+
+
+  return st;
 }
 
 #define INIT_ARGV 8
