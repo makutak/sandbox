@@ -11,7 +11,15 @@ static void install_signal_handlers(void);
 static void trap_signal(int sig, __sighandler_t handler);
 static void signal_exit(int sig);
 
-int main(int argc, char **argv) { return 0; }
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    fprintf(stderr, "Usage: %s <docroot>\n", argv[0]);
+  }
+
+  install_signal_handlers();
+  // service(stdin, stdout, argv[1]);
+  exit(0);
+}
 
 
 static void log_exit(char *fmt, ...) {
