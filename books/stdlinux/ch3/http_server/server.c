@@ -27,7 +27,7 @@ static void log_exit(char *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  vprintf(stderr, fmt, ap);
+  vfprintf(stderr, fmt, ap);
   fputc('\n', stderr);
   va_end(ap);
   exit(1);
@@ -43,7 +43,7 @@ static void* xmalloc(size_t sz) {
 }
 
 static void install_signal_handlers(void) {
-  trap_signal(SIGPIPE);
+  trap_signal(SIGPIPE, signal_exit);
 }
 
 
