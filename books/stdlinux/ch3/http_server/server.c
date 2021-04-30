@@ -10,6 +10,27 @@ static void* xmalloc(size_t sz);
 static void install_signal_handlers(void);
 static void trap_signal(int sig, __sighandler_t handler);
 static void signal_exit(int sig);
+static void service(FILE *in, FILE *out, char *docroot);
+static struct HTTPRequest* read_request(FILE *in);
+static void respond_to(struct HTTPRequest *req, FILE *out, char *docroot);
+static void free_request(struct HTTPRequest *req);
+
+
+struct HTTPHeaderField {
+  char *name;
+  char *value;
+  struct HTTPHeaderField *next;
+};
+
+struct HTTPRequest {
+  int protocol_minor_verson;
+  char *method;
+  char *path;
+  struct HTTPHeaderField *header;
+  char *body;
+  long length;
+};
+
 
 int main(int argc, char **argv) {
   if (argc != 2) {
@@ -22,6 +43,22 @@ int main(int argc, char **argv) {
   exit(0);
 }
 
+static void free_request(struct HTTPRequest *req) {
+  struct HTTPHeaderField *h, *head;
+
+  head = req->header;
+  while (head) {
+    h = head;;
+    head = head->next;
+    free(h->name);
+    free(h->value);
+    free(h);
+  }
+  free(req->method);
+  free(req->path);
+  free(req->body);
+  free(req);
+}
 
 static void log_exit(char *fmt, ...) {
   va_list ap;
