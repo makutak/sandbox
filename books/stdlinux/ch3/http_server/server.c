@@ -43,6 +43,14 @@ int main(int argc, char **argv) {
   exit(0);
 }
 
+static void service(FILE *in, FILE *out, char *docroot) {
+  struct HTTPRequest *req;
+
+  /* req = read_request(in); */
+  /* respond_to(req, out, docroot); */
+  free_request(req);
+}
+
 static void free_request(struct HTTPRequest *req) {
   struct HTTPHeaderField *h, *head;
 
