@@ -11,6 +11,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <getopt.h>
 
 
 static void log_exit(char *fmt, ...);
@@ -46,7 +47,19 @@ static void output_common_header_fields(struct HTTPRequest *req, FILE *out, char
 #define HTTP_MINOR_VERSION 0
 #define SERVER_VERSION "1.0"
 #define SERVER_NAME "LittleHTTP"
+#define USAGE "Usage: %s [--port=n] [--chroot= --user=u --group=g] [--debug] <docroot>\n"
 
+static int debug_mode = 0;
+
+static struct option longopts[] = {
+    {"debug",  no_argument,       &debug_mode, 1},
+    {"chroot", no_argument,       NULL,        'c'},
+    {"user",   required_argument, NULL,        'u'},
+    {"group",  required_argument, NULL,        'g'},
+    {"port",   required_argument, NULL,        'p'},
+    {"help",   no_argument,       NULL,        'h'},
+    {0,        0,                 0,           0}
+};
 
 struct HTTPHeaderField {
   char *name;
