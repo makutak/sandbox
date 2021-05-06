@@ -1,3 +1,4 @@
+#include <bits/getopt_core.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -84,13 +85,58 @@ struct FileInfo {
 
 
 int main(int argc, char **argv) {
-  if (argc != 2) {
-    fprintf(stderr, "Usage: %s <docroot>\n", argv[0]);
+  int server;
+  char *port = NULL;
+  char *docroot;
+  int do_chroot = 0;
+  char *user = NULL;
+  char *group = NULL;
+  int opt;
+
+  while ((opt = getopt_long(argc, argv, "", longopts, NULL)) != -1) {
+    switch (opt) {
+      case 0:
+        break;
+      case 'c':
+        do_chroot = 1;
+        break;
+      case 'u':
+        user = optarg;
+        break;
+      case 'g':
+        group = optarg;
+        break;
+      case 'p':
+        port = optarg;
+        break;
+      case 'h':
+        fprintf(stdout, USAGE, argv[0]);
+        break;
+      case '?':
+        fprintf(stderr, USAGE, argv[0]);
+        break;
+    }
+  }
+
+  if (optind != argc -1) {
+    fprintf(stderr, USAGE, argv[0]);
     exit(1);
+  }
+  docroot = argv[optind];
+
+  if (do_chroot) {
+    setup_enviroment(docroot, user, group);
+    docroot = "";
   }
 
   install_signal_handlers();
-  service(stdin, stdout, argv[1]);
+  server = listen_socket(port);
+  if (!debug_mode) {
+    openlog(SERVER_NAME, LOG_PID | LOG_NDELAY, LOG_DAEMON);
+    become_daemon();
+  }
+
+  server_main();
   exit(0);
 }
 
