@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <sys/wait.h>
 
 
 static void log_exit(const char *fmt, ...);
@@ -43,6 +44,8 @@ static char *guess_content_type(struct FileInfo *info);
 static void output_common_header_fields(struct HTTPRequest *req, FILE *out, char *docroot);
 static int listen_socket(char *port);
 static void server_main(int server, char *docroot);
+static void wait_child(int sig);
+
 
 #define BLOCK_BUF_SIZE 1024
 #define LINE_BUF_SIZE 4096
@@ -500,9 +503,13 @@ static void* xmalloc(size_t sz) {
 }
 
 static void install_signal_handlers(void) {
-  trap_signal(SIGPIPE, signal_exit);
+  trap_signal(SIGTERM, signal_exit);
+  trap_signal(SIGCHLD, wait_child);
 }
 
+static void wait_child(int sig) {
+  wait(NULL);
+}
 
 static void trap_signal(int sig, __sighandler_t handler) {
   struct sigaction act;
