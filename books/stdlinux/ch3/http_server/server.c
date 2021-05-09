@@ -197,7 +197,10 @@ static void server_main(int server, char *docroot) {
       log_exit("accept(2) failed:%s", strerror(errno));
 
     pid = fork();
-    if (pid < 0) {  /* child */
+    if (pid < 0)
+      exit(3);
+
+    if (pid == 0) {  /* child */
       FILE *inf = fdopen(sock, "r");
       FILE *outf = fdopen(sock, "w");
 
