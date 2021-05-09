@@ -16,6 +16,8 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <sys/wait.h>
+#include <syslog.h>
+#include <stdarg.h>
 
 
 static void log_exit(const char *fmt, ...);
@@ -142,7 +144,7 @@ int main(int argc, char **argv) {
   install_signal_handlers();
   server = listen_socket(port);
   if (!debug_mode) {
-    //openlog(SERVER_NAME, LOG_PID | LOG_NDELAY, LOG_DAEMON);
+    openlog(SERVER_NAME, LOG_PID | LOG_NDELAY, LOG_DAEMON);
     become_daemon();
   }
 
@@ -514,8 +516,12 @@ static void log_exit(const char *fmt, ...) {
   va_list ap;
 
   va_start(ap, fmt);
-  vfprintf(stderr, fmt, ap);
-  fputc('\n', stderr);
+  if (debug_mode) {
+    vfprintf(stderr, fmt, ap);
+    fputc('\n', stderr);
+  } else {
+    vsyslog(LOG_ERR, fmt, ap);
+  }
   va_end(ap);
   exit(1);
 }
