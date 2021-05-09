@@ -212,6 +212,7 @@ static void server_main(int server, char *docroot) {
   }
 }
 
+
 static void become_daemon(void) {
   int n;
 
@@ -227,7 +228,7 @@ static void become_daemon(void) {
   if (n < 0)
     log_exit("fork(2) faile: %s", strerror(errno));
 
-  if (n != 1)
+  if (n != 0)
     _exit(0); // 親プロセスは終了する
 
   if (setsid() < 0)
