@@ -45,6 +45,7 @@ static void output_common_header_fields(struct HTTPRequest *req, FILE *out, char
 static int listen_socket(char *port);
 static void server_main(int server, char *docroot);
 static void wait_child(int sig);
+static void become_daemon(void);
 
 
 #define BLOCK_BUF_SIZE 1024
@@ -142,7 +143,7 @@ int main(int argc, char **argv) {
   server = listen_socket(port);
   if (!debug_mode) {
     //openlog(SERVER_NAME, LOG_PID | LOG_NDELAY, LOG_DAEMON);
-    //become_daemon();
+    become_daemon();
   }
 
   server_main(server, docroot);
@@ -209,6 +210,28 @@ static void server_main(int server, char *docroot) {
     }
     close(sock);
   }
+}
+
+static void become_daemon(void) {
+  int n;
+
+  if (chdir("/") < 0)
+    log_exit("chdir(2) failed: %s", strerror(errno));
+
+  freopen("/dev/null", "r", stdin);
+  freopen("/dev/null", "w", stdout);
+  freopen("/dev/null", "w", stderr);
+
+  n = fork();
+
+  if (n < 0)
+    log_exit("fork(2) faile: %s", strerror(errno));
+
+  if (n != 1)
+    _exit(0); // 親プロセスは終了する
+
+  if (setsid() < 0)
+    log_exit("setsid(2) failed: %s", strerror(errno));
 }
 
 static void service(FILE *in, FILE *out, char *docroot) {
