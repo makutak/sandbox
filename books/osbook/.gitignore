@@ -1,0 +1,4 @@
+mnt/*
+disk.img
+*.o
+*.efi
