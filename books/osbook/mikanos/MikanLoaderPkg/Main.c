@@ -3,6 +3,7 @@
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/PrintLib.h>
 #include <Protocol/LoadedImage.h>
+#include <Guid/FileInfo.h>
 
 struct MemoryMap {
   UINTN buffer_size;
@@ -101,27 +102,44 @@ EFI_STATUS SaveMemoryMap(struct MemoryMap *map, EFI_FILE_PROTOCOL *file) {
   return EFI_SUCCESS;
 }
 
-EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle, EFI_SYSTEM_TABLE *system_table) {
+EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle,
+                           EFI_SYSTEM_TABLE *system_table) {
   Print(L"Hello, Mikan wolrd!!!!\n");
 
   CHAR8 memmap_buf[4096 * 4];
   struct MemoryMap memmap = {sizeof(memmap_buf), memmap_buf, 0, 0, 0, 0};
   GetMemoryMap(&memmap);
 
-  EFI_FILE_PROTOCOL* root_dir;
+  EFI_FILE_PROTOCOL *root_dir;
   OpenRootDir(image_handle, &root_dir);
 
-  EFI_FILE_PROTOCOL* memmap_file;
-  root_dir->Open(root_dir,
-                 &memmap_file,
-                 L"\\memmap",
-                 EFI_FILE_MODE_READ | EFI_FILE_MODE_WRITE | EFI_FILE_MODE_CREATE,
-                 0);
+  EFI_FILE_PROTOCOL *memmap_file;
+  root_dir->Open(
+      root_dir, &memmap_file, L"\\memmap",
+      EFI_FILE_MODE_READ | EFI_FILE_MODE_WRITE | EFI_FILE_MODE_CREATE, 0);
   SaveMemoryMap(&memmap, memmap_file);
   memmap_file->Close(memmap_file);
 
+  EFI_FILE_PROTOCOL *karnel_file;
+  root_dir->Open(root_dir, &karnel_file, L"\\karnel.elf",
+                 EFI_FILE_MODE_READ, 0);
+
+  Print(L"Opened karnel.elf");
+  UINTN file_info_size = sizeof(EFI_FILE_INFO) + sizeof(CHAR16) * 12;
+  UINT8 file_info_buffer[file_info_size];
+  karnel_file->GetInfo(karnel_file, &gEfiFileInfoGuid, &file_info_size,
+                       file_info_buffer);
+
+  EFI_FILE_INFO *file_info = (EFI_FILE_INFO *)file_info_buffer;
+  UINT8 karnel_file_size = file_info->FileSize;
+  Print(L"karnel size is %lu\n", karnel_file_size);
+
+  EFI_PHYSICAL_ADDRESS karnel_base_addr = 0x100000;
+  gBS->AllocatePages(AllocateAddress, EfiLoaderData,
+                     (karnel_file_size + 0xfff) / 0x1000, &karnel_base_addr);
+
   Print(L"All done\n");
 
-  while(1);
+  while (1);
   return EFI_SUCCESS;
 }
