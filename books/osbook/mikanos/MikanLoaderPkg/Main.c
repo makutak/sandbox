@@ -124,7 +124,6 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle,
   root_dir->Open(root_dir, &karnel_file, L"\\karnel.elf",
                  EFI_FILE_MODE_READ, 0);
 
-  Print(L"Opened karnel.elf");
   UINTN file_info_size = sizeof(EFI_FILE_INFO) + sizeof(CHAR16) * 12;
   UINT8 file_info_buffer[file_info_size];
   karnel_file->GetInfo(karnel_file, &gEfiFileInfoGuid, &file_info_size,
@@ -137,6 +136,21 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle,
   EFI_PHYSICAL_ADDRESS karnel_base_addr = 0x100000;
   gBS->AllocatePages(AllocateAddress, EfiLoaderData,
                      (karnel_file_size + 0xfff) / 0x1000, &karnel_base_addr);
+
+  EFI_STATUS status;
+  status = gBS->ExitBootServices(image_handle, memmap.map_key);
+  if (EFI_ERROR(status)) {
+    status = GetMemoryMap(&memmap);
+    if (EFI_ERROR(status)) {
+      Print(L"failed to get memory map: %r\n", status);
+      while (1);
+    }
+    status = gBS->ExitBootServices(image_handle, memmap.map_key);
+    if (EFI_ERROR(status)) {
+      Print(L"Could not exit boot service: %r\n", status);
+      while (1);
+    }
+  }
 
   Print(L"All done\n");
 
