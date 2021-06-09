@@ -120,22 +120,24 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle,
   SaveMemoryMap(&memmap, memmap_file);
   memmap_file->Close(memmap_file);
 
-  EFI_FILE_PROTOCOL *karnel_file;
-  root_dir->Open(root_dir, &karnel_file, L"\\karnel.elf",
+  EFI_FILE_PROTOCOL *kernel_file;
+  root_dir->Open(root_dir, &kernel_file, L"\\kernel.elf",
                  EFI_FILE_MODE_READ, 0);
+
+  Print(L"Opened kernel.elf\n");
 
   UINTN file_info_size = sizeof(EFI_FILE_INFO) + sizeof(CHAR16) * 12;
   UINT8 file_info_buffer[file_info_size];
-  karnel_file->GetInfo(karnel_file, &gEfiFileInfoGuid, &file_info_size,
+  kernel_file->GetInfo(kernel_file, &gEfiFileInfoGuid, &file_info_size,
                        file_info_buffer);
 
   EFI_FILE_INFO *file_info = (EFI_FILE_INFO *)file_info_buffer;
-  UINT8 karnel_file_size = file_info->FileSize;
-  Print(L"karnel size is %lu\n", karnel_file_size);
+  UINTN kernel_file_size = file_info->FileSize;
+  Print(L"kernel size is %lu\n", kernel_file_size);
 
-  EFI_PHYSICAL_ADDRESS karnel_base_addr = 0x100000;
+  EFI_PHYSICAL_ADDRESS kernel_base_addr = 0x100000;
   gBS->AllocatePages(AllocateAddress, EfiLoaderData,
-                     (karnel_file_size + 0xfff) / 0x1000, &karnel_base_addr);
+                     (kernel_file_size + 0xfff) / 0x1000, &kernel_base_addr);
 
   EFI_STATUS status;
   status = gBS->ExitBootServices(image_handle, memmap.map_key);
