@@ -138,6 +138,8 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE image_handle,
   EFI_PHYSICAL_ADDRESS kernel_base_addr = 0x100000;
   gBS->AllocatePages(AllocateAddress, EfiLoaderData,
                      (kernel_file_size + 0xfff) / 0x1000, &kernel_base_addr);
+  kernel_file->Read(kernel_file, &kernel_file_size, (VOID*)kernel_base_addr);
+  Print(L"Kernel: 0x%0lx (%lu bytes)\n", kernel_base_addr, kernel_file_size);
 
   EFI_STATUS status;
   status = gBS->ExitBootServices(image_handle, memmap.map_key);
