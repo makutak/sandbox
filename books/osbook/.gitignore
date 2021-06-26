@@ -4,3 +4,4 @@ disk.img
 *.efi
 kernel.elf
 .*.d
+hankaku.bin
