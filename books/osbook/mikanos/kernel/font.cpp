@@ -19,7 +19,7 @@ const uint8_t *GetFont(char c) {
   return &_binary_hankaku_bin_start + index;
 }
 
-void WriteAscii(PixelWriter & writer, int x, int y, char c,
+void WriteAscii(PixelWriter &writer, int x, int y, char c,
                 const PixelColor &color) {
   const uint8_t* font = GetFont(c);
 
@@ -33,5 +33,12 @@ void WriteAscii(PixelWriter & writer, int x, int y, char c,
         writer.Write(x + dx, y + dy, color);
       }
     }
+  }
+}
+
+void WriteString(PixelWriter &writer, int x, int y, const char *s,
+                 const PixelColor &color) {
+  for (int i = 0; s[i] != '\0'; ++i) {
+    WriteAscii(writer, x + 8 * i, y, s[i], color);
   }
 }
