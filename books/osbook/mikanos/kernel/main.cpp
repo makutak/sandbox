@@ -6,6 +6,35 @@
 #include "font.hpp"
 #include "console.hpp"
 
+const int kMouseCusorWidth = 15;
+const int kMouseCusorHeight = 24;
+const char mouse_cursor_shape[kMouseCusorHeight][kMouseCusorWidth + 1] = {
+  "@              ",
+  "@@             ",
+  "@.@            ",
+  "@..@           ",
+  "@...@          ",
+  "@....@         ",
+  "@.....@        ",
+  "@......@       ",
+  "@.......@      ",
+  "@........@     ",
+  "@.........@    ",
+  "@..........@   ",
+  "@...........@  ",
+  "@............@ ",
+  "@......@@@@@@@@",
+  "@......@       ",
+  "@....@@.@      ",
+  "@...@ @.@      ",
+  "@..@   @.@     ",
+  "@.@    @.@     ",
+  "@@      @.@    ",
+  "@       @.@    ",
+  "         @.@   ",
+  "         @@@   ",
+};
+
 void *operator new(size_t size, void *buf) {
   return buf;
 }
