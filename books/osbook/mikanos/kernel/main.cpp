@@ -81,5 +81,15 @@ extern "C" void KernelMain(const FrameBufferConfig& frame_buffer_config) {
   for (int i = 0; i < 27; ++i) {
     printk("printk: %d\n", i);
   }
+
+  for (int dy = 0; dy < kMouseCusorHeight; ++dy) {
+    for (int dx = 0; dx < kMouseCusorWidth; ++dx) {
+      if (mouse_cursor_shape[dy][dx] == '@') {
+        pixel_writer->Write(200 + dx, 100 + dy, {0, 0, 0});
+      } else if (mouse_cursor_shape[dy][dx] == '.') {
+        pixel_writer->Write(200 + dx, 100 + dy, {255, 255, 255});
+      }
+    }
+  }
   while (1) __asm__("hlt");
 }
