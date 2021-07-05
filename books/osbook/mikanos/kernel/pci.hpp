@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <array>
 
+#include "error.hpp"
+
 namespace pci {
 
 /** CONFIG_ADDRESS レジスタの IO ポートアドレス*/
@@ -17,5 +19,5 @@ struct Device {
 inline std::array<Device, 32> devices;
 inline int num_device;
 
-//Error ScanAllBus()
+Error ScanAllBus();
 }
