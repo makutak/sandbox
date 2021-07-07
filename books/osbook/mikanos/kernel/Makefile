@@ -1,5 +1,5 @@
 TARGET = kernel.elf
-OBJS = main.o graphics.o font.o hankaku.o newlib_support.o console.o
+OBJS = main.o graphics.o font.o hankaku.o newlib_support.o console.o pci.o asmfunc.o
 DEPENDS = $(join $(dir $(OBJS)),$(addprefix .,$(notdir $(OBJS:.o=d))))
 CXXFLAGS += -O2 -Wall -g  --target=x86_64-elf -ffreestanding -mno-red-zone -fno-exceptions -fno-rtti -std=c++17
 LDFLAGS	 += --entry KernelMain -z norelro --image-base 0x100000 --static
@@ -29,6 +29,9 @@ kernel.elf: $(OBJS) Makefile
 			clang $(CPPFLAGS) $(CXXFLAGS) -MM $< > $@
 			$(eval OBJ = $(<:.c=.o))
 			sed --in-place 's|$(notdir $(OBJ))|$(OBJ)|' $@
+
+%.o: %.asm Makefile
+			nasm -f elf64 -o $@ $<
 
 hankaku.bin: hankaku.txt
 			../tools/makefont.py -o $@ $<
