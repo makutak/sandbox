@@ -30,3 +30,8 @@ class Error {
 
   Code code_;
 };
+
+template <class T> struct WithError {
+  T value;
+  Error error;
+};
