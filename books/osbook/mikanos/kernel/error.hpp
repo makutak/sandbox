@@ -75,7 +75,7 @@ class Error {
     return this->file_;
   }
 
-  const Line() const {
+  int Line() const {
     return this->line_;
   }
 
