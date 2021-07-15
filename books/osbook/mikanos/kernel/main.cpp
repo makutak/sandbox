@@ -115,9 +115,7 @@ extern "C" void KernelMain(const FrameBufferConfig& frame_buffer_config) {
       // xHC
       xhc_dev = &pci::devices[i];
 
-      if (0x8086 == pci::ReadVendorId(xhc_dev->bus,
-                                      xhc_dev->device,
-                                      xhc_dev->function)) {
+      if (0x8086 == pci::ReadVendorId(*xhc_dev)) {
         break;
       }
     }
