@@ -6,6 +6,7 @@
 #include "font.hpp"
 #include "console.hpp"
 #include "pci.hpp"
+#include "logger.hpp"
 
 const PixelColor kDesktopBGColor{45, 118, 237};
 const PixelColor kDesktopFGColor{255, 255, 255};
@@ -122,8 +123,8 @@ extern "C" void KernelMain(const FrameBufferConfig& frame_buffer_config) {
   }
 
   if (xhc_dev) {
-    printk("xHC has been found: %d.%d.%d\n",
-           xhc_dev->bus, xhc_dev->device, xhc_dev->function);
+    Log(kInfo, "xHC has been found: %d.%d.%d\n",
+        xhc_dev->bus, xhc_dev->device, xhc_dev->function);
   }
 
   while (1) __asm__("hlt");
