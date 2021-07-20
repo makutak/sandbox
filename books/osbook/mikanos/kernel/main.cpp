@@ -87,6 +87,7 @@ extern "C" void KernelMain(const FrameBufferConfig& frame_buffer_config) {
       new (console_buf) Console{*pixel_writer, kDesktopFGColor, kDesktopBGColor};
 
   printk("Welcome MikanOS!!!!!!!!!!!!!!!\n");
+  SetLogLevel(kWarn);
 
   for (int dy = 0; dy < kMouseCusorHeight; ++dy) {
     for (int dx = 0; dx < kMouseCusorWidth; ++dx) {
@@ -99,16 +100,17 @@ extern "C" void KernelMain(const FrameBufferConfig& frame_buffer_config) {
   }
 
   auto err = pci::ScanAllBus();
-  printk("ScanAllBus: %s\n", err.Name());
+  Log(kDebug, "ScanAllBus: %s\n", err.Name());
 
   for (int i = 0; i < pci::num_device; ++i) {
     const auto& dev = pci::devices[i];
     auto vendor_id = pci::ReadVendorId(dev.bus, dev.device, dev.function);
     auto class_code = pci::ReadClassCode(dev.bus, dev.device, dev.function);
-    printk("%d.%d.%d: vend %04d, class: %08x, head: %02x\n",
+    Log(kDebug, "%d.%d.%d: vend %04d, class: %08x, head: %02x\n",
            dev.bus, dev.device, dev.function, vendor_id, class_code, dev.header_type);
   }
-  printk("num_device %d\n", pci::num_device);
+  Log(kDebug, "num_device %d\n", pci::num_device);
+
 
   pci::Device* xhc_dev = nullptr;
   for (int i = 0; i < pci::num_device; ++i) {
