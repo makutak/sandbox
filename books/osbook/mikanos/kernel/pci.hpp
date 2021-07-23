@@ -55,6 +55,7 @@ inline uint16_t ReadVendorId(const Device &dev) {
 
 // 指定された PCI デバイスの 32 ビットレジスタを読み取る
 uint32_t ReadConfReg(const Device& dev, uint8_t reg_addr);
+
 void WriteConfReg(const Device& dev, uint8_t reg_addr, uint32_t value);
 
 // バス番号レジスタを読み取る(ヘッダタイプ 1 用)
