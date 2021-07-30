@@ -1,7 +1,7 @@
 /*
  * @file mouse.hpp
  *
- * マウス化制御プログラム
+ * マウス制御プログラム
  */
 
 #pragma once
@@ -14,7 +14,7 @@ class MouseCursor {
   void MoveRelative(Vector2D<int> displacement);
 
  private:
-  PixelWriter* pixel_writer = nullptr;
+  PixelWriter* pixel_writer_ = nullptr;
   PixelColor erase_color_;
   Vector2D<int> position_;
 };
