@@ -9,7 +9,7 @@ class Error {
     kSuccess,
     kFull,
     kEmpty,
-    kNotEnoughMemory,
+    kNoEnoughMemory,
     kIndexOutOfRange,
     kHostControllerNotHalted,
     kInvalidSlotID,
