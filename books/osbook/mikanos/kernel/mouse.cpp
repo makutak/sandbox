@@ -56,6 +56,8 @@ void EraseMouseCursor(PixelWriter *pixel_writer, Vector2D<int> positon,
   }
 }
 
+}
+
 
 MouseCursor::MouseCursor(PixelWriter* writer, PixelColor erase_color,
                          Vector2D<int> initial_position)
