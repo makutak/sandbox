@@ -171,4 +171,10 @@ extern "C" void KernelMain(const FrameBufferConfig& frame_buffer_config) {
       Log(kError, "Error while ProcessEvent: %s at %s:%d\n", err.Name(), err.File(), err.Line());
     }
   };
+
+  while (1) __asm__("hlt");
+}
+
+extern "C" void __cxa_pure_virtual() {
+  while(1) __asm__("hlt");
 }
