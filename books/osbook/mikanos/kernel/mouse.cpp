@@ -38,7 +38,7 @@ void DrawMouseCursor(PixelWriter *pixel_writer, Vector2D<int> positon) {
     for (int dx = 0; dx < kMouseCusorWidth; ++dx) {
       if (mouse_cursor_shape[dy][dx] == '@') {
         pixel_writer->Write(positon.x + dx, positon.y + dy, {0, 0, 0});
-      } else {
+      } else if (mouse_cursor_shape[dy][dx] == '.') {
         pixel_writer->Write(positon.x + dx, positon.y + dy, {255, 255, 255});
       }
     }
