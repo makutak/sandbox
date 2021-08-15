@@ -1,0 +1,7 @@
+mnt/*
+disk.img
+*.o
+*.efi
+kernel.elf
+.*.d
+hankaku.bin
