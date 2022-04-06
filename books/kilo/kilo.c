@@ -5,6 +5,7 @@
 struct termios orig_termios;
 
 void disable_raw_mode() {
+  // 終了時にTCSAFLUSHも渡されるので、読み込んでいない入力は破棄される。
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
 }
 
