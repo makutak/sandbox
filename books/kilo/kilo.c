@@ -52,6 +52,8 @@ char editor_read_key() {
   return c;
 }
 
+/* input */
+
 void editor_process_keypress() {
   char c = editor_read_key();
 
