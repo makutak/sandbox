@@ -101,7 +101,7 @@ struct abuf {
   int len;
 };
 
-#define ABUF_INIT{NULL, 0}
+#define ABUF_INIT {NULL, 0}
 
 /* output */
 
