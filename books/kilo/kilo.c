@@ -10,6 +10,9 @@
 #include <unistd.h>
 
 /* defines */
+
+#define KILO_VERSION "0.0.1"
+
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 /* data */
@@ -123,7 +126,20 @@ void ab_free(struct abuf *ab) {
 void editor_draw_rows(struct abuf *ab) {
   int y;
   for (y = 0; y < E.screen_rows; y++) {
-    ab_append(ab, "~", 1);
+    if (y == E.screen_rows / 3) {
+      char welcome[80];
+      int welcomelen = snprintf(welcome, sizeof(welcome), "Kilo editor -- version %s", KILO_VERSION);
+      if (welcomelen > E.screen_cols) welcomelen = E.screen_cols;
+      int padding = (E.screen_cols - welcomelen) / 2;
+      if (padding) {
+        ab_append(ab, "~", 1);
+        padding--;
+      }
+      while (padding--) ab_append(ab, " ", 1);
+      ab_append(ab, welcome, welcomelen);
+    } else {
+      ab_append(ab, "~", 1);
+    }
 
     ab_append(ab, "\x1b[K", 3);
     if (y < E.screen_rows - 1) {
