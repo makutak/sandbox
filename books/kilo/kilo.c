@@ -15,6 +15,13 @@
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 
+enum editor_key {
+  ARROW_LEFT = 'a',
+  ARROW_RIGHT = 'd',
+  ARROW_UP = 'w',
+  ARROW_DOWN = 's'
+};
+
 /* data */
 
 struct editor_config {
@@ -72,10 +79,10 @@ char editor_read_key() {
 
     if (seq[0] == '[') {
       switch (seq[1]) {
-      case 'A': return 'w';
-      case 'B': return 's';
-      case 'C': return 'd';
-      case 'D': return 'a';
+        case 'A': return ARROW_UP;
+        case 'B': return ARROW_DOWN;
+        case 'C': return ARROW_RIGHT;
+        case 'D': return ARROW_LEFT;
       }
     }
     return '\x1b';
@@ -188,18 +195,18 @@ void editor_refresh_screen() {
 
 void editor_move_cursor(char key) {
   switch (key) {
-  case 'a':
-    E.cx--;
-    break;
-  case 'd':
-    E.cx++;
-    break;
-  case 'w':
-    E.cy--;
-    break;
-  case 's':
-    E.cy++;
-    break;
+    case ARROW_LEFT:
+      E.cx--;
+      break;
+    case ARROW_RIGHT:
+      E.cx++;
+      break;
+    case ARROW_UP:
+      E.cy--;
+      break;
+    case ARROW_DOWN:
+      E.cy++;
+      break;
   }
 }
 
@@ -207,18 +214,18 @@ void editor_process_keypress() {
   char c = editor_read_key();
 
   switch (c) {
-  case CTRL_KEY('q'):
-    write(STDIN_FILENO, "\x1b[2J", 4);
-    write(STDOUT_FILENO, "\x1b[H", 3);
-    exit(0);
-    break;
+    case CTRL_KEY('q'):
+      write(STDIN_FILENO, "\x1b[2J", 4);
+      write(STDOUT_FILENO, "\x1b[H", 3);
+      exit(0);
+      break;
 
-  case 'w':
-  case 's':
-  case 'a':
-  case 'd':
-    editor_move_cursor(c);
-    break;
+    case ARROW_UP:
+    case ARROW_DOWN:
+    case ARROW_LEFT:
+    case ARROW_RIGHT:
+      editor_move_cursor(c);
+      break;
   }
 }
 
