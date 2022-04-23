@@ -196,16 +196,24 @@ void editor_refresh_screen() {
 void editor_move_cursor(int key) {
   switch (key) {
     case ARROW_LEFT:
-      E.cx--;
+      if (E.cx != 0) {
+        E.cx--;
+      }
       break;
     case ARROW_RIGHT:
-      E.cx++;
+      if (E.cx != E.screen_cols - 1) {
+        E.cx++;
+      }
       break;
     case ARROW_UP:
-      E.cy--;
+      if (E.cy != 0) {
+        E.cy--;
+      }
       break;
     case ARROW_DOWN:
-      E.cy++;
+      if (E.cy != E.screen_rows - 1) {
+        E.cy++;
+      }
       break;
   }
 }
