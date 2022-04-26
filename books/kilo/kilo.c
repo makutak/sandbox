@@ -90,8 +90,7 @@ int editor_read_key() {
         }
       } else {
         switch (seq[1]) {
-          case 'A':
-            return ARROW_UP;
+          case 'A': return ARROW_UP;
           case 'B': return ARROW_DOWN;
           case 'C': return ARROW_RIGHT;
           case 'D': return ARROW_LEFT;
