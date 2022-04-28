@@ -254,6 +254,14 @@ void editor_process_keypress() {
       exit(0);
       break;
 
+    case HOME_KEY:
+      E.cx = 0;
+      break;
+
+    case END_KEY:
+      E.cx = E.screen_cols - 1;
+      break;
+
     case PAGE_UP:
     case PAGE_DOWN:
       {
