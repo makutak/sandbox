@@ -41,6 +41,7 @@ typedef struct erow {
 
 struct editor_config {
   int cx, cy;
+  int rowoff;
   int screen_rows;
   int screen_cols;
   int num_rows;
@@ -335,6 +336,7 @@ void editor_process_keypress() {
 void init_editor() {
   E.cx = 0;
   E.cy = 0;
+  E.rowoff = 0;
   E.num_rows = 0;
   E.row = NULL;
 
