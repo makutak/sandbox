@@ -250,9 +250,10 @@ void editor_draw_rows(struct abuf *ab) {
         ab_append(ab, "~", 1);
       }
     } else {
-      int len = E.row[filerow].size;
+      int len = E.row[filerow].size - E.coloff;
+      if (len < 0) len = 0;
       if (len > E.screen_cols) len = E.screen_cols;
-      ab_append(ab, E.row[filerow].chars, len);
+      ab_append(ab, &E.row[filerow].chars[E.coloff], len);
     }
 
     ab_append(ab, "\x1b[K", 3);
