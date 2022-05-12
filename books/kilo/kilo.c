@@ -228,6 +228,12 @@ void editor_scroll() {
   if (E.cy >= E.rowoff + E.screen_rows) {
     E.rowoff = E.cy - E.screen_rows + 1;
   }
+  if (E.cx < E.coloff) {
+    E.coloff = E.cx;
+  }
+  if (E.cx >= E.coloff + E.screen_cols) {
+    E.coloff = E.cx = E.screen_cols + 1;
+  }
 }
 
 void editor_draw_rows(struct abuf *ab) {
