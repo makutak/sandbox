@@ -232,7 +232,7 @@ void editor_scroll() {
     E.coloff = E.cx;
   }
   if (E.cx >= E.coloff + E.screen_cols) {
-    E.coloff = E.cx = E.screen_cols + 1;
+    E.coloff = E.cx - E.screen_cols + 1;
   }
 }
 
