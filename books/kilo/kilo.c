@@ -292,6 +292,8 @@ void editor_refresh_screen() {
 /* input */
 
 void editor_move_cursor(int key) {
+  erow *row = (E.cy >= E.num_rows) ? NULL: &E.row[E.cy];
+
   switch (key) {
     case ARROW_LEFT:
       if (E.cx != 0) {
@@ -299,7 +301,9 @@ void editor_move_cursor(int key) {
       }
       break;
     case ARROW_RIGHT:
-      E.cx++;
+      if (row && E.cx < row->size) {
+        E.cx++;
+      }
       break;
     case ARROW_UP:
       if (E.cy != 0) {
