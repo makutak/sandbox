@@ -253,18 +253,21 @@ void ab_free(struct abuf *ab) {
 /* output */
 
 void editor_scroll() {
+  E.rx = E.cx;
+
   if (E.cy < E.rowoff) {
     E.rowoff = E.cy;
   }
   if (E.cy >= E.rowoff + E.screen_rows) {
     E.rowoff = E.cy - E.screen_rows + 1;
   }
-  if (E.cx < E.coloff) {
-    E.coloff = E.cx;
+  if (E.rx < E.coloff) {
+    E.coloff = E.rx;
   }
-  if (E.cx >= E.coloff + E.screen_cols) {
-    E.coloff = E.cx - E.screen_cols + 1;
+  if (E.rx >= E.coloff + E.screen_cols) {
+    E.coloff = E.rx - E.screen_cols + 1;
   }
+
 }
 
 void editor_draw_rows(struct abuf *ab) {
