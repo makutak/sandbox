@@ -400,6 +400,9 @@ void editor_process_keypress() {
     case PAGE_UP:
     case PAGE_DOWN:
       {
+        if (c == PAGE_UP) {
+          E.cy = E.rowoff;
+        }
         int times = E.screen_rows;
         while (times--)
           editor_move_cursor(c == PAGE_UP ? ARROW_UP : ARROW_DOWN);
