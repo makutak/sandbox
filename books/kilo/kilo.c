@@ -394,7 +394,8 @@ void editor_process_keypress() {
       break;
 
     case END_KEY:
-      E.cx = E.screen_cols - 1;
+      if (E.cy < E.num_rows)
+        E.cx = E.row[E.cy].size;
       break;
 
     case PAGE_UP:
