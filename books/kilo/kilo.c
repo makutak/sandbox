@@ -312,9 +312,7 @@ void editor_draw_rows(struct abuf *ab) {
     }
 
     ab_append(ab, "\x1b[K", 3);
-    if (y < E.screen_rows - 1) {
-      ab_append(ab, "\r\n", 2);
-    }
+    ab_append(ab, "\r\n", 2);
   }
 }
 
@@ -435,6 +433,7 @@ void init_editor() {
 
   if (get_window_size(&E.screen_rows, &E.screen_cols) == -1)
     die("get_window_size");
+  E.screen_rows -= 1;
 }
 
 int main(int argc, char *argv[]) {
