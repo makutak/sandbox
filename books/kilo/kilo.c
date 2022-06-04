@@ -51,6 +51,7 @@ struct editor_config {
   int screen_cols;
   int num_rows;
   erow *row;
+  char *filename;
   struct termios orig_termios;
 };
 
@@ -224,6 +225,9 @@ void editor_append_row(char *s, size_t len) {
 /* file i/o */
 
 void editor_open(char *filename) {
+  free(E.filename);
+  E.filename = strdup(filename);
+
   FILE *fp = fopen(filename, "r");
   if(!fp) die("fopen");
 
@@ -442,6 +446,7 @@ void init_editor() {
   E.coloff = 0;
   E.num_rows = 0;
   E.row = NULL;
+  E.filename = NULL;
 
   if (get_window_size(&E.screen_rows, &E.screen_cols) == -1)
     die("get_window_size");
