@@ -322,7 +322,11 @@ void editor_draw_rows(struct abuf *ab) {
 
 void editor_draw_status_bar(struct abuf *ab) {
   ab_append(ab, "\x1b[7m", 4);
-  int len = 0;
+  char status[80];
+  int len = snprintf(status, sizeof(status), "%.20s - %d lines",
+                     E.filename ? E.filename : "[No Name]", E.num_rows);
+  if (len > E.screen_cols) len = E.screen_cols;
+  ab_append(ab, status, len);
   while (len < E.screen_cols) {
     ab_append(ab, " ", 1);
     len++;
