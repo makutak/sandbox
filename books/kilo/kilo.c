@@ -322,14 +322,22 @@ void editor_draw_rows(struct abuf *ab) {
 
 void editor_draw_status_bar(struct abuf *ab) {
   ab_append(ab, "\x1b[7m", 4);
-  char status[80];
+  char status[80], rstatus[80];
   int len = snprintf(status, sizeof(status), "%.20s - %d lines",
                      E.filename ? E.filename : "[No Name]", E.num_rows);
+  int rlen = snprintf(rstatus, sizeof(rstatus), "%d/%d",
+                      E.cy + 1, E.num_rows);
+
   if (len > E.screen_cols) len = E.screen_cols;
   ab_append(ab, status, len);
   while (len < E.screen_cols) {
-    ab_append(ab, " ", 1);
-    len++;
+    if (E.screen_cols - len == rlen) {
+      ab_append(ab, rstatus, rlen);
+      break;
+    } else {
+      ab_append(ab, " ", 1);
+      len++;
+    }
   }
   ab_append(ab, "\x1b[m", 3);
 }
