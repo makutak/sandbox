@@ -369,7 +369,7 @@ void editor_refresh_screen() {
   ab_free(&ab);
 }
 
-void editor_set_status_messg(const char *fmt, ...) {
+void editor_set_status_message(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   vsnprintf(E.statusmsg, sizeof(E.statusmsg), fmt, ap);
@@ -487,7 +487,7 @@ int main(int argc, char *argv[]) {
     editor_open(argv[1]);
   }
 
-  editor_set_status_messg("HELP: Ctrl-Q = quit");
+  editor_set_status_message("HELP: Ctrl-Q = quit");
 
   while (1) {
     editor_refresh_screen();
