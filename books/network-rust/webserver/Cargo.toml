@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 mio = "0.6"
-regex = "1.4.2"
+regex = "1.5.5"
 log = "0.4.11"
 env_logger = "0.8.2"
 failure = "0.1.8"
