@@ -237,7 +237,7 @@ void editor_row_insert_char(erow *row, int at, int c) {
 
 /* editor operations */
 
-void edotor_insert_char(int c) {
+void editor_insert_char(int c) {
   if (E.cy == E.num_rows) {
     editor_append_row("", 0);
   }
