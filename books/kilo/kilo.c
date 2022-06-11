@@ -486,6 +486,10 @@ void editor_process_keypress() {
     case ARROW_RIGHT:
       editor_move_cursor(c);
       break;
+
+    default:
+      editor_insert_char(c);
+      break;
   }
 }
 
