@@ -18,21 +18,37 @@ const typeDefs = `
   }
 `;
 
-let _id = 0;
-let photos: any[] = [];
+let _id: number = 0;
+let photos: Photo[] = [];
+
+class Photo {
+  constructor(init?: Partial<Photo>) {
+    Object.assign(this, init);
+  }
+
+  id?: number;
+  url?: string;
+  name?: string;
+  description?: string;
+}
+
+interface PhotoInput {
+  name?: string,
+  description?: string,
+}
 
 const resolvers = {
   Query: {
     totalPhotos: (): number => photos.length,
-    allPhotos: (): string[] => photos,
+    allPhotos: (): Photo[] => photos,
   },
 
   Mutation: {
-    postPhoto(parent: string, args: any) {
-      const newPhoto = {
+    postPhoto(parent: string, args: PhotoInput) {
+      const newPhoto = new Photo({
         id: _id++,
         ...args,
-      };
+      });
 
       photos.push(newPhoto);
       return newPhoto;
@@ -40,7 +56,7 @@ const resolvers = {
   },
 
   Photo: {
-    url: (parent: any) => `http://example.com/img/${parent.id}.jpg`
+    url: (parent: Photo) => `http://example.com/img/${parent.id}.jpg`
   }
 };
 
