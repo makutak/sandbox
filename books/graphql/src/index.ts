@@ -9,12 +9,20 @@ const typeDefs = `
     GRAPHIC
   }
 
+  type User {
+    githubLogin: ID!
+    name: String
+    avatar: String
+    postedPhotos: [Photo!]!
+  }
+
   type Photo {
     id: ID!
     url: String!
     name: String!
     description: String
     category: PhotoCategory!
+    postedBy: User!
   }
 
   type Query {
@@ -34,8 +42,34 @@ const typeDefs = `
   }
 `;
 
-let _id: number = 0;
-let photos: Photo[] = [];
+let users: User[] = [
+  { githubLogin: 'mHttrup', name: 'Mike Hattrub' },
+  { githubLogin: 'gPlake', name: 'Glen Plake' },
+  { githubLogin: 'sSchmidt', name: 'Scot Schmidt' },
+];
+
+let photos: Photo[] = [
+  {
+    id: 1,
+    name: 'Dropping the Heart Chute',
+    description: 'The heart chute is one of my favorite chutes',
+    category: 'ACTION',
+    githubUser: 'gPlake',
+  },
+  {
+    id: 2,
+    name: 'Enjoying the sunshine',
+    category: 'SELFIE',
+    githubUser: 'sSchmidt',
+  },
+  {
+    id: 3,
+    name: 'Gunbarrel 25',
+    description: '25 laps on gunbarrel today',
+    category: 'LANDSCAPE',
+    githubUser: 'sSchmidt',
+  }
+];
 
 class Photo {
   constructor(init?: Partial<Photo>) {
@@ -46,12 +80,26 @@ class Photo {
   url?: string;
   name?: string;
   description?: string;
+  category?: string;
+  githubUser?: string;
+}
+
+class User {
+  constructor(init?: Partial<User>) {
+    Object.assign(this, init);
+  }
+
+  githubLogin?: string;
+  name?: string;
+  avater?: string;
 }
 
 interface PostPhotoInput {
   name?: string,
   description?: string,
 }
+
+let _id: number =  4;
 
 const resolvers = {
   Query: {
@@ -72,8 +120,17 @@ const resolvers = {
   },
 
   Photo: {
-    url: (parent: Photo) => `http://example.com/img/${parent.id}.jpg`
-  }
+    url: (parent: Photo) => `http://example.com/img/${parent.id}.jpg`,
+    postedBy: (parent: Photo) => {
+      return users.find(u => u.githubLogin === parent.githubUser);
+    },
+  },
+
+  User: {
+    postedPhotos: (parent: User) => {
+      return photos.filter(p => p.githubUser === parent.githubLogin);
+    },
+  },
 };
 
 const server = new ApolloServer({
