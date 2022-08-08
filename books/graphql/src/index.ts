@@ -14,6 +14,7 @@ const typeDefs = `
     name: String
     avatar: String
     postedPhotos: [Photo!]!
+    inPhotos: [Photo!]!
   }
 
   type Photo {
@@ -23,6 +24,7 @@ const typeDefs = `
     description: String
     category: PhotoCategory!
     postedBy: User!
+    taggedUsers: [User!]!
   }
 
   type Query {
@@ -43,7 +45,7 @@ const typeDefs = `
 `;
 
 let users: User[] = [
-  { githubLogin: 'mHttrup', name: 'Mike Hattrub' },
+  { githubLogin: 'mHattrup', name: 'Mike Hattrub' },
   { githubLogin: 'gPlake', name: 'Glen Plake' },
   { githubLogin: 'sSchmidt', name: 'Scot Schmidt' },
 ];
@@ -70,6 +72,14 @@ let photos: Photo[] = [
     githubUser: 'sSchmidt',
   }
 ];
+
+const tags = [
+  { photoID: 1, userID: 'gPlake' },
+  { photoID: 2, userID: 'sSchmidt' },
+  { photoID: 2, userID: 'mHattrup' },
+  { photoID: 2, userID: 'gPlake' },
+  { photoID: 3, userID: 'mHattrup' },
+]
 
 class Photo {
   constructor(init?: Partial<Photo>) {
@@ -124,12 +134,24 @@ const resolvers = {
     postedBy: (parent: Photo) => {
       return users.find(u => u.githubLogin === parent.githubUser);
     },
+    taggedUsers: (parent: Photo) => {
+        return tags
+          .filter(tag => tag.photoID === parent.id)
+          .map(tag => tag.userID)
+          .map(userID => users.find(u => u.githubLogin === userID))
+    },
   },
 
   User: {
     postedPhotos: (parent: User) => {
       return photos.filter(p => p.githubUser === parent.githubLogin);
     },
+    inPhotos: (parent: User) => {
+      return tags
+        .filter(tag => tag.userID === parent.githubLogin)
+        .map(tag => tag.photoID)
+        .map(photoID => photos.find(p => p.id === photoID))
+    }
   },
 };
 
