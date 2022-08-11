@@ -1,71 +1,32 @@
 import { ApolloServer } from 'apollo-server';
+import { readFileSync } from 'fs';
+import { GraphQLScalarType } from 'graphql';
+import path from 'path';
+import { MutationPostPhotoArgs, Photo, PhotoCategory, QueryAllPhotosArgs, User } from './generated/graphql';
 
-const typeDefs = `
-  scalar DateTime
+const typeDefs = readFileSync(path.resolve(__dirname, '../typeDefs.graphql'), 'utf-8');
 
-  enum PhotoCategory {
-    SELFIE
-    PORTRAIT
-    ACTION
-    LANDSCAPE
-    GRAPHIC
-  }
-
-  type User {
-    githubLogin: ID!
-    name: String
-    avatar: String
-    postedPhotos: [Photo!]!
-    inPhotos: [Photo!]!
-  }
-
-  type Photo {
-    id: ID!
-    url: String!
-    name: String!
-    description: String
-    category: PhotoCategory!
-    postedBy: User!
-    taggedUsers: [User!]!
-    created: DateTime!
-  }
-
-  type Query {
-    totalPhotos: Int!
-    allPhotos: [Photo!]!
-  }
-
-  input PostPhotoInput {
-    name: String!
-    category: PhotoCategory=PORTRAIT
-    description: String
-  }
-
-
-  type Mutation {
-    postPhoto(input: PostPhotoInput!): Photo!
-  }
-`;
-
-let users: User[] = [
+let users = [
   { githubLogin: 'mHattrup', name: 'Mike Hattrub' },
   { githubLogin: 'gPlake', name: 'Glen Plake' },
   { githubLogin: 'sSchmidt', name: 'Scot Schmidt' },
 ];
 
-let photos: Photo[] = [
+let photos = [
   {
     id: 1,
     name: 'Dropping the Heart Chute',
     description: 'The heart chute is one of my favorite chutes',
     category: 'ACTION',
-    githubUser: 'gPlake',
+    githubUser: 'gPlake' ,
+    created: '3-28-1977',
   },
   {
     id: 2,
     name: 'Enjoying the sunshine',
     category: 'SELFIE',
     githubUser: 'sSchmidt',
+    created: '1-2-1985',
   },
   {
     id: 3,
@@ -73,7 +34,8 @@ let photos: Photo[] = [
     description: '25 laps on gunbarrel today',
     category: 'LANDSCAPE',
     githubUser: 'sSchmidt',
-  }
+    created: '2018-04-15',
+  },
 ];
 
 const tags = [
@@ -84,48 +46,21 @@ const tags = [
   { photoID: 3, userID: 'mHattrup' },
 ]
 
-class Photo {
-  constructor(init?: Partial<Photo>) {
-    Object.assign(this, init);
-  }
-
-  id?: number;
-  url?: string;
-  name?: string;
-  description?: string;
-  category?: string;
-  githubUser?: string;
-}
-
-class User {
-  constructor(init?: Partial<User>) {
-    Object.assign(this, init);
-  }
-
-  githubLogin?: string;
-  name?: string;
-  avater?: string;
-}
-
-interface PostPhotoInput {
-  name?: string,
-  description?: string,
-}
-
 let _id: number =  4;
 
 const resolvers = {
   Query: {
-    totalPhotos: (): number => photos.length,
-    allPhotos: (): Photo[] => photos,
+    totalPhotos: () => photos.length,
+    allPhotos: (after: QueryAllPhotosArgs) => photos,
   },
 
   Mutation: {
-    postPhoto(parent: string, args: { input: PostPhotoInput }) {
-      const newPhoto = new Photo({
+    postPhoto(parent: string, args: MutationPostPhotoArgs) {
+      const newPhoto = {
         id: _id++,
         ...args.input,
-      });
+        created: new Date(),
+      } as any;
 
       photos.push(newPhoto);
       return newPhoto;
@@ -134,10 +69,10 @@ const resolvers = {
 
   Photo: {
     url: (parent: Photo) => `http://example.com/img/${parent.id}.jpg`,
-    postedBy: (parent: Photo) => {
+    postedBy: (parent: any) => {
       return users.find(u => u.githubLogin === parent.githubUser);
     },
-    taggedUsers: (parent: Photo) => {
+    taggedUsers: (parent: any) => {
         return tags
           .filter(tag => tag.photoID === parent.id)
           .map(tag => tag.userID)
@@ -156,6 +91,14 @@ const resolvers = {
         .map(photoID => photos.find(p => p.id === photoID))
     }
   },
+
+  DateTime: new GraphQLScalarType({
+    name: 'DateTime',
+    description: 'A valid date time value.',
+    parseValue: (value: any) => new Date(value),
+    serialize: (value: any) => new Date(value).toISOString(),
+    parseLiteral: (ast: any) => ast.value,
+  })
 };
 
 const server = new ApolloServer({
