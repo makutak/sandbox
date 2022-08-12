@@ -6,7 +6,6 @@ specifiers:
   '@graphql-codegen/typescript-resolvers': 2.7.3
   '@types/express': ^4.17.13
   '@types/node': ^18.6.4
-  apollo-server: ^3.10.0
   apollo-server-express: ^3.10.0
   dotenv: ^16.0.1
   express: ^4.18.1
@@ -19,7 +18,6 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
-  apollo-server: 3.10.0_graphql@16.5.0
   apollo-server-express: 3.10.0_g7snex6epo2tsaz6yhvyva23iq
   dotenv: 16.0.1
   express: 4.18.1
@@ -1691,21 +1689,6 @@ packages:
       graphql: 16.5.0
     transitivePeerDependencies:
       - encoding
-    dev: false
-
-  /apollo-server/3.10.0_graphql@16.5.0:
-    resolution: {integrity: sha512-6PAz1XZFM9+K2+QUCXXxQIlZy5mhSOhg0rTx3ZNbIdy1fFNP+6ZjvQAJxBIyEtaKlC2yEPAOg4yi3u8WfuA3bA==}
-    peerDependencies:
-      graphql: ^15.3.0 || ^16.0.0
-    dependencies:
-      '@types/express': 4.17.13
-      apollo-server-core: 3.10.0_graphql@16.5.0
-      apollo-server-express: 3.10.0_g7snex6epo2tsaz6yhvyva23iq
-      express: 4.18.1
-      graphql: 16.5.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
     dev: false
 
   /arg/4.1.3:
