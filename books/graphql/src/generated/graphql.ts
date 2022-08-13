@@ -54,7 +54,9 @@ export type PostPhotoInput = {
 export type Query = {
   __typename?: 'Query';
   allPhotos: Array<Photo>;
+  allUsers: Array<User>;
   totalPhotos: Scalars['Int'];
+  totalUsers: Scalars['Int'];
 };
 
 
@@ -189,7 +191,9 @@ export type PhotoResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   allPhotos?: Resolver<Array<ResolversTypes['Photo']>, ParentType, ContextType, Partial<QueryAllPhotosArgs>>;
+  allUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   totalPhotos?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalUsers?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
