@@ -1,60 +1,32 @@
 import { GraphQLScalarType } from 'graphql';
+import { Db } from 'mongodb';
 import {
   MutationPostPhotoArgs,
   Photo,
   QueryAllPhotosArgs,
-  User
 } from './generated/graphql';
 
-
-let users = [
-  { githubLogin: 'mHattrup', name: 'Mike Hattrub' },
-  { githubLogin: 'gPlake', name: 'Glen Plake' },
-  { githubLogin: 'sSchmidt', name: 'Scot Schmidt' },
-];
-
-let photos = [
-  {
-    id: 1,
-    name: 'Dropping the Heart Chute',
-    description: 'The heart chute is one of my favorite chutes',
-    category: 'ACTION',
-    githubUser: 'gPlake' ,
-    created: '3-28-1977',
-  },
-  {
-    id: 2,
-    name: 'Enjoying the sunshine',
-    category: 'SELFIE',
-    githubUser: 'sSchmidt',
-    created: '1-2-1985',
-  },
-  {
-    id: 3,
-    name: 'Gunbarrel 25',
-    description: '25 laps on gunbarrel today',
-    category: 'LANDSCAPE',
-    githubUser: 'sSchmidt',
-    created: '2018-04-15',
-  },
-];
-
-const tags = [
-  { photoID: 1, userID: 'gPlake' },
-  { photoID: 2, userID: 'sSchmidt' },
-  { photoID: 2, userID: 'mHattrup' },
-  { photoID: 2, userID: 'gPlake' },
-  { photoID: 3, userID: 'mHattrup' },
-]
-
-let _id: number =  4;
-
 export const resolvers = {
+
   Query: {
-    totalPhotos: () => photos.length,
-    allPhotos: (after: QueryAllPhotosArgs) => photos,
+    totalPhotos: (_parent: any, _args: any, { db }: { db: Db }) => {
+      return db.collection('photos').estimatedDocumentCount();
+    },
+
+    allPhotos: (_parent: any, _after: QueryAllPhotosArgs, { db }: { db: Db }) => {
+      return db.collection('photos').find().toArray();
+    },
+
+    totalUsers: (_parent: any, _args: any, { db }: { db: Db }) => {
+      return db.collection('users').estimatedDocumentCount();
+    },
+
+    allUsers: (_parent: any, _args: any, { db }: { db: Db }) => {
+      return db.collection('users').find().toArray();
+    },
   },
 
+  /*
   Mutation: {
     postPhoto(parent: string, args: MutationPostPhotoArgs) {
       const newPhoto = {
@@ -100,4 +72,5 @@ export const resolvers = {
     serialize: (value: any) => new Date(value).toISOString(),
     parseLiteral: (ast: any) => ast.value,
   })
+  */
 };
