@@ -3,7 +3,7 @@ const user = {
   pwd: 'mongo',
   roles: [
     {
-      role: 'dbOwner',
+      role: 'readWrite',
       db: 'photo_share',
     },
   ],
