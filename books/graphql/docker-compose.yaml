@@ -31,6 +31,24 @@ services:
     networks:
       - MONGO
 
+  graphql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4000:4000
+    environment:
+      MONGO_INITDB_USER: ${MONGO_INITDB_USER}
+      MONGO_INITDB_PWD: ${MONGO_INITDB_PWD}
+    networks:
+      - MONGO
+    command: ash -c 'pnpm i && pnpm start'
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+
 networks:
   MONGO:
     name: MONGO
