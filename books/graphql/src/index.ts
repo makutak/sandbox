@@ -16,8 +16,8 @@ const start = async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     auth: {
-      username: 'mongo',
-      password: 'mongo',
+      username: process.env.MONGO_INITDB_USER!,
+      password: process.env.MONGO_INITDB_PWD!,
     },
   };
   let db: Db;
