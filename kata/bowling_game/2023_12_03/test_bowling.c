@@ -20,8 +20,19 @@ static char *test_all_gutters() {
   return 0;
 }
 
+static char *test_all_ones() {
+  int rolls[20];
+  for (int i = 0; i < 20; i++) {
+    rolls[i] = 1;
+  }
+
+  mu_assert("error, score != 20", bowling_score(rolls, 20) == 20);
+  return 0;
+}
+
 static char *all_tests() {
   mu_run_test(test_all_gutters);
+  mu_run_test(test_all_ones);
   return 0;
 }
 
