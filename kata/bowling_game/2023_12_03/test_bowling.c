@@ -4,6 +4,18 @@
 
 int tests_run = 0;
 
+void bowling_game_init() {
+  // ゲームの状態を初期化する
+}
+
+void bowling_game_roll(int pins) {
+  // ロールで倒されたピンの数を記録する
+}
+
+int bowling_game_score() {
+  // 現在のスコアを計算する
+}
+
 int bowling_score(int rolls[], int n) {
   int score = 0;
   for (int i = 0; i < n; i++) {
@@ -30,9 +42,22 @@ static char *test_all_ones() {
   return 0;
 }
 
+static char *test_spare() {
+  bowling_game_init();
+  bowling_game_roll(5);
+  bowling_game_roll(5);  // spare
+  bowling_game_roll(3);
+  for (int i = 0; i < 17; i++) {
+    bowling_game_roll(0);
+  }
+  mu_assert("error, score != 16", bowling_game_score() == 16);
+  return 0;
+}
+
 static char *all_tests() {
   mu_run_test(test_all_gutters);
   mu_run_test(test_all_ones);
+  mu_run_test(test_spare);
   return 0;
 }
 
