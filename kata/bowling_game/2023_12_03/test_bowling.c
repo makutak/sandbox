@@ -1,19 +1,31 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "minunit.h"
 
 int tests_run = 0;
 
-void bowling_game_init() {
-  // ゲームの状態を初期化する
-}
+int rolls[21];
+int current_roll = 0;
+void bowling_game_init() { memset(rolls, 0, sizeof(rolls)); }
 
-void bowling_game_roll(int pins) {
-  // ロールで倒されたピンの数を記録する
-}
+void bowling_game_roll(int pins) { rolls[current_roll++] = pins; }
 
 int bowling_game_score() {
-  // 現在のスコアを計算する
+  int score = 0;
+  int frame_index = 0;
+
+  for (int frame = 0; frame < 10; frame++) {
+    if (rolls[frame_index] + rolls[frame_index + 1] == 10) {
+      score += 10 + rolls[frame_index + 2];
+      frame_index += 2;
+    } else {
+      score += rolls[frame_index] + rolls[frame_index + 1];
+      frame_index += 2;
+    }
+  }
+
+  return score;
 }
 
 int bowling_score(int rolls[], int n) {
