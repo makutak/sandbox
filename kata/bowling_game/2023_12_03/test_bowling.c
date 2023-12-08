@@ -66,10 +66,23 @@ static char *test_spare() {
   return 0;
 }
 
+static char *test_strike() {
+  bowling_game_init();
+  bowling_game_roll(10);  // ストライク
+  bowling_game_roll(3);
+  bowling_game_roll(4);
+  for (int i = 0; i < 16; i++) {
+    bowling_game_roll(0);  // 残りのロールは全てガーター
+  }
+  mu_assert("error, score != 24", bowling_game_score() == 24);
+  return 0;
+}
+
 static char *all_tests() {
   mu_run_test(test_all_gutters);
   mu_run_test(test_all_ones);
   mu_run_test(test_spare);
+  mu_run_test(test_strike);
   return 0;
 }
 
