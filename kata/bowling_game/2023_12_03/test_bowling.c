@@ -88,11 +88,21 @@ static char *test_strike() {
   return 0;
 }
 
+static char *test_perfect_game() {
+  bowling_game_init();
+  for (int i = 0; i < 13; i++) {
+    bowling_game_roll(10);
+  }
+  mu_assert("error, score != 300", bowling_game_score() == 300);
+  return 0;
+}
+
 static char *all_tests() {
   mu_run_test(test_all_gutters);
   mu_run_test(test_all_ones);
   mu_run_test(test_spare);
   mu_run_test(test_strike);
+  mu_run_test(test_perfect_game);
   return 0;
 }
 
