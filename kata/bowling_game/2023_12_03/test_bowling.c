@@ -20,7 +20,10 @@ int bowling_game_score() {
   int frame_index = 0;
 
   for (int frame = 0; frame < 10; frame++) {
-    if (rolls[frame_index] + rolls[frame_index + 1] == 10) {
+    if (rolls[frame_index] == 10) {
+      score += 10 + rolls[frame_index + 1] + rolls[frame_index + 2];
+      frame_index++;
+    } else if (rolls[frame_index] + rolls[frame_index + 1] == 10) {
       score += 10 + rolls[frame_index + 2];
       frame_index += 2;
     } else {
@@ -89,7 +92,7 @@ static char *all_tests() {
   mu_run_test(test_all_gutters);
   mu_run_test(test_all_ones);
   mu_run_test(test_spare);
-  // mu_run_test(test_strike);
+  mu_run_test(test_strike);
   return 0;
 }
 
