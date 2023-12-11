@@ -10,5 +10,5 @@ void bowling_game_roll(int pins) {
 }
 
 int bowling_game_score() {
-  return 0;  // スタブ実装
+  return -1;  // スタブ実装
 }
