@@ -12,7 +12,7 @@ void bowling_game_roll(int pins) {
 }
 
 int bowling_game_score() {
-  return -1;  // スタブ実装
+  return 0;
 }
 
 BowligGame* new_bowling_game() {
