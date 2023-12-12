@@ -4,11 +4,12 @@
 #include "bowling_game.h"
 
 void test_all_gutters(void) {
-  bowling_game_init();
+  BowligGame *bowling_game = new_bowling_game();
+
   for (int i = 0; i < 20; i++) {
-    bowling_game_roll(0);
+    bowling_game->roll(0);
   }
-  CU_ASSERT(bowling_game_score() == 0);
+  CU_ASSERT(bowling_game->score() == 0);
 }
 
 int main() {
