@@ -1,24 +1,32 @@
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
+#include <stdlib.h>
 
 #include "bowling_game.h"
 
+BowlingGame *set_up() { return new_bowling_game(); }
+void clean_up(BowlingGame *game) { free(game); }
+
 void test_all_gutters(void) {
-  BowligGame *bowling_game = new_bowling_game();
+  BowlingGame *bowling_game = set_up();
 
   for (int i = 0; i < 20; i++) {
-    bowling_game->roll(0);
+    bowling_game->roll(bowling_game, 0);
   }
-  CU_ASSERT(bowling_game->score() == 0);
+  CU_ASSERT(bowling_game->score(bowling_game) == 0);
+
+  clean_up(bowling_game);
 }
 
 void test_all_ones(void) {
-  BowligGame *bowling_game = new_bowling_game();
+  BowlingGame *bowling_game = set_up();
 
   for (int i = 0; i < 20; i++) {
-    bowling_game->roll(1);
+    bowling_game->roll(bowling_game, 1);
   }
-  CU_ASSERT(bowling_game->score() == 20);
+  CU_ASSERT(bowling_game->score(bowling_game) == 20);
+
+  clean_up(bowling_game);
 }
 
 int main() {
