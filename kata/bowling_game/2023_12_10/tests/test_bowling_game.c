@@ -4,29 +4,34 @@
 
 #include "bowling_game.h"
 
-BowlingGame *set_up() { return new_bowling_game(); }
+BowlingGame *g;
+
+void set_up() { g = new_bowling_game(); }
+
 void clean_up(BowlingGame *game) { free(game); }
 
-void test_all_gutters(void) {
-  BowlingGame *bowling_game = set_up();
-
-  for (int i = 0; i < 20; i++) {
-    bowling_game->roll(bowling_game, 0);
+void roll_many(int n, int pins) {
+  for (int i = 0; i < n; i++) {
+    g->roll(g, pins);
   }
-  CU_ASSERT(bowling_game->score(bowling_game) == 0);
+}
 
-  clean_up(bowling_game);
+void test_all_gutters(void) {
+  set_up();
+
+  roll_many(20, 0);
+  CU_ASSERT(g->score(g) == 0);
+
+  clean_up(g);
 }
 
 void test_all_ones(void) {
-  BowlingGame *bowling_game = set_up();
+  set_up();
 
-  for (int i = 0; i < 20; i++) {
-    bowling_game->roll(bowling_game, 1);
-  }
-  CU_ASSERT(bowling_game->score(bowling_game) == 20);
+  roll_many(20, 1);
+  CU_ASSERT(g->score(g) == 20);
 
-  clean_up(bowling_game);
+  clean_up(g);
 }
 
 int main() {
