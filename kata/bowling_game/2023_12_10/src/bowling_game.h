@@ -5,7 +5,7 @@
 typedef struct BowlingGame {
   int current_score;
   int rolls[21];
-  int current_role;
+  int current_roll;
 
   void (*roll)(struct BowlingGame*, int pins);
   int (*score)(struct BowlingGame*);

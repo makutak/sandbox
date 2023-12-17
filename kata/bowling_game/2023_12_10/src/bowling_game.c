@@ -10,7 +10,7 @@ void bowling_game_init() {
 
 void bowling_game_roll(BowlingGame* game, int pins) {
   game->current_score += pins;
-  game->rolls[game->current_role++] = pins;
+  game->rolls[game->current_roll++] = pins;
 }
 
 int bowling_game_score(BowlingGame* game) {
@@ -24,7 +24,7 @@ int bowling_game_score(BowlingGame* game) {
 
 BowlingGame* new_bowling_game() {
   BowlingGame* game = malloc(sizeof(BowlingGame));
-  game->current_role = 0;
+  game->current_roll = 0;
   memset(game->rolls, 0, sizeof(game->rolls));
   game->current_score = 0;
   game->roll = bowling_game_roll;
