@@ -3,8 +3,10 @@
 #define BOWLING_GAME_H
 
 typedef struct BowlingGame {
-  int current_role;
   int current_score;
+  int rolls[21];
+  int current_role;
+
   void (*roll)(struct BowlingGame*, int pins);
   int (*score)(struct BowlingGame*);
 } BowlingGame;
