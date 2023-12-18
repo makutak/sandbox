@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: photo_share
+      MONGO_INITDB_USER: ${MONGO_INITDB_USER}
+      MONGO_INITDB_PWD: ${MONGO_INITDB_PWD}
+
+    volumes:
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+    networks:
+      - MONGO
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - MONGO
+
+  graphql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4000:4000
+    environment:
+      MONGO_INITDB_USER: ${MONGO_INITDB_USER}
+      MONGO_INITDB_PWD: ${MONGO_INITDB_PWD}
+    networks:
+      - MONGO
+    command: ash -c 'pnpm i && pnpm start'
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+
+networks:
+  MONGO:
+    name: MONGO
