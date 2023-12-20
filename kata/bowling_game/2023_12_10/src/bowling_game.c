@@ -15,11 +15,18 @@ void bowling_game_roll(BowlingGame* game, int pins) {
 
 int bowling_game_score(BowlingGame* game) {
   int score = 0;
-  for (int i = 0; i < 20; i++) {
-    score += game->rolls[i];
+  int i = 0;
+  for (int frame = 0; frame < 10; frame++) {
+    if (game->rolls[i] + game->rolls[i + 1] == 10) {
+      score += 10 + game->rolls[i + 2];
+      i += 2;
+    } else {
+      score += game->rolls[i] + game->rolls[i + 1];
+      i += 2;
+    }
   }
 
-  return game->current_score;
+  return score;
 }
 
 BowlingGame* new_bowling_game() {
