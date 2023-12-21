@@ -38,7 +38,7 @@ void test_one_spare() {
   set_up();
 
   g->roll(g, 5);
-  g->roll(g, 5);
+  g->roll(g, 5); // spare
   g->roll(g, 3);
   roll_many(17, 0);
 
