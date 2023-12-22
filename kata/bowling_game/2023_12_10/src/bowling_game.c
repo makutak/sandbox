@@ -4,10 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void bowling_game_init() {
-  // イニシャライザコード
-}
-
 void bowling_game_roll(BowlingGame* game, int pins) {
   game->current_score += pins;
   game->rolls[game->current_roll++] = pins;
@@ -17,7 +13,7 @@ int bowling_game_score(BowlingGame* game) {
   int score = 0;
   int frame_index = 0;
   for (int frame = 0; frame < 10; frame++) {
-    if (game->rolls[frame_index] + game->rolls[frame_index + 1] == 10) {
+    if (is_spare(game, frame_index)) {
       // spare
       score += 10 + game->rolls[frame_index + 2];
       frame_index += 2;
@@ -28,6 +24,10 @@ int bowling_game_score(BowlingGame* game) {
   }
 
   return score;
+}
+
+int is_spare(BowlingGame* game, int frame_index) {
+  return game->rolls[frame_index] + game->rolls[frame_index] == 10;
 }
 
 BowlingGame* new_bowling_game() {

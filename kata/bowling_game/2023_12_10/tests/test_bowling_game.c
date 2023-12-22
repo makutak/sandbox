@@ -16,6 +16,11 @@ void roll_many(int n, int pins) {
   }
 }
 
+void roll_spare() {
+  g->roll(g, 5);
+  g->roll(g, 5);
+}
+
 void test_all_gutters(void) {
   set_up();
 
@@ -37,8 +42,7 @@ void test_all_ones(void) {
 void test_one_spare() {
   set_up();
 
-  g->roll(g, 5);
-  g->roll(g, 5); // spare
+  roll_spare();
   g->roll(g, 3);
   roll_many(17, 0);
 
