@@ -13,7 +13,6 @@ int bowling_game_score(BowlingGame* game) {
   int score = 0;
   int frame_index = 0;
   for (int frame = 0; frame < 10; frame++) {
-
     if (is_strike(game, frame_index)) {
       score += 10 + strike_bonus(game, frame_index);
       frame_index++;
