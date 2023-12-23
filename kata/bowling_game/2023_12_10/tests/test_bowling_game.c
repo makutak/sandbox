@@ -51,6 +51,19 @@ void test_one_spare() {
   clean_up(g);
 }
 
+void test_one_strike() {
+  set_up();
+
+  g->roll(g, 10); // strike
+  g->roll(g, 3);
+  g->roll(g, 4);
+  roll_many(16, 0);
+
+  CU_ASSERT(g->score(g) == 24);
+
+  clean_up(g);
+}
+
 int main() {
   CU_initialize_registry();
   CU_pSuite suite = CU_add_suite("BowlingGameTest", NULL, NULL);
@@ -59,7 +72,7 @@ int main() {
     CU_add_test(suite, "test of all gutters", test_all_gutters);
     CU_add_test(suite, "test of all ones", test_all_ones);
     CU_add_test(suite, "test of one spare", test_one_spare);
-    // 他のテストも同様に追加
+    CU_add_test(suite, "test of one strike", test_one_strike);
   }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
