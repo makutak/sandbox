@@ -68,6 +68,15 @@ void test_one_strike() {
   clean_up(g);
 }
 
+void test_perfect_game() {
+  set_up();
+
+  roll_many(12, 10);
+  CU_ASSERT(g->score(g) == 300);
+
+  clean_up(g);
+}
+
 int main() {
   CU_initialize_registry();
   CU_pSuite suite = CU_add_suite("BowlingGameTest", NULL, NULL);
@@ -77,6 +86,7 @@ int main() {
     CU_add_test(suite, "test of all ones", test_all_ones);
     CU_add_test(suite, "test of one spare", test_one_spare);
     CU_add_test(suite, "test of one strike", test_one_strike);
+    CU_add_test(suite, "test of perfect game", test_perfect_game);
   }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
