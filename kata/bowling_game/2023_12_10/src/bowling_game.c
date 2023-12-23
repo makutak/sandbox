@@ -15,20 +15,30 @@ int bowling_game_score(BowlingGame* game) {
   for (int frame = 0; frame < 10; frame++) {
 
     if (is_strike(game, frame_index)) {
-      // strike
-      score += 10 + game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
+      score += 10 + strike_bonus(game, frame_index);
       frame_index++;
     } else if (is_spare(game, frame_index)) {
-      // spare
-      score += 10 + game->rolls[frame_index + 2];
+      score += 10 + spare_bonus(game, frame_index);
       frame_index += 2;
     } else {
-      score += game->rolls[frame_index] + game->rolls[frame_index + 1];
+      score += sum_of_balls_in_frame(game, frame_index);
       frame_index += 2;
     }
   }
 
   return score;
+}
+
+int sum_of_balls_in_frame(BowlingGame* game, int frame_index) {
+  return game->rolls[frame_index] + game->rolls[frame_index + 1];
+}
+
+int spare_bonus(BowlingGame* game, int frame_index) {
+  return game->rolls[frame_index + 2];
+}
+
+int strike_bonus(BowlingGame* game, int frame_index) {
+  return game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
 }
 
 
