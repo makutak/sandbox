@@ -46,7 +46,7 @@ int is_strike(BowlingGame* game, int frame_index) {
 }
 
 int is_spare(BowlingGame* game, int frame_index) {
-  return game->rolls[frame_index] + game->rolls[frame_index] == 10;
+  return game->rolls[frame_index] + game->rolls[frame_index + 1] == 10;
 }
 
 BowlingGame* new_bowling_game() {

@@ -55,6 +55,20 @@ void test_one_spare() {
   clean_up(g);
 }
 
+void test_one_spare_2() {
+  set_up();
+
+  g->roll(g, 3);
+  g->roll(g, 7); // spare
+  g->roll(g, 3);
+  roll_many(17, 0);
+
+  CU_ASSERT(g->score(g) == 16);
+
+  clean_up(g);
+}
+
+
 void test_one_strike() {
   set_up();
 
@@ -85,6 +99,7 @@ int main() {
     CU_add_test(suite, "test of all gutters", test_all_gutters);
     CU_add_test(suite, "test of all ones", test_all_ones);
     CU_add_test(suite, "test of one spare", test_one_spare);
+    CU_add_test(suite, "test of one spare 2", test_one_spare_2);
     CU_add_test(suite, "test of one strike", test_one_strike);
     CU_add_test(suite, "test of perfect game", test_perfect_game);
   }
