@@ -13,7 +13,12 @@ int bowling_game_score(BowlingGame* game) {
   int score = 0;
   int frame_index = 0;
   for (int frame = 0; frame < 10; frame++) {
-    if (is_spare(game, frame_index)) {
+
+    if (game->rolls[frame_index] == 10) {
+      // strike
+      score += 10 + game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
+      frame_index++;
+    } else if (is_spare(game, frame_index)) {
       // spare
       score += 10 + game->rolls[frame_index + 2];
       frame_index += 2;
