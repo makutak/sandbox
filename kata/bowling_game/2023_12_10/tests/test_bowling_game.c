@@ -21,6 +21,10 @@ void roll_spare() {
   g->roll(g, 5);
 }
 
+void roll_strike() {
+  g->roll(g, 10);
+}
+
 void test_all_gutters(void) {
   set_up();
 
@@ -54,7 +58,7 @@ void test_one_spare() {
 void test_one_strike() {
   set_up();
 
-  g->roll(g, 10); // strike
+  roll_strike();
   g->roll(g, 3);
   g->roll(g, 4);
   roll_many(16, 0);
