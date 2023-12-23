@@ -14,7 +14,7 @@ int bowling_game_score(BowlingGame* game) {
   int frame_index = 0;
   for (int frame = 0; frame < 10; frame++) {
 
-    if (game->rolls[frame_index] == 10) {
+    if (is_strike(game, frame_index)) {
       // strike
       score += 10 + game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
       frame_index++;
@@ -29,6 +29,11 @@ int bowling_game_score(BowlingGame* game) {
   }
 
   return score;
+}
+
+
+int is_strike(BowlingGame* game, int frame_index) {
+  return game->rolls[frame_index] == 10;
 }
 
 int is_spare(BowlingGame* game, int frame_index) {

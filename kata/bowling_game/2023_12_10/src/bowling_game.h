@@ -13,6 +13,7 @@ typedef struct BowlingGame {
 
 void bowling_game_roll(BowlingGame* bowling_game, int pins);
 int bowling_game_score(BowlingGame *bowling_game);
+int is_strike(BowlingGame *bowling_game, int frame_index);
 int is_spare(BowlingGame *bowling_game, int frame_index);
 BowlingGame* new_bowling_game();
 
