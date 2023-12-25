@@ -2,18 +2,18 @@ import unittest
 from Game import Game
 
 class TestGame(unittest.TestCase):
+    def setUp(self):
+        self.g = Game()
+
     def test_gutter_game(self):
-        g = Game()
-        for _ in range(0, 20):
-            g.roll(0)
-        self.assertEqual(0, g.score())
+        for _ in range(20):
+            self.g.roll(0)
+        self.assertEqual(0, self.g.score())
 
     def test_all_ones(self):
-        g = Game()
-
-        for _ in range(0, 20):
-            g.roll(1)
-        self.assertEqual(20, g.score())
+        for _ in range(20):
+            self.g.roll(1)
+        self.assertEqual(20, self.g.score())
 
 
 if __name__ == '__main__':
