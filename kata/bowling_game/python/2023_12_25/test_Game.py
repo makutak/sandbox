@@ -6,9 +6,8 @@ class TestGame(unittest.TestCase):
         g = Game()
         for _ in range(0, 20):
             g.roll(0)
-        self.assertEquals(0, g.score())
+        self.assertEqual(0, g.score())
 
 
 if __name__ == '__main__':
     unittest.main()
-    
