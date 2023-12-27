@@ -20,12 +20,14 @@ class TestGame(unittest.TestCase):
     def test_one_spare(self):
         self.g.roll(5)
         self.g.roll(5) # spare
+        self.g.roll(3)
         self.roll_many(17, 0);
         self.assertEqual(16, self.g.score())
 
     def test_one_spare_2(self):
         self.g.roll(6)
         self.g.roll(4) # spare
+        self.g.roll(3)
         self.roll_many(17, 0);
         self.assertEqual(16, self.g.score())
 
