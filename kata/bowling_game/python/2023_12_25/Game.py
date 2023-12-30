@@ -12,10 +12,10 @@ class Game:
         frame_index = 0
         for _ in range(10):
             if (self.is_strike(frame_index)):
-                score += 10 + self.strike_bonus(frame_index)
+                score += self.strike_bonus(frame_index)
                 frame_index += 1
             elif (self.is_spare(frame_index)):
-                score += 10 + self.spare_bonus(frame_index)
+                score += self.spare_bonus(frame_index)
                 frame_index += 2
             else:
                 score += self.sum_of_balls_in_frame(frame_index)
@@ -32,7 +32,7 @@ class Game:
         return self._rolls[frame_index] + self._rolls[frame_index + 1]
 
     def spare_bonus(self, frame_index):
-        return self._rolls[frame_index + 2]
+        return 10 + self._rolls[frame_index + 2]
 
     def strike_bonus(self, frame_index):
-        return self._rolls[frame_index + 1] + self._rolls[frame_index + 2]
+        return 10 + self._rolls[frame_index + 1] + self._rolls[frame_index + 2]
