@@ -1,11 +1,11 @@
 class Game:
     def __init__(self):
         self._rolls = [0] * 21
-        self._current_role = 0
+        self._current_roll = 0
 
     def roll(self, pins):
-        self._rolls[self._current_role] = pins
-        self._current_role += 1
+        self._rolls[self._current_roll] = pins
+        self._current_roll += 1
 
     def score(self):
         score = 0
