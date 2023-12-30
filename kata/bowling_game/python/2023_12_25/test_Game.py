@@ -13,7 +13,7 @@ class TestGame(unittest.TestCase):
         self.g.roll(5)
         self.g.roll(5)
 
-    def roll_differnt_pins_spare(self):
+    def roll_different_pins_spare(self):
         self.g.roll(6)
         self.g.roll(4)
 
@@ -35,7 +35,7 @@ class TestGame(unittest.TestCase):
         self.assertEqual(16, self.g.score())
 
     def test_different_pins_spare(self):
-        self.roll_differnt_pins_spare()
+        self.roll_different_pins_spare()
         self.g.roll(3)
         self.roll_many(17, 0);
         self.assertEqual(16, self.g.score())
