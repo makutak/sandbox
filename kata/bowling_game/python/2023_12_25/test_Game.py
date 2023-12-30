@@ -17,6 +17,9 @@ class TestGame(unittest.TestCase):
         self.g.roll(6)
         self.g.roll(4)
 
+    def roll_strike(self):
+        self.g.roll(10)
+
     def test_gutter_game(self):
         self.roll_many(20, 0)
         self.assertEqual(0, self.g.score())
@@ -38,7 +41,7 @@ class TestGame(unittest.TestCase):
         self.assertEqual(16, self.g.score())
 
     def test_one_strike(self):
-        self.g.roll(10) # strike
+        self.roll_strike()
         self.g.roll(3)
         self.g.roll(4)
         self.roll_many(16, 0)
