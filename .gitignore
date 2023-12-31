@@ -131,3 +131,7 @@ compile_commands.json
 *.txt
 .env
 .pnpm-store/
+
+# golang
+!go.mod
+!go.sum
