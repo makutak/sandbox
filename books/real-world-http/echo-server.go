@@ -21,7 +21,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlerDigest(w http.ResponseWriter, r *http.Request) {
-	pp.Printf("URL: %n", r.URL.String())
+	pp.Printf("URL: %s\n", r.URL.String())
 	pp.Printf("Query: %v\n", r.URL.Query())
 	pp.Printf("Proto: %s\n", r.Proto)
 	pp.Printf("Method: %s\n", r.Method)
