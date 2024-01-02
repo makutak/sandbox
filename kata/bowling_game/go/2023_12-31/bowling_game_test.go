@@ -1,7 +1,6 @@
 package bowling
 
 import (
-	"os"
 	"testing"
 )
 
@@ -17,13 +16,9 @@ func rollMany(n int, pins int) {
 	}
 }
 
-func TestMain(m *testing.M) {
+func TestGutterGame(t *testing.T) {
 	setUp()
 
-	os.Exit(m.Run())
-}
-
-func TestGutterGame(t *testing.T) {
 	rollMany(20, 0)
 	if g.Score() != 0 {
 		t.Errorf("Expected score of 0 but got %d", g.Score())
@@ -31,9 +26,23 @@ func TestGutterGame(t *testing.T) {
 }
 
 func TestAllOnes(t *testing.T) {
+	setUp()
 	rollMany(20, 1)
 
 	if g.Score() != 20 {
 		t.Errorf("Expected score of 20 but got %d", g.Score())
+	}
+}
+
+func TestOneSpare(t *testing.T) {
+	setUp()
+
+	g.Roll(5)
+	g.Roll(5) // spare
+	g.Roll(3)
+	rollMany(17, 0)
+
+	if g.Score() != 16 {
+		t.Errorf("Expected score of 16 but got %d", g.Score())
 	}
 }
