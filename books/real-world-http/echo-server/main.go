@@ -11,6 +11,12 @@ import (
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	pp.Printf("URL: %s\n", r.URL.String())
+	pp.Printf("Query: %v\n", r.URL.Query())
+	pp.Printf("Proto: %s\n", r.Proto)
+	pp.Printf("Method: %s\n", r.Method)
+	pp.Printf("Header: %v\n", r.Header)
+	defer r.Body.Close()
 	dump, err := httputil.DumpRequest(r, true)
 	if err != nil {
 		http.Error(w, fmt.Sprint(err), http.StatusInternalServerError)
