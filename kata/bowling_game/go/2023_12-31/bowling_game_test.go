@@ -34,11 +34,24 @@ func TestAllOnes(t *testing.T) {
 	}
 }
 
-func TestOneSpare(t *testing.T) {
+func TestStandardSpare(t *testing.T) {
 	setUp()
 
 	g.Roll(5)
 	g.Roll(5) // spare
+	g.Roll(3)
+	rollMany(17, 0)
+
+	if g.Score() != 16 {
+		t.Errorf("Expected score of 16 but got %d", g.Score())
+	}
+}
+
+func TestDifferentPinsSpare(t *testing.T) {
+	setUp()
+
+	g.Roll(4)
+	g.Roll(6) // spare
 	g.Roll(3)
 	rollMany(17, 0)
 
