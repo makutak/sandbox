@@ -1,23 +1,38 @@
 package bowling
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
+
+var g *Game
+
+func setUp() {
+	g = NewGame()
+}
+
+func TestMain(m *testing.M) {
+	setUp()
+
+	os.Exit(m.Run())
+}
 
 func TestGutterGame(t *testing.T) {
-	game := NewGame()
 	for i := 0; i < 20; i++ {
-		game.Roll(0)
+		g.Roll(0)
 	}
-	if game.Score() != 0 {
-		t.Errorf("Expected score of 0 but got %d", game.Score())
+
+	if g.Score() != 0 {
+		t.Errorf("Expected score of 0 but got %d", g.Score())
 	}
 }
 
 func TestAllOnes(t *testing.T) {
-	game := NewGame()
 	for i := 0; i < 20; i++ {
-		game.Roll(1)
+		g.Roll(1)
 	}
-	if game.Score() != 20 {
-		t.Errorf("Expected score of 20 but got %d", game.Score())
+
+	if g.Score() != 20 {
+		t.Errorf("Expected score of 20 but got %d", g.Score())
 	}
 }
