@@ -66,3 +66,16 @@ func TestDifferentPinsSpare(t *testing.T) {
 		t.Errorf("Expected score of 16 but got %d", g.Score())
 	}
 }
+
+func TestOneStrike(t *testing.T) {
+	setUp()
+
+	g.Roll(10) // strike
+	g.Roll(3)
+	g.Roll(4)
+	rollMany(16, 0)
+
+	if g.Score() != 24 {
+		t.Errorf("Expected score of 24 but got %d", g.Score())
+	}
+}
