@@ -16,6 +16,16 @@ func rollMany(n int, pins int) {
 	}
 }
 
+func rollStandardSpare() {
+	g.Roll(5)
+	g.Roll(5)
+}
+
+func rollDifferentSpare() {
+	g.Roll(4)
+	g.Roll(6)
+}
+
 func TestGutterGame(t *testing.T) {
 	setUp()
 
@@ -36,9 +46,7 @@ func TestAllOnes(t *testing.T) {
 
 func TestStandardSpare(t *testing.T) {
 	setUp()
-
-	g.Roll(5)
-	g.Roll(5) // spare
+	rollStandardSpare()
 	g.Roll(3)
 	rollMany(17, 0)
 
@@ -50,8 +58,7 @@ func TestStandardSpare(t *testing.T) {
 func TestDifferentPinsSpare(t *testing.T) {
 	setUp()
 
-	g.Roll(4)
-	g.Roll(6) // spare
+	rollDifferentSpare()
 	g.Roll(3)
 	rollMany(17, 0)
 
