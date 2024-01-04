@@ -83,3 +83,13 @@ func TestOneStrike(t *testing.T) {
 		t.Errorf("Expected score of 24 but got %d", g.Score())
 	}
 }
+
+func TestPerfectGame(t *testing.T) {
+	setUp()
+
+	rollMany(12, 10)
+
+	if g.Score() != 300 {
+		t.Errorf("Expected score of 300 but got %d", g.Score())
+	}
+}
