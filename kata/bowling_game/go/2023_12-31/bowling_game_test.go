@@ -26,6 +26,10 @@ func rollDifferentSpare() {
 	g.Roll(6)
 }
 
+func rollStrike() {
+	g.Roll(10)
+}
+
 func TestGutterGame(t *testing.T) {
 	setUp()
 
@@ -70,7 +74,7 @@ func TestDifferentPinsSpare(t *testing.T) {
 func TestOneStrike(t *testing.T) {
 	setUp()
 
-	g.Roll(10) // strike
+	rollStrike()
 	g.Roll(3)
 	g.Roll(4)
 	rollMany(16, 0)
