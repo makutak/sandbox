@@ -93,3 +93,17 @@ func TestPerfectGame(t *testing.T) {
 		t.Errorf("Expected score of 300 but got %d", g.Score())
 	}
 }
+
+func TestRollInvalidPins(t *testing.T) {
+	setUp()
+
+	err := g.Roll(-1)
+	if err == nil {
+		t.Errorf("Expected an error for invalid pins, but got none")
+	}
+
+	expectedErrorMessage := "Invalid number of pins: -1"
+	if err.Error() != expectedErrorMessage {
+		t.Errorf("Unexpected error message: got %v want %v", err.Error(), expectedErrorMessage)
+	}
+}

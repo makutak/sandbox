@@ -1,5 +1,7 @@
 package bowling
 
+import "fmt"
+
 type Game struct {
 	score       int
 	rolls       [21]int
@@ -13,9 +15,14 @@ func NewGame() *Game {
 	}
 }
 
-func (g *Game) Roll(pins int) {
+func (g *Game) Roll(pins int) error {
+	if pins < 0 || 10 < pins {
+		return fmt.Errorf("Invalid number of pins: %d", pins)
+	}
+
 	g.rolls[g.currentRoll] = pins
 	g.currentRoll++
+	return nil
 }
 
 func (g *Game) Score() int {
