@@ -129,6 +129,7 @@ dkms.conf
 *.cache
 compile_commands.json
 *.txt
+!requirements.txt
 .env
 .pnpm-store/
 
