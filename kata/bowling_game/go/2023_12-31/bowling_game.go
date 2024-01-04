@@ -3,19 +3,19 @@ package bowling
 type Game struct {
 	score       int
 	rolls       [21]int
-	currentRole int
+	currentRoll int
 }
 
 func NewGame() *Game {
 	return &Game{
 		score:       0,
-		currentRole: 0,
+		currentRoll: 0,
 	}
 }
 
 func (g *Game) Roll(pins int) {
-	g.rolls[g.currentRole] = pins
-	g.currentRole++
+	g.rolls[g.currentRoll] = pins
+	g.currentRoll++
 }
 
 func (g *Game) Score() int {
