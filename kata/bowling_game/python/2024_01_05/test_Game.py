@@ -1,17 +1,20 @@
 from Game import Game
 
 
-def test_gutter_game():
-    g = Game()
-    for _ in range(20):
-        g.roll(0)
+class TestBowlingGame:
+    def setup_method(self):
+        self._game = Game()
 
-    assert g.score() == 0
 
-def test_all_ones():
-    g = Game()
+    def test_gutter_game(self):
+        for _ in range(20):
+            self._game.roll(0)
 
-    for _ in range(20):
-        g.roll(1)
+        assert self._game.score() == 0
 
-    assert g.score() == 20
+
+    def test_all_ones(self):
+        for _ in range(20):
+            self._game.roll(1)
+
+        assert self._game.score() == 20
