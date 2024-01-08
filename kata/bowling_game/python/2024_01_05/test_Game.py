@@ -17,6 +17,9 @@ class TestBowlingGame:
         self._game.roll(9)
         self._game.roll(1)
 
+    def roll_strike(self):
+        self._game.roll(10)
+
     def test_gutter_game(self):
         self.roll_many(20, 0)
 
@@ -42,7 +45,7 @@ class TestBowlingGame:
         assert self._game.score() == 16
 
     def test_one_strike(self):
-        self._game.roll(10)  # strike
+        self.roll_strike()
         self._game.roll(3)
         self._game.roll(4)
         self.roll_many(16, 0)
