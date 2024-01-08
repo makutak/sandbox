@@ -9,6 +9,14 @@ class TestBowlingGame:
         for _ in range(n):
             self._game.roll(pins)
 
+    def roll_standard_spare(self):
+        self._game.roll(5)
+        self._game.roll(5)
+
+    def roll_different_spare(self):
+        self._game.roll(9)
+        self._game.roll(1)
+
     def test_gutter_game(self):
         self.roll_many(20, 0)
 
@@ -20,16 +28,14 @@ class TestBowlingGame:
         assert self._game.score() == 20
 
     def test_standard_spare(self):
-        self._game.roll(5)
-        self._game.roll(5)  # spare
+        self.roll_standard_spare()
         self._game.roll(3)
         self.roll_many(17, 0)
 
         assert self._game.score() == 16
 
     def test_different_spare(self):
-        self._game.roll(1)
-        self._game.roll(9)  # spare
+        self.roll_different_spare()
         self._game.roll(3)
         self.roll_many(17, 0)
 
