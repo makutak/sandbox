@@ -1,5 +1,9 @@
 #include "Game.h"
 
-void Game::roll(int pins) {}
+void Game::roll(int pins) {
+  score += pins;
+}
 
-int Game::score() { return 0; }
+int Game::getScore() {
+  return score;
+}
