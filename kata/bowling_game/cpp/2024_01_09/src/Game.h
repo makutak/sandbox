@@ -1,5 +1,5 @@
 class Game {
- public:
+public:
   int score();
   void roll(int pins);
 };
