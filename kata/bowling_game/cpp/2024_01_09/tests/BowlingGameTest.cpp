@@ -2,8 +2,13 @@
 
 #include "Game.h"
 
-TEST(BowlingGameTest, AllGutterGame) {
+class BowlingGameTest : public ::testing::Test {
+protected:
   Game game;
+};
+
+
+TEST_F(BowlingGameTest, AllGutterGame) {
   for (int i = 0; i < 20; i++) {
     game.roll(0);
   }
