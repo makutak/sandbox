@@ -5,7 +5,7 @@ CXX := g++
 CXXFLAGS := -std=c++11 -Wall -g
 
 # インクルードパス
-INCLUDES := -I./src -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11
+INCLUDES := -I./src
 
 # Google Testのライブラリ
 GTEST_LIBS := -lgtest -lgtest_main -pthread
