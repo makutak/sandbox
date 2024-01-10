@@ -14,3 +14,10 @@ TEST_F(BowlingGameTest, AllGutterGame) {
   }
   ASSERT_EQ(0, game.score());
 }
+
+TEST_F(BowlingGameTest, AllOnes) {
+  for (int i = 0; i < 20; i++) {
+    game.roll(1);
+  }
+  ASSERT_EQ(20, game.score());
+}
