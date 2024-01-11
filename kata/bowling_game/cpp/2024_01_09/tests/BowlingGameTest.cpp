@@ -25,3 +25,11 @@ TEST_F(BowlingGameTest, AllOnes) {
 
   ASSERT_EQ(20, game.getScore());
 }
+
+TEST_F(BowlingGameTest, OneSpare) {
+  game.roll(5);
+  game.roll(5); // sapre
+  game.roll(3);
+  rollMany(17, 0);
+  ASSERT_EQ(16, game.getScore());
+}
