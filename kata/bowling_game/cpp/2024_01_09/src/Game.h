@@ -5,6 +5,8 @@
 class Game {
 private:
   int score = 0;
+  int rolls[21] = {};
+  int currentRoll = 0;
 
 public:
   int getScore();
