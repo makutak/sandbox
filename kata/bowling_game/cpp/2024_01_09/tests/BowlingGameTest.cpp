@@ -61,3 +61,8 @@ TEST_F(BowlingGameTest, OneStrike) {
   rollMany(16, 0);
   ASSERT_EQ(24, game.getScore());
 }
+
+TEST_F(BowlingGameTest, PerfectGame){
+  rollMany(12, 10);
+  ASSERT_EQ(300, game.getScore());
+}
