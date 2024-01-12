@@ -8,6 +8,8 @@ private:
   int rolls[21] = {};
   int currentRoll = 0;
 
+  bool isSpare(int frameIndex);
+
 public:
   int getScore();
   void roll(int pins);

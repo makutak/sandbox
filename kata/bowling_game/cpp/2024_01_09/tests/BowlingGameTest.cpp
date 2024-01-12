@@ -11,6 +11,11 @@ protected:
       game.roll(pins);
     }
   }
+
+  void rollSpare() {
+    game.roll(5);
+    game.roll(5);
+  }
 };
 
 
@@ -27,8 +32,7 @@ TEST_F(BowlingGameTest, AllOnes) {
 }
 
 TEST_F(BowlingGameTest, OneSpare) {
-  game.roll(5);
-  game.roll(5); // sapre
+  rollSpare();
   game.roll(3);
   rollMany(17, 0);
   ASSERT_EQ(16, game.getScore());

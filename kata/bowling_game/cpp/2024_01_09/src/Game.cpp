@@ -9,7 +9,7 @@ int Game::getScore() {
   int score = 0;
   int frameIndex = 0;
   for (int frame = 0; frame < 10; frame++) {
-    if (rolls[frameIndex] + rolls[frameIndex + 1] == 10) {
+    if (isSpare(frameIndex)) {
       score += 10 + rolls[frameIndex + 2];
       frameIndex += 2;
     } else {
@@ -19,4 +19,8 @@ int Game::getScore() {
   }
 
   return score;
+}
+
+bool Game::isSpare(int frameIndex) {
+  return rolls[frameIndex] + rolls[frameIndex + 1] == 10;
 }
