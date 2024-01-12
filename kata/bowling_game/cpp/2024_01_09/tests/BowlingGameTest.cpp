@@ -12,9 +12,14 @@ protected:
     }
   }
 
-  void rollSpare() {
+  void rollStandardSpare() {
     game.roll(5);
     game.roll(5);
+  }
+
+  void rollSDifferentSpare() {
+    game.roll(1);
+    game.roll(9);
   }
 };
 
@@ -31,8 +36,15 @@ TEST_F(BowlingGameTest, AllOnes) {
   ASSERT_EQ(20, game.getScore());
 }
 
-TEST_F(BowlingGameTest, OneSpare) {
-  rollSpare();
+TEST_F(BowlingGameTest, StandardSpare) {
+  rollStandardSpare();
+  game.roll(3);
+  rollMany(17, 0);
+  ASSERT_EQ(16, game.getScore());
+}
+
+TEST_F(BowlingGameTest, DifferentSpare) {
+  rollSDifferentSpare();
   game.roll(3);
   rollMany(17, 0);
   ASSERT_EQ(16, game.getScore());
