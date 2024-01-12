@@ -21,6 +21,10 @@ protected:
     game.roll(1);
     game.roll(9);
   }
+
+  void rollStrike() {
+    game.roll(10);
+  }
 };
 
 
@@ -51,7 +55,7 @@ TEST_F(BowlingGameTest, DifferentSpare) {
 }
 
 TEST_F(BowlingGameTest, OneStrike) {
-  game.roll(10); // strike
+  rollStrike();
   game.roll(3);
   game.roll(4);
   rollMany(16, 0);
