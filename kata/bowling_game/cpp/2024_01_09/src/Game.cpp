@@ -9,7 +9,7 @@ int Game::getScore() {
   int score = 0;
   int frameIndex = 0;
   for (int frame = 0; frame < 10; frame++) {
-    if (rolls[frameIndex] == 10) {
+    if (isStrike(frameIndex)) {
       score += strikeBonus(frameIndex);
       frameIndex += 1;
     } else if (isSpare(frameIndex)) {
@@ -26,6 +26,10 @@ int Game::getScore() {
 
 bool Game::isSpare(int frameIndex) {
   return rolls[frameIndex] + rolls[frameIndex + 1] == 10;
+}
+
+bool Game::isStrike(int frameIndex) {
+  return rolls[frameIndex] == 10;
 }
 
 int Game::sumOfBallsInFrame(int frameIndex) {

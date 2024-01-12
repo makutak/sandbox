@@ -9,6 +9,7 @@ private:
   int currentRoll = 0;
 
   bool isSpare(int frameIndex);
+  bool isStrike(int frameIndex);
 
   int sumOfBallsInFrame(int frameIndex);
   int spareBonus(int frameIndex);
