@@ -17,7 +17,7 @@ protected:
     game.roll(5);
   }
 
-  void rollSDifferentSpare() {
+  void rollDifferentSpare() {
     game.roll(1);
     game.roll(9);
   }
@@ -48,7 +48,7 @@ TEST_F(BowlingGameTest, StandardSpare) {
 }
 
 TEST_F(BowlingGameTest, DifferentSpare) {
-  rollSDifferentSpare();
+  rollDifferentSpare();
   game.roll(3);
   rollMany(17, 0);
   ASSERT_EQ(16, game.getScore());
