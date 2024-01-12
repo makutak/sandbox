@@ -28,9 +28,7 @@ bool Game::isSpare(int frameIndex) {
   return rolls[frameIndex] + rolls[frameIndex + 1] == 10;
 }
 
-bool Game::isStrike(int frameIndex) {
-  return rolls[frameIndex] == 10;
-}
+bool Game::isStrike(int frameIndex) { return rolls[frameIndex] == 10; }
 
 int Game::sumOfBallsInFrame(int frameIndex) {
   return rolls[frameIndex] + rolls[frameIndex + 1];

@@ -3,7 +3,7 @@
 #include "Game.h"
 
 class BowlingGameTest : public ::testing::Test {
-protected:
+ protected:
   Game game;
 
   void rollMany(int n, int pins) {
@@ -22,11 +22,8 @@ protected:
     game.roll(9);
   }
 
-  void rollStrike() {
-    game.roll(10);
-  }
+  void rollStrike() { game.roll(10); }
 };
-
 
 TEST_F(BowlingGameTest, AllGutterGame) {
   rollMany(0, 20);
@@ -62,7 +59,7 @@ TEST_F(BowlingGameTest, OneStrike) {
   ASSERT_EQ(24, game.getScore());
 }
 
-TEST_F(BowlingGameTest, PerfectGame){
+TEST_F(BowlingGameTest, PerfectGame) {
   rollMany(12, 10);
   ASSERT_EQ(300, game.getScore());
 }

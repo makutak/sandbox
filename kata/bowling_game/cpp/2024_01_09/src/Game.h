@@ -1,9 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-
 class Game {
-private:
+ private:
   int score = 0;
   int rolls[21] = {};
   int currentRoll = 0;
@@ -15,9 +14,9 @@ private:
   int spareBonus(int frameIndex);
   int strikeBonus(int frameIndex);
 
-public:
+ public:
   int getScore();
   void roll(int pins);
 };
 
-#endif // GAME_H
+#endif  // GAME_H
