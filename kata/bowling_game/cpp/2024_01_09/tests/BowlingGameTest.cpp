@@ -49,3 +49,11 @@ TEST_F(BowlingGameTest, DifferentSpare) {
   rollMany(17, 0);
   ASSERT_EQ(16, game.getScore());
 }
+
+TEST_F(BowlingGameTest, OneStrike) {
+  game.roll(10); // strike
+  game.roll(3);
+  game.roll(4);
+  rollMany(16, 0);
+  ASSERT_EQ(24, game.getScore());
+}
