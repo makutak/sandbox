@@ -10,6 +10,10 @@ private:
 
   bool isSpare(int frameIndex);
 
+  int sumOfBallsInFrame(int frameIndex);
+  int spareBonus(int frameIndex);
+  int strikeBonus(int frameIndex);
+
 public:
   int getScore();
   void roll(int pins);
