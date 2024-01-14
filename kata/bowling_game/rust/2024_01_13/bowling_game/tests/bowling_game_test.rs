@@ -10,6 +10,16 @@ mod tests {
         }
     }
 
+    fn roll_standard_spare(game: &mut Game) {
+        game.roll(5);
+        game.roll(5);
+    }
+
+    fn roll_different_spare(game: &mut Game) {
+        game.roll(3);
+        game.roll(7);
+    }
+
     #[test]
     fn test_gutter_game() {
         let mut game = Game::new();
@@ -27,8 +37,7 @@ mod tests {
     #[test]
     fn test_standard_spare() {
         let mut game = Game::new();
-        game.roll(5);
-        game.roll(5); // spare
+        roll_standard_spare(&mut game);
         game.roll(3);
         roll_many(&mut game, 17, 0);
         assert_eq!(game.score(), 16);
@@ -37,8 +46,7 @@ mod tests {
     #[test]
     fn test_different_spare() {
         let mut game = Game::new();
-        game.roll(7);
-        game.roll(3); // spare
+        roll_different_spare(&mut game);
         game.roll(3);
         roll_many(&mut game, 17, 0);
         assert_eq!(game.score(), 16);
