@@ -23,4 +23,24 @@ mod tests {
         roll_many(&mut game, 20, 1);
         assert_eq!(game.score(), 20);
     }
+
+    #[test]
+    fn test_standard_spare() {
+        let mut game = Game::new();
+        game.roll(5);
+        game.roll(5); // spare
+        game.roll(3);
+        roll_many(&mut game, 17, 0);
+        assert_eq!(game.score(), 16);
+    }
+
+    #[test]
+    fn test_different_spare() {
+        let mut game = Game::new();
+        game.roll(7);
+        game.roll(3); // spare
+        game.roll(3);
+        roll_many(&mut game, 17, 0);
+        assert_eq!(game.score(), 16);
+    }
 }
