@@ -51,4 +51,14 @@ mod tests {
         roll_many(&mut game, 17, 0);
         assert_eq!(game.score(), 16);
     }
+
+    #[test]
+    fn test_one_strike() {
+        let mut game = Game::new();
+        game.roll(10); // strike
+        game.roll(3);
+        game.roll(4);
+        roll_many(&mut game, 16, 0);
+        assert_eq!(game.score(), 24);
+    }
 }
