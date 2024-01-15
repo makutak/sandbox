@@ -21,6 +21,10 @@ impl Game {
         let mut frame_index: usize = 0;
 
         for _ in 0..10 {
+            if self.rolls[frame_index] == 10 {
+                score += 10 + self.rolls[frame_index + 1] + self.rolls[frame_index + 2];
+                frame_index += 1;
+            }
             if self.is_spare(frame_index) {
                 score += 10 + self.rolls[frame_index + 2];
                 frame_index += 2;
