@@ -22,14 +22,14 @@ impl Game {
 
         for _ in 0..10 {
             if self.rolls[frame_index] == 10 {
-                score += 10 + self.rolls[frame_index + 1] + self.rolls[frame_index + 2];
+                score += self.strike_bonus(frame_index);
                 frame_index += 1;
             }
             if self.is_spare(frame_index) {
-                score += 10 + self.rolls[frame_index + 2];
+                score += self.spare_bonus(frame_index);
                 frame_index += 2;
             } else {
-                score += self.rolls[frame_index] + self.rolls[frame_index + 1];
+                score += self.sum_of_balls_in_frame(frame_index);
                 frame_index += 2;
             }
         }
@@ -39,5 +39,17 @@ impl Game {
 
     fn is_spare(&self, frame_index: usize) -> bool {
         return self.rolls[frame_index] + self.rolls[frame_index + 1] == 10;
+    }
+
+    fn sum_of_balls_in_frame(&self, frame_index: usize) -> u16 {
+        return self.rolls[frame_index] + self.rolls[frame_index + 1];
+    }
+
+    fn spare_bonus(&self, frame_index: usize) -> u16 {
+        return 10 + self.rolls[frame_index + 2];
+    }
+
+    fn strike_bonus(&self, frame_index: usize) -> u16 {
+        return 10 + self.rolls[frame_index + 1] + self.rolls[frame_index + 2];
     }
 }
