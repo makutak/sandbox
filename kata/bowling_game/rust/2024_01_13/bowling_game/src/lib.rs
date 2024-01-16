@@ -21,7 +21,7 @@ impl Game {
         let mut frame_index: usize = 0;
 
         for _ in 0..10 {
-            if self.rolls[frame_index] == 10 {
+            if self.is_strike(frame_index) {
                 score += self.strike_bonus(frame_index);
                 frame_index += 1;
             }
@@ -35,6 +35,10 @@ impl Game {
         }
 
         score
+    }
+
+    fn is_strike(&self, frame_index: usize) -> bool {
+        return self.rolls[frame_index] == 10;
     }
 
     fn is_spare(&self, frame_index: usize) -> bool {
