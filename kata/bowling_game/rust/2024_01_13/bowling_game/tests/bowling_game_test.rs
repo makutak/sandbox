@@ -65,4 +65,11 @@ mod tests {
         roll_many(&mut game, 16, 0);
         assert_eq!(game.score(), 24);
     }
+
+    #[test]
+    fn test_perfect_game() {
+        let mut game = Game::new();
+        roll_many(&mut game, 12, 10);
+        assert_eq!(game.score(), 300);
+    }
 }
