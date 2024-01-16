@@ -24,8 +24,7 @@ impl Game {
             if self.is_strike(frame_index) {
                 score += self.strike_bonus(frame_index);
                 frame_index += 1;
-            }
-            if self.is_spare(frame_index) {
+            } else if self.is_spare(frame_index) {
                 score += self.spare_bonus(frame_index);
                 frame_index += 2;
             } else {
