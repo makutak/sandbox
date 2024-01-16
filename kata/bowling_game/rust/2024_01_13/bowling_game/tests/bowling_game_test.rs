@@ -20,6 +20,10 @@ mod tests {
         game.roll(7);
     }
 
+    fn roll_strike(game: &mut Game) {
+        game.roll(10);
+    }
+
     #[test]
     fn test_gutter_game() {
         let mut game = Game::new();
@@ -55,7 +59,7 @@ mod tests {
     #[test]
     fn test_one_strike() {
         let mut game = Game::new();
-        game.roll(10); // strike
+        roll_strike(&mut game);
         game.roll(3);
         game.roll(4);
         roll_many(&mut game, 16, 0);
