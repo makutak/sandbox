@@ -7,6 +7,9 @@
 
 void test_all_gutters(void) {
   Game *game = new_game();
+  for (int i = 0; i < 20; i++) {
+    game->roll(game, 0);
+  }
 
   CU_ASSERT_EQUAL(0, game->score(game));
 }
