@@ -5,20 +5,26 @@
 
 #include "../src/game.h"
 
-void test_all_gutters(void) {
-  Game *game = new_game();
-  for (int i = 0; i < 20; i++) {
-    game->roll(game, 0);
+Game *game;
+
+void set_up() { game = new_game(); }
+
+void roll_many(int n, int pins) {
+  for (int i = 0; i < n; i++) {
+    game->roll(game, pins);
   }
+}
+
+void test_all_gutters(void) {
+  set_up();
+  roll_many(20, 0);
 
   CU_ASSERT_EQUAL(0, game->get_score(game));
 }
 
 void test_all_ones(void) {
-  Game *game = new_game();
-  for (int i = 0; i < 20; i++ ){
-    game->roll(game, 1);
-  }
+  set_up();
+  roll_many(20, 1);
 
   CU_ASSERT_EQUAL(20, game->get_score(game));
 }
