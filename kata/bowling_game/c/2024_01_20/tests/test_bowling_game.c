@@ -29,6 +29,26 @@ void test_all_ones(void) {
   CU_ASSERT_EQUAL(20, game->get_score(game));
 }
 
+void test_standard_one_spare(void) {
+  set_up();
+  game->roll(game, 5);
+  game->roll(game, 5); // spare
+  game->roll(game, 3);
+  roll_many(17, 0);
+
+  CU_ASSERT_EQUAL(16, game->get_score(game));
+}
+
+void test_different_one_spare(void) {
+  set_up();
+  game->roll(game, 2);
+  game->roll(game, 8); // spare
+  game->roll(game, 3);
+  roll_many(17, 0);
+
+  CU_ASSERT_EQUAL(16, game->get_score(game));
+}
+
 
 int main() {
   CU_initialize_registry();
@@ -37,6 +57,8 @@ int main() {
   if (NULL != suite) {
     CU_add_test(suite, "test of all gutters", test_all_gutters);
     CU_add_test(suite, "test of all ones", test_all_ones);
+    CU_add_test(suite, "test of standard spare", test_standard_one_spare);
+    CU_add_test(suite, "test of different spare", test_different_one_spare);
   }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
