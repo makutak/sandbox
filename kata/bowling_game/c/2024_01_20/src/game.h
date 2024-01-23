@@ -2,7 +2,8 @@
 #define GAME_H
 
 typedef struct Game {
-  int score;
+  int rolls[21];
+  int current_roll;
   void (*roll) (struct Game*, int pins);
   int (*get_score) (struct Game*);
 } Game;
