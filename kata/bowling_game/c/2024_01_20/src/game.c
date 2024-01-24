@@ -24,6 +24,10 @@ int game_get_score(Game *game) {
   return score;
 }
 
+int game_is_spare(Game *game, int frame_index) {
+  return game->rolls[frame_index] + game->rolls[frame_index + 1] == 10;
+}
+
 
 Game* new_game() {
   Game* game = malloc(sizeof(Game));
@@ -31,5 +35,6 @@ Game* new_game() {
   game->current_roll = 0;
   game->get_score = game_get_score;
   game->roll = game_roll;
+  game->is_spare = game_is_spare;
   return game;
 }
