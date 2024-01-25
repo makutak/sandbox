@@ -15,6 +15,16 @@ void roll_many(int n, int pins) {
   }
 }
 
+void roll_standard_spare() {
+  game->roll(game, 5);
+  game->roll(game, 5);
+}
+
+void roll_different_spre() {
+  game->roll(game, 2);
+  game->roll(game, 8);
+}
+
 void test_all_gutters(void) {
   set_up();
   roll_many(20, 0);
@@ -31,8 +41,7 @@ void test_all_ones(void) {
 
 void test_standard_one_spare(void) {
   set_up();
-  game->roll(game, 5);
-  game->roll(game, 5); // spare
+  roll_standard_spare();
   game->roll(game, 3);
   roll_many(17, 0);
 
@@ -41,8 +50,7 @@ void test_standard_one_spare(void) {
 
 void test_different_one_spare(void) {
   set_up();
-  game->roll(game, 2);
-  game->roll(game, 8); // spare
+  roll_different_spre();
   game->roll(game, 3);
   roll_many(17, 0);
 
