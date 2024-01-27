@@ -57,6 +57,16 @@ void test_different_one_spare(void) {
   CU_ASSERT_EQUAL(16, game->get_score(game));
 }
 
+void test_one_strike(void) {
+  set_up();
+  game->roll(game, 10); // strike
+  game->roll(game, 3);
+  game->roll(game, 4);
+  roll_many(16, 0);
+
+  CU_ASSERT_EQUAL(24, game->get_score(game));
+}
+
 
 int main() {
   CU_initialize_registry();
@@ -67,6 +77,7 @@ int main() {
     CU_add_test(suite, "test of all ones", test_all_ones);
     CU_add_test(suite, "test of standard spare", test_standard_one_spare);
     CU_add_test(suite, "test of different spare", test_different_one_spare);
+    CU_add_test(suite, "test of one strike", test_one_strike);
   }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
