@@ -12,7 +12,7 @@ int game_get_score(Game *game) {
   int frame_index = 0;
 
   for (int frame = 0; frame < 10; frame++) {
-    if (game->rolls[frame_index] + game->rolls[frame_index + 1] == 10) {
+    if (game->is_spare(game, frame_index)) {
       score += 10 + game->rolls[frame_index + 2];
       frame_index += 2;
     } else {
