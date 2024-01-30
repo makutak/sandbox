@@ -12,7 +12,7 @@ int game_get_score(Game *game) {
   int frame_index = 0;
 
   for (int frame = 0; frame < 10; frame++) {
-    if (game->rolls[frame_index] == 10) {
+    if (game->is_strike(game, frame_index)) {
       score += 10 + game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
       frame_index += 1;
     }
@@ -32,6 +32,10 @@ int game_is_spare(Game *game, int frame_index) {
   return game->rolls[frame_index] + game->rolls[frame_index + 1] == 10;
 }
 
+int game_is_strike(Game *game, int frame_index) {
+  return game->rolls[frame_index] == 10;
+}
+
 
 Game* new_game() {
   Game* game = malloc(sizeof(Game));
@@ -40,5 +44,6 @@ Game* new_game() {
   game->get_score = game_get_score;
   game->roll = game_roll;
   game->is_spare = game_is_spare;
+  game->is_strike = game_is_strike;
   return game;
 }
