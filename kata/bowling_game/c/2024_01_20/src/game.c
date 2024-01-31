@@ -13,14 +13,14 @@ int game_get_score(Game *game) {
 
   for (int frame = 0; frame < 10; frame++) {
     if (game->is_strike(game, frame_index)) {
-      score += 10 + game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
+      score += strike_bonus(game, frame_index);
       frame_index += 1;
     }
     else if (game->is_spare(game, frame_index)) {
-      score += 10 + game->rolls[frame_index + 2];
+      score += spare_bonus(game, frame_index);
       frame_index += 2;
     } else {
-      score += game->rolls[frame_index] + game->rolls[frame_index + 1];
+      score += sum_of_balls_in_frame(game, frame_index);
       frame_index += 2;
     }
   }
@@ -35,6 +35,19 @@ int game_is_spare(Game *game, int frame_index) {
 int game_is_strike(Game *game, int frame_index) {
   return game->rolls[frame_index] == 10;
 }
+
+int sum_of_balls_in_frame(Game *game, int frame_index) {
+  return game->rolls[frame_index] + game->rolls[frame_index + 1];
+}
+
+int spare_bonus(Game *game, int frame_index) {
+  return 10 + game->rolls[frame_index + 2];
+}
+
+int strike_bonus(Game *game, int frame_index) {
+  return 10 + game->rolls[frame_index + 1] + game->rolls[frame_index + 2];
+}
+
 
 
 Game* new_game() {

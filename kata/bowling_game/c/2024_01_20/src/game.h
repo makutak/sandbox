@@ -16,5 +16,8 @@ void game_roll(Game* game, int pins);
 int game_get_score(Game *game);
 int game_is_spare(Game *game, int frame_index);
 int game_is_strike(Game *game, int frame_index);
+int sum_of_balls_in_frame(Game *game, int frame_index);
+int spare_bonus(Game *game, int frame_index);
+int strike_bonus(Game *game, int frame_index);
 
 #endif // GAME_H
