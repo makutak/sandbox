@@ -25,6 +25,10 @@ void roll_different_spre() {
   game->roll(game, 8);
 }
 
+void roll_strike() {
+  game->roll(game, 10);
+}
+
 void test_all_gutters(void) {
   set_up();
   roll_many(20, 0);
@@ -59,7 +63,7 @@ void test_different_one_spare(void) {
 
 void test_one_strike(void) {
   set_up();
-  game->roll(game, 10); // strike
+  roll_strike();
   game->roll(game, 3);
   game->roll(game, 4);
   roll_many(16, 0);
