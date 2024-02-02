@@ -71,6 +71,13 @@ void test_one_strike(void) {
   CU_ASSERT_EQUAL(24, game->get_score(game));
 }
 
+void test_perfect_game(void) {
+  set_up();
+  roll_many(12, 10);
+
+  CU_ASSERT_EQUAL(game->get_score(game), 300);
+}
+
 
 int main() {
   CU_initialize_registry();
@@ -82,6 +89,7 @@ int main() {
     CU_add_test(suite, "test of standard spare", test_standard_one_spare);
     CU_add_test(suite, "test of different spare", test_different_one_spare);
     CU_add_test(suite, "test of one strike", test_one_strike);
+    CU_add_test(suite, "test of perfect game", test_perfect_game);
   }
 
   CU_basic_set_mode(CU_BRM_VERBOSE);
