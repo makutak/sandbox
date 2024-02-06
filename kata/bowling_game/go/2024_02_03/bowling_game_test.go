@@ -2,8 +2,14 @@ package bowling
 
 import "testing"
 
+var game *Game
+
+func setUp() {
+	game = NewGame()
+}
+
 func TestGutterGame(t *testing.T) {
-	game := NewGame()
+	setUp()
 
 	for i := 0; i < 20; i++ {
 		game.Roll(0)
@@ -15,7 +21,7 @@ func TestGutterGame(t *testing.T) {
 }
 
 func TestAllOnes(t *testing.T) {
-	game := NewGame()
+	setUp()
 
 	for i := 0; i < 20; i++ {
 		game.Roll(1)
