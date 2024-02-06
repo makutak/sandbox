@@ -1,13 +1,19 @@
 package bowling
 
-type Game struct{}
-
-func NewGame() *Game {
-	return &Game{}
+type Game struct {
+	score int
 }
 
-func (g *Game) Roll(pins int) {}
+func NewGame() *Game {
+	return &Game{
+		score: 0,
+	}
+}
+
+func (g *Game) Roll(pins int) {
+	g.score += pins
+}
 
 func (g *Game) Score() int {
-	return 0
+	return g.score
 }
