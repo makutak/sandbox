@@ -33,3 +33,16 @@ func TestAllOnes(t *testing.T) {
 		t.Errorf("Expected score of 20, but got %d", game.Score())
 	}
 }
+
+func TestOneSpare(t *testing.T) {
+	setUp()
+
+	game.Roll(5)
+	game.Roll(5) // spare
+	game.Roll(3)
+	rollMany(17, 0)
+
+	if game.Score() != 16 {
+		t.Errorf("Expected score of 16, but got %d", game.Score())
+	}
+}
