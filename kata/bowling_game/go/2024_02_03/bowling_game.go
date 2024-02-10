@@ -1,20 +1,17 @@
 package bowling
 
 type Game struct {
-	score       int
 	rolls       [21]int
 	currentRoll int
 }
 
 func NewGame() *Game {
 	return &Game{
-		score:       0,
 		currentRoll: 0,
 	}
 }
 
 func (g *Game) Roll(pins int) {
-	g.score += pins
 	g.rolls[g.currentRoll] = pins
 	g.currentRoll++
 }
