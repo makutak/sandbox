@@ -20,7 +20,7 @@ func (g *Game) Score() int {
 	score := 0
 	frameIndex := 0
 	for frame := 0; frame < 10; frame++ {
-		if g.rolls[frameIndex]+g.rolls[frameIndex+1] == 10 {
+		if g.isSpare(frameIndex) {
 			score += 10 + g.rolls[frameIndex+2]
 			frameIndex += 2
 		} else {
@@ -30,4 +30,8 @@ func (g *Game) Score() int {
 	}
 
 	return score
+}
+
+func (g *Game) isSpare(frameIndex int) bool {
+	return g.rolls[frameIndex]+g.rolls[frameIndex+1] == 10
 }
