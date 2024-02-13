@@ -67,3 +67,16 @@ func TestDifferentSpare(t *testing.T) {
 		t.Errorf("Expected score of 16, but got %d", game.Score())
 	}
 }
+
+func TestOneStrike(t *testing.T) {
+	setUp()
+
+	game.Roll(10) // TestOneStrike
+	game.Roll(3)
+	game.Roll(4)
+	rollMany(16, 0)
+
+	if game.Score() != 24 {
+		t.Errorf("Expected score of 24, but got %d", game.Score())
+	}
+}
