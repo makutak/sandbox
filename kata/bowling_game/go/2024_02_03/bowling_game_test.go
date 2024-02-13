@@ -14,6 +14,16 @@ func rollMany(n int, pins int) {
 	}
 }
 
+func rollStandardSpare() {
+	game.Roll(5)
+	game.Roll(5)
+}
+
+func rollDifferentSpare() {
+	game.Roll(1)
+	game.Roll(9)
+}
+
 func TestGutterGame(t *testing.T) {
 	setUp()
 
@@ -34,11 +44,22 @@ func TestAllOnes(t *testing.T) {
 	}
 }
 
-func TestOneSpare(t *testing.T) {
+func TestStandardSpare(t *testing.T) {
 	setUp()
 
-	game.Roll(5)
-	game.Roll(5) // spare
+	rollStandardSpare()
+	game.Roll(3)
+	rollMany(17, 0)
+
+	if game.Score() != 16 {
+		t.Errorf("Expected score of 16, but got %d", game.Score())
+	}
+}
+
+func TestDifferentSpare(t *testing.T) {
+	setUp()
+
+	rollDifferentSpare()
 	game.Roll(3)
 	rollMany(17, 0)
 
