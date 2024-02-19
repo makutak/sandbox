@@ -24,7 +24,7 @@ func (g *Game) Score() int {
 			score += g.strikeBonus(frameIndex)
 			frameIndex += 1
 		} else if g.isSpare(frameIndex) {
-			score += 10 + g.rolls[frameIndex+2]
+			score += g.spareBonus(frameIndex)
 			frameIndex += 2
 		} else {
 			score += g.rolls[frameIndex] + g.rolls[frameIndex+1]
@@ -45,4 +45,8 @@ func (g *Game) isSpare(frameIndex int) bool {
 
 func (g *Game) strikeBonus(frameIndex int) int {
 	return 10 + g.rolls[frameIndex+1] + g.rolls[frameIndex+2]
+}
+
+func (g *Game) spareBonus(frameIndex int) int {
+	return 10 + g.rolls[frameIndex+2]
 }
