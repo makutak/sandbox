@@ -24,6 +24,10 @@ func rollDifferentSpare() {
 	game.Roll(9)
 }
 
+func rollStrike() {
+	game.Roll(10)
+}
+
 func TestGutterGame(t *testing.T) {
 	setUp()
 
@@ -71,7 +75,7 @@ func TestDifferentSpare(t *testing.T) {
 func TestOneStrike(t *testing.T) {
 	setUp()
 
-	game.Roll(10) // TestOneStrike
+	rollStrike()
 	game.Roll(3)
 	game.Roll(4)
 	rollMany(16, 0)
