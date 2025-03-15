@@ -194,6 +194,7 @@ int size_of(Type *type);
 //
 // codegen.c
 //
+
 void gen(Node *node);
 void codegen(Program *prog);
 void print_ast(Node *node, int depth);
