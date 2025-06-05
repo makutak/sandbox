@@ -894,7 +894,7 @@ dependencies = [
  "parking_lot 0.10.2",
  "range-alloc",
  "raw-window-handle",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
  "spirv_cross",
  "winapi 0.3.9",
  "wio",
@@ -913,7 +913,7 @@ dependencies = [
  "log",
  "range-alloc",
  "raw-window-handle",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
  "spirv_cross",
  "winapi 0.3.9",
 ]
@@ -950,7 +950,7 @@ dependencies = [
  "parking_lot 0.10.2",
  "range-alloc",
  "raw-window-handle",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
  "spirv_cross",
  "storage-map",
 ]
@@ -970,7 +970,7 @@ dependencies = [
  "log",
  "objc",
  "raw-window-handle",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
  "winapi 0.3.9",
  "x11",
 ]
@@ -983,7 +983,7 @@ checksum = "7c88981665c780447bb08eb099e1ded330754a7246719bab927ee4a949c0ba7f"
 dependencies = [
  "bitflags",
  "raw-window-handle",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
 ]
 
 [[package]]
@@ -1641,7 +1641,7 @@ dependencies = [
  "libc",
  "redox_syscall",
  "rustc_version",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
  "winapi 0.3.9",
 ]
 
@@ -1871,7 +1871,7 @@ dependencies = [
  "gfx-hal",
  "log",
  "relevant",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
 ]
 
 [[package]]
@@ -1886,7 +1886,7 @@ dependencies = [
  "log",
  "relevant",
  "slab",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
 ]
 
 [[package]]
@@ -2032,9 +2032,9 @@ checksum = "c111b5bd5695e56cffe5129854aa230b39c93a305372fdbb2668ca2394eea9f8"
 
 [[package]]
 name = "smallvec"
-version = "0.6.13"
+version = "0.6.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7b0758c52e15a8b5e3691eae6cc559f08eee9406e548a4477ba4e67770a82b6"
+checksum = "b97fcaeba89edba30f044a10c6a3cc39df9c3f17d7cd829dd1446cab35f890e0"
 dependencies = [
  "maybe-uninit",
 ]
@@ -2585,7 +2585,7 @@ dependencies = [
  "raw-window-handle",
  "rendy-descriptor",
  "rendy-memory",
- "smallvec 0.6.13",
+ "smallvec 0.6.14",
  "vec_map",
 ]
 
@@ -2761,15 +2761,15 @@ checksum = "e71b85d8b1b8bfaf4b5c834187554d201a8cd621c2bbfa33efd41a3ecabd48b2"
 
 [[package]]
 name = "xml-rs"
-version = "0.8.3"
+version = "0.8.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b07db065a5cf61a7e4ba64f29e67db906fb1787316516c4e6e5ff0fea1efcd8a"
+checksum = "52839dc911083a8ef63efa4d039d1f58b5e409f923e44c80828f206f66e5541c"
 
 [[package]]
 name = "zerocopy"
-version = "0.2.8"
+version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "992b9b31f80fd4a167f903f879b8ca43d6716cc368ea01df90538baa2dd34056"
+checksum = "868979d514791b1d261b9f3d5a2a3497656dbfa3be25986ad1f03b8fbaf55d0f"
 dependencies = [
  "byteorder",
  "zerocopy-derive",

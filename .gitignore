@@ -123,3 +123,16 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+.ccls*
+.dir-locals.el*
+*.db
+*.cache
+compile_commands.json
+*.txt
+!requirements.txt
+.env
+.pnpm-store/
+
+# golang
+!go.mod
+!go.sum
