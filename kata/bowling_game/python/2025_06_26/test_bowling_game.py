@@ -9,3 +9,8 @@ class BowlingGameTest(unittest.TestCase):
         for _ in range(20):
             self.game.roll(0)
         self.assertEqual(0, self.game.score())
+
+    def test_all_ones(self):
+        for _ in range(20):
+            self.game.roll(1)
+        self.assertEqual(20, self.game.score())
