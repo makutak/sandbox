@@ -14,3 +14,11 @@ class BowlingGameTest(unittest.TestCase):
         for _ in range(20):
             self.game.roll(1)
         self.assertEqual(20, self.game.score())
+
+    def test_one_spare(self):
+        self.game.roll(5)
+        self.game.roll(5)
+        self.game.roll(3)
+        for _ in range(17):
+            self.game.roll(0)
+        self.assertEqual(16, self.game.score())

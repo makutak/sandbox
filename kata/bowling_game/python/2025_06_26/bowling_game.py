@@ -1,9 +1,20 @@
 class Game:
     def __init__(self):
-        self.score_total = 0
+        self.rolls = []
 
     def roll(self, pins):
-        self.score_total += pins
+        self.rolls.append(pins)
 
     def score(self):
-        return self.score_total
+        score = 0
+        frame_index = 0
+
+        for frame in range(10):
+            if self.rolls[frame_index] + self.rolls[frame_index + 1] == 10:
+                score += 10 + self.rolls[frame_index + 2]
+                frame_index += 2
+            else:
+                score += self.rolls[frame_index] + self.rolls[frame_index + 1]
+                frame_index += 2
+
+        return score
