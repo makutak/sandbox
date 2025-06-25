@@ -22,3 +22,11 @@ class BowlingGameTest(unittest.TestCase):
         for _ in range(17):
             self.game.roll(0)
         self.assertEqual(16, self.game.score())
+
+    def test_one_strike(self):
+        self.game.roll(10)
+        self.game.roll(3)
+        self.game.roll(4)
+        for _ in range(16):
+            self.game.roll(0)
+        self.assertEqual(24, self.game.score())
