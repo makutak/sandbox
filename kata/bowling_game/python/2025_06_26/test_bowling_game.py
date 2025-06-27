@@ -30,3 +30,8 @@ class BowlingGameTest(unittest.TestCase):
         for _ in range(16):
             self.game.roll(0)
         self.assertEqual(24, self.game.score())
+
+    def test_perfect_game(self):
+        for _ in range(12):
+            self.game.roll(10)
+        self.assertEqual(300, self.game.score())
