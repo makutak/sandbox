@@ -9,9 +9,9 @@ func NewGame() *Game {
 }
 
 func (g *Game) Roll(pins int) {
-
+	g.totalScore += pins
 }
 
 func (g *Game) Score() int {
-	return 0
+	return g.totalScore
 }
