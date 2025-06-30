@@ -25,3 +25,19 @@ func TestAllOnes(t *testing.T) {
 		t.Errorf("Expected 20, got %d", g.Score())
 	}
 }
+
+func TestOneSpare(t *testing.T) {
+	g := NewGame()
+
+	g.Roll(5)
+	g.Roll(5)
+	g.Roll(3)
+
+	for range 17 {
+		g.Roll(0)
+	}
+
+	if g.Score() != 16 {
+		t.Errorf("Expected 16, got %d", g.Score())
+	}
+}

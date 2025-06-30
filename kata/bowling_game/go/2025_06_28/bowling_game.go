@@ -1,7 +1,7 @@
 package main
 
 type Game struct {
-	totalScore int
+	rolls []int
 }
 
 func NewGame() *Game {
@@ -9,9 +9,22 @@ func NewGame() *Game {
 }
 
 func (g *Game) Roll(pins int) {
-	g.totalScore += pins
+	g.rolls = append(g.rolls, pins)
 }
 
 func (g *Game) Score() int {
-	return g.totalScore
+	score := 0
+	frameIndex := 0
+
+	for range 10 {
+		if g.rolls[frameIndex]+g.rolls[frameIndex+1] == 10 {
+			score += 10 + g.rolls[frameIndex+2]
+			frameIndex += 2
+		} else {
+			score += g.rolls[frameIndex] + g.rolls[frameIndex+1]
+			frameIndex += 2
+		}
+	}
+
+	return score
 }
