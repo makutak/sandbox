@@ -17,14 +17,26 @@ func (g *Game) Score() int {
 	frameIndex := 0
 
 	for range 10 {
-		if g.rolls[frameIndex]+g.rolls[frameIndex+1] == 10 {
-			score += 10 + g.rolls[frameIndex+2]
+		if g.isSpare(frameIndex) {
+			score += 10 + g.spareBonus(frameIndex)
 			frameIndex += 2
 		} else {
-			score += g.rolls[frameIndex] + g.rolls[frameIndex+1]
+			score += g.sumOfBallsInFrame(frameIndex)
 			frameIndex += 2
 		}
 	}
 
 	return score
+}
+
+func (g *Game) isSpare(frameIndex int) bool {
+	return g.rolls[frameIndex]+g.rolls[frameIndex+1] == 10
+}
+
+func (g *Game) spareBonus(frameIndex int) int {
+	return g.rolls[frameIndex+2]
+}
+
+func (g *Game) sumOfBallsInFrame(frameIndex int) int {
+	return g.rolls[frameIndex] + g.rolls[frameIndex+1]
 }
