@@ -41,3 +41,18 @@ func TestOneSpare(t *testing.T) {
 		t.Errorf("Expected 16, got %d", g.Score())
 	}
 }
+
+func TestOneStrike(t *testing.T) {
+	g := NewGame()
+
+	g.Roll(10)
+	g.Roll(3)
+	g.Roll(4)
+	for range 16 {
+		g.Roll(0)
+	}
+
+	if g.Score() != 24 {
+		t.Errorf("Expected 24, got %d", g.Score())
+	}
+}
