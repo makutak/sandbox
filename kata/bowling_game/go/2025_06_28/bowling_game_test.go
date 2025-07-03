@@ -56,3 +56,14 @@ func TestOneStrike(t *testing.T) {
 		t.Errorf("Expected 24, got %d", g.Score())
 	}
 }
+
+func TestPerfectGame(t *testing.T) {
+	g := NewGame()
+	for range 20 {
+		g.Roll(10)
+	}
+
+	if g.Score() != 300 {
+		t.Errorf("Expected 300, got %d", g.Score())
+	}
+}
