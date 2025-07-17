@@ -1,10 +1,10 @@
 class Game:
     def __init__(self):
-        pass
+        self.total_score = 0
 
 
     def roll(self, pins):
-        pass
+        self.total_score += pins
 
     def score(self):
-        return 0
+        return self.total_score
