@@ -26,13 +26,13 @@ class Game:
         return self.rolls[frame_index] == 10
 
     def _strike_bonus(self, frame_index):
-        return self.rolls[frame_index+ 1] + self.rolls[frame_index+2]
+        return self.rolls[frame_index + 1] + self.rolls[frame_index + 2]
 
     def _is_spare(self, frame_index):
         return self.rolls[frame_index] + self.rolls[frame_index + 1] == 10
 
     def _spare_bonus(self, frame_index):
-        return self.rolls[frame_index+2]
+        return self.rolls[frame_index + 2]
 
     def _sum_of_balls_in_frame(self, frame_index):
-        return self.rolls[frame_index] + self.rolls[frame_index+1]
+        return self.rolls[frame_index] + self.rolls[frame_index + 1]
