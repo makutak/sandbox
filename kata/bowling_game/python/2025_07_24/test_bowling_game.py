@@ -15,8 +15,7 @@ class BowlingGameTest(unittest.TestCase):
         self.assertEqual(20, self.game.score())
 
     def test_one_spare(self):
-        self.game.roll(5)
-        self.game.roll(5)
+        self._roll_spare()
         self.game.roll(3)
         self._roll_many(17, 0)
         self.assertEqual(16, self.game.score())
@@ -24,3 +23,7 @@ class BowlingGameTest(unittest.TestCase):
     def _roll_many(self, n, pins):
         for _ in range(n):
             self.game.roll(pins)
+
+    def _roll_spare(self):
+        self.game.roll(5)
+        self.game.roll(5)
