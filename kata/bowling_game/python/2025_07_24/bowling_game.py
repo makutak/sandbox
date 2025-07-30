@@ -15,7 +15,7 @@ class Game:
                 frame_index += 2
             else:
                 score += self._sum_of_balls_in_frame(frame_index)
-                frame_index += 1
+                frame_index += 2
 
         return score
 
