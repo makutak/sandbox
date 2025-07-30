@@ -14,7 +14,7 @@ class Game:
                 score += 10 + self._spare_bonus(frame_index)
                 frame_index += 2
             else:
-                score += self._sum_of_balls_in_frmae(frame_index)
+                score += self._sum_of_balls_in_frame(frame_index)
                 frame_index += 1
 
         return score
@@ -25,5 +25,5 @@ class Game:
     def _spare_bonus(self, frame_index):
         return self.rolls[frame_index + 2]
 
-    def _sum_of_balls_in_frmae(self, frame_index):
+    def _sum_of_balls_in_frame(self, frame_index):
         return self.rolls[frame_index] + self.rolls[frame_index + 1]
