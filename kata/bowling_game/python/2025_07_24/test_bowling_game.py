@@ -27,6 +27,10 @@ class BowlingGameTest(unittest.TestCase):
         self._roll_many(16, 0)
         self.assertEqual(24, self.game.score())
 
+    def test_perfect_game(self):
+        self._roll_many(12, 10)
+        self.assertEqual(300, self.game.score())
+
     def _roll_many(self, n, pins):
         for _ in range(n):
             self.game.roll(pins)
