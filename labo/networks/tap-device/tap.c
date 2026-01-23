@@ -14,8 +14,8 @@ int main(int argc, char *argv[]) {
   int fd;                // ファイルディスクリプタ
   struct ifreq ifr = {}; // インターフェース設定用構造体
   char buf[2046];        // 受信パケットを一時的に格納するバッファ(MTU + 余裕)
-  char *ifname;
-  ssize_t n; // システムコールが読み込んだバイト数を格納する
+  char *ifname;          // インターフェース名
+  ssize_t n;             // システムコールが読み込んだバイト数を格納する
 
   // 実行時にインターフェース名が渡されなければエラー
   if (argc != 2) {
