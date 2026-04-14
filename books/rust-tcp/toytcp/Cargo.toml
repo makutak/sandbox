@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 pnet = "0.27"
 anyhow = "1.0"
-rand = "0.8"
+rand = "0.9"
 
 [dev-dependencies]
 ctrlc = "3.1"
