@@ -15,7 +15,7 @@ importers:
         specifier: ^16.0.1
         version: 16.0.1
       express:
-        specifier: ^4.18.1
+        specifier: ^4.19.2
         version: 4.19.2
       graphql:
         specifier: ^16.5.0
@@ -569,6 +569,7 @@ packages:
 
   '@graphql-tools/prisma-loader@7.2.10':
     resolution: {integrity: sha512-9taXB0pL/oQ0Xh43tg9bQFbl0HL8wNurlS6wj1U0E+Vtf67tyDZmmKLR6ZUjVFZEQd3ladNRCAhwgyBttO/ZBg==}
+    deprecated: 'This package was intended to be used with an older versions of Prisma.\nThe newer versions of Prisma has a different approach to GraphQL integration.\nTherefore, this package is no longer needed and has been deprecated and removed.\nLearn more: https://www.prisma.io/graphql'
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
@@ -696,8 +697,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@tootallnate/once@2.0.0':
-    resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
+  '@tootallnate/once@2.0.1':
+    resolution: {integrity: sha512-HqmEUIGRJ5fSXchkVgR5F7qn48bDBzv0kWj/Kfu5e6uci4UlEeng4331LnBkWffb++Ei3FOVLxo8JJWMFBDMeQ==}
     engines: {node: '>= 10'}
 
   '@tsconfig/node10@1.0.9':
@@ -826,35 +827,35 @@ packages:
   apollo-datasource@3.3.2:
     resolution: {integrity: sha512-L5TiS8E2Hn/Yz7SSnWIVbZw0ZfEIXZCa5VUiVxD9P53JvSrf4aStvsFDlGWPvpIdCR+aly2CfoB79B9/JjKFqg==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-datasource` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-datasource` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
 
   apollo-reporting-protobuf@3.3.2:
     resolution: {integrity: sha512-j1tx9tmkVdsLt1UPzBrvz90PdjAeKW157WxGn+aXlnnGfVjZLIRXX3x5t1NWtXvB7rVaAsLLILLtDHW382TSoQ==}
-    deprecated: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
 
   apollo-server-core@3.10.0:
     resolution: {integrity: sha512-ln5drIk3oW/ycYhcYL9TvM7vRf7OZwJrgHWlnjnMakozBQIBSumdMi4pN001DhU9mVBWTfnmBv3CdcxJdGXIvA==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
 
   apollo-server-env@4.2.1:
     resolution: {integrity: sha512-vm/7c7ld+zFMxibzqZ7SSa5tBENc4B0uye9LTfjJwGoQFY5xsUPH5FpO5j0bMUDZ8YYNbrF9SNtzc5Cngcr90g==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
 
   apollo-server-errors@3.3.1:
     resolution: {integrity: sha512-xnZJ5QWs6FixHICXHxUfm+ZWqqxrNuPlQ+kj5m6RtEgIpekOPssH/SD9gf2B4HuWV0QozorrygwZnux8POvyPA==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-server-errors` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-server-errors` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
 
   apollo-server-express@3.10.0:
     resolution: {integrity: sha512-ww3tZq9I/x3Oxtux8xlHAZcSB0NNQ17lRlY6yCLk1F+jCzdcjuj0x8XNg0GdTrMowt5v43o786bU9VYKD5OVnA==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
     peerDependencies:
       express: ^4.17.1
       graphql: ^15.3.0 || ^16.0.0
@@ -862,14 +863,14 @@ packages:
   apollo-server-plugin-base@3.6.2:
     resolution: {integrity: sha512-erWXjLOO1u7fxQkbxJ2cwSO7p0tYzNied91I1SJ9tikXZ/2eZUyDyvrpI+4g70kOdEi+AmJ5Fo8ahEXKJ75zdg==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
 
   apollo-server-types@3.6.2:
     resolution: {integrity: sha512-9Z54S7NB+qW1VV+kmiqwU2Q6jxWfX89HlSGCGOo3zrkrperh85LrzABgN9S92+qyeHYd72noMDg2aI039sF3dg==}
     engines: {node: '>=12.0'}
-    deprecated: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
+    deprecated: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now end-of-life (as of October 22nd 2023 and October 22nd 2024, respectively). This package's functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.
     peerDependencies:
       graphql: ^15.3.0 || ^16.0.0
 
@@ -1359,6 +1360,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -1469,6 +1471,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -1760,6 +1763,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -2211,6 +2215,7 @@ packages:
 
   ua-parser-js@0.7.31:
     resolution: {integrity: sha512-qLK/Xe9E2uzmYI3qLeOmI0tEOt+TBBQyUIAh4aAgU05FVYzeZrKUdkAZfBNVGRaHVgV0TDkdEngJSw/SyQchkQ==}
+    deprecated: You are using an outdated version of ua-parser-js. Please update to ua-parser-js v0.7.33 / v1.0.33 / v2.0.0 (or later) to avoid ReDoS vulnerability [CVE-2022-25927](https://github.com/advisories/GHSA-fhg7-m89q-25r3)
 
   unc-path-regex@0.1.2:
     resolution: {integrity: sha512-eXL4nmJT7oCpkZsHZUOJo8hcX3GbsiDOa0Qu9F646fi8dT3XuSVopVqAcEiVzSKKH7UoDti23wNX3qGFxcW5Qg==}
@@ -2252,6 +2257,7 @@ packages:
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -3289,7 +3295,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@tootallnate/once@2.0.0': {}
+  '@tootallnate/once@2.0.1': {}
 
   '@tsconfig/node10@1.0.9': {}
 
@@ -3814,7 +3820,7 @@ snapshots:
     dependencies:
       '@iarna/toml': 2.2.5
 
-  cosmiconfig-typescript-loader@3.1.1(@types/node@18.6.4)(cosmiconfig@7.0.1)(ts-node@10.9.1)(typescript@4.7.4):
+  cosmiconfig-typescript-loader@3.1.1(@types/node@18.6.4)(cosmiconfig@7.0.1)(ts-node@10.9.1(@types/node@18.6.4)(typescript@4.7.4))(typescript@4.7.4):
     dependencies:
       '@types/node': 18.6.4
       cosmiconfig: 7.0.1
@@ -3852,6 +3858,7 @@ snapshots:
   debug@3.2.7(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
       supports-color: 5.5.0
 
   debug@4.3.4:
@@ -4104,7 +4111,7 @@ snapshots:
       '@graphql-tools/utils': 8.10.0(graphql@16.5.0)
       cosmiconfig: 7.0.1
       cosmiconfig-toml-loader: 1.0.0
-      cosmiconfig-typescript-loader: 3.1.1(@types/node@18.6.4)(cosmiconfig@7.0.1)(ts-node@10.9.1)(typescript@4.7.4)
+      cosmiconfig-typescript-loader: 3.1.1(@types/node@18.6.4)(cosmiconfig@7.0.1)(ts-node@10.9.1(@types/node@18.6.4)(typescript@4.7.4))(typescript@4.7.4)
       graphql: 16.5.0
       minimatch: 4.2.1
       string-env-interpolation: 1.0.1
@@ -4176,7 +4183,7 @@ snapshots:
 
   http-proxy-agent@5.0.0:
     dependencies:
-      '@tootallnate/once': 2.0.0
+      '@tootallnate/once': 2.0.1
       agent-base: 6.0.2
       debug: 4.3.4
     transitivePeerDependencies:
@@ -4427,7 +4434,7 @@ snapshots:
   merge2@1.4.1: {}
 
   meros@1.2.0(@types/node@18.6.4):
-    dependencies:
+    optionalDependencies:
       '@types/node': 18.6.4
 
   methods@1.1.2: {}
